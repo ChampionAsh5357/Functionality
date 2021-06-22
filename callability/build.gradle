@@ -1,0 +1,19 @@
+// Setup Library
+plugins {
+    id 'library-conventions'
+}
+
+// Set project information
+classifier.artifactName = project.projectCallability
+classifier.implVersion = project.projectVersion
+
+// Set specific publication data
+publishing {
+    publications.create(archivesBaseName, MavenPublication) {
+        from components.java
+        pom {
+            name = project.projectCallability.capitalize()
+            description = "A collection of functional interfaces that handle exceptions."
+        }
+    }
+}
