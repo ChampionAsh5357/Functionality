@@ -17,8 +17,7 @@ import java.util.function.Function;
  * Represents a function that accepts one argument, produces a result,
  * and may throw an exception.
  *
- * <p>This is a <a href="../../../../java/util/function/package-summary.html">functional interface</a>
- * whose functional method is {@link #apply(Object)}.
+ * <p>This is a functional interface whose functional method is {@link #apply(Object)}.
  *
  * @param <T> The type of the input to the callable function
  * @param <R> The type of the result of the callable function

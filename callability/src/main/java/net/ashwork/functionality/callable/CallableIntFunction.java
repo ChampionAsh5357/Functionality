@@ -17,8 +17,7 @@ import java.util.function.IntFunction;
  * result, and may throw an exception. This is the {@code int}-consuming
  * primitive specialization for {@link CallableFunction}.
  *
- * <p>This is a <a href="../../../../java/util/function/package-summary.html">functional interface</a>
- * whose functional method is {@link #apply(int)}.
+ * <p>This is a functional interface whose functional method is {@link #apply(int)}.
  *
  * @param <R> The type of the result of the callable function
  *
