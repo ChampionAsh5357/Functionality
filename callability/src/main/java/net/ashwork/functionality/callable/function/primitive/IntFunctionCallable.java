@@ -14,7 +14,7 @@ import net.ashwork.functionality.callable.function.FunctionCallable;
 import java.util.function.IntFunction;
 
 /**
- * Represents a function that accepts an int-valued argument, produces a
+ * Represents a function that accepts an {@code int}-valued argument, produces a
  * result, and may throw an exception. This is the {@code int}-consuming
  * primitive specialization for {@link FunctionCallable}.
  *
