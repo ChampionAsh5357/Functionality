@@ -1,0 +1,25 @@
+// Setup Library
+plugins {
+    id 'library-conventions'
+}
+
+// Set project information
+classifier.id = ''
+classifier.version = project.functionalityVersion
+
+// Add dependencies on other projects
+dependencies {
+    api project(':core')
+    api project(':callability')
+}
+
+// Set specific publication data
+publishing {
+    publications.create(archivesBaseName, MavenPublication) {
+        from components.java
+        pom {
+            name = project.projectName
+            description = "A collection of additional functional interfaces."
+        }
+    }
+}

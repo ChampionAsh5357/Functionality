@@ -5,7 +5,7 @@ plugins {
 
 // Set project information
 classifier.artifactName = project.projectCallability
-classifier.implVersion = project.projectVersion
+classifier.version = project.callabilityVersion
 
 // Set specific publication data
 publishing {

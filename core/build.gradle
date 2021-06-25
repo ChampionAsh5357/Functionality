@@ -4,21 +4,16 @@ plugins {
 }
 
 // Set project information
-classifier.id = ''
-classifier.implVersion = project.projectVersion
-
-// Add dependencies on other projects
-dependencies {
-    api project(':callability')
-}
+classifier.id = project.projectCore
+classifier.version = project.coreVersion
 
 // Set specific publication data
 publishing {
     publications.create(archivesBaseName, MavenPublication) {
         from components.java
         pom {
-            name = project.projectName
-            description = "A collection of additional functional interfaces."
+            name = "$project.projectName - ${project.projectCore.capitalize()}"
+            description = "A collection of common additional functional interfaces."
         }
     }
 }
