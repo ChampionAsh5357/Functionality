@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  * @param <T3> The type of the third argument to the predicate
  *
  * @see Predicate
- * @since 2.0.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface TriPredicate<T1, T2, T3> {

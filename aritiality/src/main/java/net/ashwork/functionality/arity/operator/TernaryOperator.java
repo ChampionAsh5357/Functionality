@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
  *
  * @see TriFunction
  * @see UnaryOperator
- * @since 2.0.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface TernaryOperator<T> extends TriFunction<T, T, T, T> {

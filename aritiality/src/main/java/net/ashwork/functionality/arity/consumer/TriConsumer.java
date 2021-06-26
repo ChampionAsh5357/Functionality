@@ -26,7 +26,7 @@ import java.util.function.Consumer;
  * @param <T3> The type of the third argument to the operation
  *
  * @see Consumer
- * @since 2.0.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface TriConsumer<T1, T2, T3> {
