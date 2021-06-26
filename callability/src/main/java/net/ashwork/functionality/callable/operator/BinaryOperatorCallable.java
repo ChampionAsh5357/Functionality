@@ -30,6 +30,15 @@ import java.util.function.BinaryOperator;
 @FunctionalInterface
 public interface BinaryOperatorCallable<T> extends BiFunctionCallable<T, T, T> {
 
+    /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param operator The non-callable type
+     * @param <T> The type of the operands and result
+     * @return A callable instance of the original type
+     */
+    static <T> BinaryOperatorCallable<T> from(final BinaryOperator<T> operator) { return operator::apply; }
+
     @Override
     default BinaryOperator<T> handle(final ExceptionHandler<? super T, ? super T, ? extends T> onException) {
         return (final T t1, final T t2) -> {

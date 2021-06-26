@@ -26,6 +26,15 @@ import java.util.function.Consumer;
 public interface ConsumerCallable<T> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param consumer The non-callable type
+     * @param <T> The type of the input
+     * @return A callable instance of the original type
+     */
+    static <T> ConsumerCallable<T> from(final Consumer<T> consumer) { return consumer::accept; }
+
+    /**
      * Performs this operation on the given argument,
      * or throws an exception if unable to do so.
      *

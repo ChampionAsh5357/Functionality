@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.*;
 
 /**
  * All tests associated with {@code net.ashwork.functionality.callable}.
@@ -51,7 +52,7 @@ public final class CallableTests {
         final FunctionCallable<Integer, String> applyFunc = i -> {
             throw new Exception(String.valueOf(i));
         };
-        final FunctionCallable<Integer, String> normalFunc = String::valueOf;
+        final FunctionCallable<Integer, String> normalFunc = FunctionCallable.from(String::valueOf);
         Assertions.assertThrows(Exception.class, () -> applyFunc.apply(RANDOM.nextInt(1000)));
         Assertions.assertDoesNotThrow(() -> {
             final int random = RANDOM.nextInt(1000);
@@ -75,7 +76,7 @@ public final class CallableTests {
         final IntFunctionCallable<String> applyFunc = i -> {
             throw new Exception(String.valueOf(i));
         };
-        final IntFunctionCallable<String> normalFunc = String::valueOf;
+        final IntFunctionCallable<String> normalFunc = IntFunctionCallable.from(String::valueOf);
         Assertions.assertThrows(Exception.class, () -> applyFunc.apply(RANDOM.nextInt(1000)));
         Assertions.assertDoesNotThrow(() -> normalFunc.apply(RANDOM.nextInt(1000)));
         Assertions.assertEquals(applyFunc.handle((i, e) -> "null").apply(RANDOM.nextInt(1000)), "null");
@@ -96,7 +97,7 @@ public final class CallableTests {
         final BiFunctionCallable<Double, Integer, String> applyFunc = (d, i) -> {
             throw new Exception(String.valueOf(d + i));
         };
-        final BiFunctionCallable<Double, Integer, String> normalFunc = (d, i) -> String.valueOf(d + i);
+        final BiFunctionCallable<Double, Integer, String> normalFunc = BiFunctionCallable.from((d, i) -> String.valueOf(d + i));
         Assertions.assertThrows(Exception.class, () -> applyFunc.apply(RANDOM.nextDouble(1000), RANDOM.nextInt(1000)));
         Assertions.assertDoesNotThrow(() -> Assertions.assertFalse(normalFunc.andThen(s -> s.contains("n")).apply(RANDOM.nextDouble(1000), RANDOM.nextInt(1000))));
         Assertions.assertEquals(applyFunc.handle((d, i, e) -> "null").apply(RANDOM.nextDouble(1000), RANDOM.nextInt(1000)), "null");
@@ -109,6 +110,7 @@ public final class CallableTests {
      *     <li>{@link RunnableCallable#run()}</li>
      *     <li>{@link RunnableCallable#handle(RunnableCallable.ExceptionHandler)}</li>
      *     <li>{@link RunnableCallable#swallow()}</li>
+     *     <li>{@link RunnableCallable#from(Runnable)}</li>
      * </ul>
      */
     @Test
@@ -116,7 +118,7 @@ public final class CallableTests {
         final RunnableCallable runnable = () -> {
             throw new Exception();
         };
-        final RunnableCallable normalRunnable = () -> Assertions.assertTrue(true);
+        final RunnableCallable normalRunnable = RunnableCallable.from(() -> Assertions.assertTrue(true));
         Assertions.assertThrows(Exception.class, runnable::run);
         Assertions.assertDoesNotThrow(normalRunnable::run);
         runnable.handle((e) -> Assertions.assertTrue(true)).run();
@@ -138,7 +140,7 @@ public final class CallableTests {
             throw new Exception();
         };
         final int random = RANDOM.nextInt(1000);
-        final ConsumerCallable<Integer> normalConsumer = i -> Assertions.assertEquals(i, random);
+        final ConsumerCallable<Integer> normalConsumer = ConsumerCallable.from(i -> Assertions.assertEquals(i, random));
         Assertions.assertThrows(Exception.class, () -> consumer.accept(RANDOM.nextInt()));
         Assertions.assertDoesNotThrow(() -> normalConsumer.andThen(i -> Assertions.assertTrue(true)).accept(random));
         final int random2 = RANDOM.nextInt(1000);
@@ -157,6 +159,7 @@ public final class CallableTests {
      *     <li>{@link PredicateCallable#or(PredicateCallable)}</li>
      *     <li>{@link PredicateCallable#isEqual(Object)}</li>
      *     <li>{@link PredicateCallable#not(PredicateCallable)}</li>
+     *     <li>{@link PredicateCallable#from(Predicate)}</li>
      * </ul>
      */
     @Test
@@ -164,7 +167,7 @@ public final class CallableTests {
         final PredicateCallable<Integer> predicate = i -> {
             throw new Exception();
         };
-        final PredicateCallable<Integer> normalPredicate = i -> i % 2 == 0;
+        final PredicateCallable<Integer> normalPredicate = PredicateCallable.from(i -> i % 2 == 0);
         Assertions.assertThrows(Exception.class, () -> predicate.test(RANDOM.nextInt(1000)));
         Assertions.assertDoesNotThrow(() -> {
             final int random = RANDOM.nextInt(1000) * 2;
@@ -194,7 +197,7 @@ public final class CallableTests {
             throw new Exception();
         };
         final int random = RANDOM.nextInt(1000);
-        final UnaryOperatorCallable<Integer> normalPredicate = i -> i + 2;
+        final UnaryOperatorCallable<Integer> normalPredicate = UnaryOperatorCallable.from(i -> i + 2);
         Assertions.assertThrows(Exception.class, () -> operator.apply(RANDOM.nextInt(1000)));
         Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalPredicate.andThen(UnaryOperatorCallable.identity()).apply(random), random + 2));
         Assertions.assertEquals(operator.handle((i, e) -> 0).apply(RANDOM.nextInt(1000)), 0);
@@ -217,7 +220,7 @@ public final class CallableTests {
         };
         final int random = RANDOM.nextInt(1000);
         final String str = "no";
-        final BiConsumerCallable<Integer, String> normalConsumer = (i, s) -> Assertions.assertEquals(i + s, random + str);
+        final BiConsumerCallable<Integer, String> normalConsumer = BiConsumerCallable.from((i, s) -> Assertions.assertEquals(i + s, random + str));
         Assertions.assertThrows(Exception.class, () -> consumer.accept(RANDOM.nextInt(), str));
         Assertions.assertDoesNotThrow(() -> normalConsumer.andThen((i, s) -> Assertions.assertTrue(true)).accept(random, str));
         final int random2 = RANDOM.nextInt(1000);
@@ -234,6 +237,7 @@ public final class CallableTests {
      *     <li>{@link BiPredicateCallable#and(BiPredicateCallable)}</li>
      *     <li>{@link BiPredicateCallable#negate()}</li>
      *     <li>{@link BiPredicateCallable#or(BiPredicateCallable)}</li>
+     *     <li>{@link BiPredicateCallable#from(BiPredicate)}</li>
      * </ul>
      */
     @Test
@@ -241,7 +245,7 @@ public final class CallableTests {
         final BiPredicateCallable<Integer, String> predicate = (i, s) -> {
             throw new Exception();
         };
-        final BiPredicateCallable<Integer, String> normalPredicate = (i, s) -> i % 2 == 0 || s.contains("n");
+        final BiPredicateCallable<Integer, String> normalPredicate = BiPredicateCallable.from((i, s) -> i % 2 == 0 || s.contains("n"));
         Assertions.assertThrows(Exception.class, () -> predicate.test(RANDOM.nextInt(1000), "y"));
         Assertions.assertDoesNotThrow(() -> {
             final String str = "y";
@@ -269,7 +273,7 @@ public final class CallableTests {
             throw new Exception();
         };
         final int[] randoms = RANDOM.ints(2).distinct().toArray();
-        final BinaryOperatorCallable<Integer> normalOp = Integer::sum;
+        final BinaryOperatorCallable<Integer> normalOp = BinaryOperatorCallable.from(Integer::sum);
         Assertions.assertThrows(Exception.class, () -> op.apply(RANDOM.nextInt(1000), RANDOM.nextInt(1000)));
         Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalOp.apply(randoms[0], randoms[1]), randoms[0] + randoms[1]));
         Assertions.assertEquals(op.handle((i1, i2, e) -> 0).apply(RANDOM.nextInt(1000), RANDOM.nextInt(1000)), 0);
@@ -283,6 +287,7 @@ public final class CallableTests {
      *     <li>{@link CallabilityCallable#handle(CallabilityCallable.ExceptionHandler)}</li>
      *     <li>{@link CallabilityCallable#swallow()}</li>
      *     <li>{@link CallabilityCallable#wrap(Callable)}</li>
+     *     <li>{@link CallabilityCallable#from(Supplier)}</li>
      * </ul>
      */
     @Test
@@ -291,7 +296,7 @@ public final class CallableTests {
             throw new Exception();
         });
         final int random = RANDOM.nextInt(1000);
-        final CallabilityCallable<Integer> normalCall = () -> random;
+        final CallabilityCallable<Integer> normalCall = CallabilityCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::call);
         Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.call(), random));
         Assertions.assertEquals(call.handle(e -> 50).get(), 50);
@@ -304,6 +309,7 @@ public final class CallableTests {
      *     <li>{@link BooleanCallable#callAsBoolean()}=</li>
      *     <li>{@link BooleanCallable#handle(BooleanCallable.ExceptionHandler)}</li>
      *     <li>{@link BooleanCallable#swallow()}</li>
+     *     <li>{@link BooleanCallable#from(BooleanSupplier)}</li>
      * </ul>
      */
     @Test
@@ -311,7 +317,7 @@ public final class CallableTests {
         final BooleanCallable call = () -> {
             throw new Exception();
         };
-        final BooleanCallable normalCall = () -> true;
+        final BooleanCallable normalCall = BooleanCallable.from(() -> true);
         Assertions.assertThrows(Exception.class, call::callAsBoolean);
         Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(normalCall.callAsBoolean()));
         Assertions.assertTrue(call.handle(e -> true).getAsBoolean());
@@ -324,6 +330,7 @@ public final class CallableTests {
      *     <li>{@link DoubleCallable#callAsDouble()}=</li>
      *     <li>{@link DoubleCallable#handle(DoubleCallable.ExceptionHandler)}</li>
      *     <li>{@link DoubleCallable#swallow()}</li>
+     *     <li>{@link DoubleCallable#from(DoubleSupplier)}</li>
      * </ul>
      */
     @Test
@@ -332,7 +339,7 @@ public final class CallableTests {
             throw new Exception();
         };
         final double random = RANDOM.nextDouble(1000);
-        final DoubleCallable normalCall = () -> random;
+        final DoubleCallable normalCall = DoubleCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::callAsDouble);
         Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.callAsDouble(), random));
         Assertions.assertEquals(call.handle(e -> 50.0D).getAsDouble(), 50.0D);
@@ -345,6 +352,7 @@ public final class CallableTests {
      *     <li>{@link IntCallable#callAsInt()}=</li>
      *     <li>{@link IntCallable#handle(IntCallable.ExceptionHandler)}</li>
      *     <li>{@link IntCallable#swallow()}</li>
+     *     <li>{@link IntCallable#from(IntSupplier)}</li>
      * </ul>
      */
     @Test
@@ -353,7 +361,7 @@ public final class CallableTests {
             throw new Exception();
         };
         final int random = RANDOM.nextInt(1000);
-        final IntCallable normalCall = () -> random;
+        final IntCallable normalCall = IntCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::callAsInt);
         Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.callAsInt(), random));
         Assertions.assertEquals(call.handle(e -> 50).getAsInt(), 50);
@@ -366,6 +374,7 @@ public final class CallableTests {
      *     <li>{@link LongCallable#callAsLong()}=</li>
      *     <li>{@link LongCallable#handle(LongCallable.ExceptionHandler)}</li>
      *     <li>{@link LongCallable#swallow()}</li>
+     *     <li>{@link LongCallable#from(LongSupplier)}</li>
      * </ul>
      */
     @Test
@@ -374,7 +383,7 @@ public final class CallableTests {
             throw new Exception();
         };
         final long random = RANDOM.nextLong(1000);
-        final LongCallable normalCall = () -> random;
+        final LongCallable normalCall = LongCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::callAsLong);
         Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.callAsLong(), random));
         Assertions.assertEquals(call.handle(e -> 50L).getAsLong(), 50L);

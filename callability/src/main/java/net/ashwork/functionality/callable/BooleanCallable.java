@@ -26,6 +26,14 @@ import java.util.function.BooleanSupplier;
 public interface BooleanCallable {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param supplier The non-callable type
+     * @return A callable instance of the original type
+     */
+    static BooleanCallable from(final BooleanSupplier supplier) { return supplier::getAsBoolean; }
+
+    /**
      * Computes a result, or throws an exception if unable to do so.
      *
      * @return The computed result

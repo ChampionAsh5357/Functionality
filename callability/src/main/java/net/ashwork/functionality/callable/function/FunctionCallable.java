@@ -27,6 +27,16 @@ import java.util.function.Function;
 public interface FunctionCallable<T, R> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param function The non-callable type
+     * @param <T> The type of the input
+     * @param <R> The type of the result
+     * @return A callable instance of the original type
+     */
+    static <T, R> FunctionCallable<T, R> from(final Function<T, R> function) { return function::apply; }
+
+    /**
      * Applies this function to the given argument,
      * or throws an exception if unable to do so.
      *

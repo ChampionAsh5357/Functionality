@@ -26,6 +26,14 @@ import java.util.function.DoubleSupplier;
 public interface DoubleCallable {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param supplier The non-callable type
+     * @return A callable instance of the original type
+     */
+    static DoubleCallable from(final DoubleSupplier supplier) { return supplier::getAsDouble; }
+
+    /**
      * Computes a result, or throws an exception if unable to do so.
      *
      * @return The computed result

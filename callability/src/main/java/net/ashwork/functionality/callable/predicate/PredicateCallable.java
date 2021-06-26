@@ -26,6 +26,15 @@ import java.util.function.Predicate;
 public interface PredicateCallable<T> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param predicate The non-callable type
+     * @param <T> The type of the input
+     * @return A callable instance of the original type
+     */
+    static <T> PredicateCallable<T> from(final Predicate<T> predicate) { return predicate::test; }
+
+    /**
      * Evaluates this predicate on the given argument,
      * ot throws an exception if unable to do so.
      *

@@ -29,6 +29,15 @@ import java.util.function.IntFunction;
 public interface IntFunctionCallable<R> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param function The non-callable type
+     * @param <R> The type of the result
+     * @return A callable instance of the original type
+     */
+    static <R> IntFunctionCallable<R> from(final IntFunction<R> function) { return function::apply; }
+
+    /**
      * Applies this function to the given argument,
      * or throws an exception if unable to do so.
      *

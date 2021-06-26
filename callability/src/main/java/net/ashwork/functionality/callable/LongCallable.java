@@ -26,6 +26,14 @@ import java.util.function.LongSupplier;
 public interface LongCallable {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param supplier The non-callable type
+     * @return A callable instance of the original type
+     */
+    static LongCallable from(final LongSupplier supplier) { return supplier::getAsLong; }
+
+    /**
      * Computes a result, or throws an exception if unable to do so.
      *
      * @return The computed result

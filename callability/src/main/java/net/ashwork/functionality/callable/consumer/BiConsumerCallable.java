@@ -29,6 +29,16 @@ import java.util.function.BiConsumer;
 public interface BiConsumerCallable<T, U> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param consumer The non-callable type
+     * @param <T> The type of the first argument
+     * @param <U> The type of the second argument
+     * @return A callable instance of the original type
+     */
+    static <T, U> BiConsumerCallable<T, U> from(final BiConsumer<T, U> consumer) { return consumer::accept; }
+
+    /**
      * Performs this operation on the given arguments,
      * or throws an exception if unable to do so.
      *

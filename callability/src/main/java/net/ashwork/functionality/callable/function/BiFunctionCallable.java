@@ -30,6 +30,17 @@ import java.util.function.BiFunction;
 public interface BiFunctionCallable<T, U, R> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param function The non-callable type
+     * @param <T> The type of the first argument
+     * @param <U> The type of the second argument
+     * @param <R> The type of the result
+     * @return A callable instance of the original type
+     */
+    static <T, U, R> BiFunctionCallable<T, U, R> from(final BiFunction<T, U, R> function) { return function::apply; }
+
+    /**
      * Applies this function to the given arguments,
      * or throws an exception if unable to do so.
      *

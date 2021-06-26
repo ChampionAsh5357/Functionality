@@ -52,6 +52,26 @@ import java.util.function.Supplier;
 public interface CallabilityCallable<V> extends Callable<V> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param supplier The non-callable type
+     * @param <V> The type of the result
+     * @return A callable instance of the original type
+     */
+    static <V> CallabilityCallable<V> from(final Supplier<V> supplier) { return supplier::get; }
+
+    /**
+     * Wraps a callable instance to provide library features for {@link Callable}.
+     *
+     * @param callable The callable instance to be wrapped
+     * @param <V> The type of the result of the callable
+     * @return The wrapped callable as {@link CallabilityCallable}
+     */
+    static <V> CallabilityCallable<V> wrap(final Callable<V> callable) {
+        return callable::call;
+    }
+
+    /**
      * Returns a supplier that handles the exception thrown if this
      * callable was unable to compute a result.
      *
@@ -80,17 +100,6 @@ public interface CallabilityCallable<V> extends Callable<V> {
      * @see Supplier
      */
     default Supplier<V> swallow() { return this.handle(e -> null); }
-
-    /**
-     * Wraps a callable instance to provide library features for {@link Callable}.
-     *
-     * @param callable The callable instance to be wrapped
-     * @param <V> The type of the result of the callable
-     * @return The wrapped callable as {@link CallabilityCallable}
-     */
-    static <V> CallabilityCallable<V> wrap(final Callable<V> callable) {
-        return callable::call;
-    }
 
     /**
      * Represents a handler that takes in the outer callable's parameters and

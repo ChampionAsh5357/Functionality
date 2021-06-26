@@ -29,6 +29,15 @@ import java.util.function.UnaryOperator;
 @FunctionalInterface
 public interface UnaryOperatorCallable<T> extends FunctionCallable<T, T> {
 
+    /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param operator The non-callable type
+     * @param <T> The type of the operand and result
+     * @return A callable instance of the original type
+     */
+    static <T> UnaryOperatorCallable<T> from(final UnaryOperator<T> operator) { return operator::apply; }
+
     @Override
     default UnaryOperator<T> handle(final ExceptionHandler<? super T, ? extends T> onException) {
         return (final T t) -> {

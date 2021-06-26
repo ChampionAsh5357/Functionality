@@ -21,6 +21,14 @@ package net.ashwork.functionality.callable;
 public interface RunnableCallable {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param runnable The non-callable type
+     * @return A callable instance of the original type
+     */
+    static RunnableCallable from(final Runnable runnable) { return runnable::run; }
+
+    /**
      * Runs the associated action, or throws an exception if unable
      * to finish.
      *

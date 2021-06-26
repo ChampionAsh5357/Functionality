@@ -28,6 +28,16 @@ import java.util.function.BiPredicate;
 public interface BiPredicateCallable<T, U> {
 
     /**
+     * Creates a callable instance from a non-callable type.
+     *
+     * @param predicate The non-callable type
+     * @param <T> The type of the first argument
+     * @param <U> The type of the second argument
+     * @return A callable instance of the original type
+     */
+    static <T, U> BiPredicateCallable<T, U> from(final BiPredicate<T, U> predicate) { return predicate::test; }
+
+    /**
      * Evaluates this predicate on the given arguments,
      * ot throws an exception if unable to do so.
      *
