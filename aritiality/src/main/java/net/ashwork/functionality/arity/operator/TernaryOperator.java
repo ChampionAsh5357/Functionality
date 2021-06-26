@@ -1,5 +1,5 @@
 /*
- * Functionality
+ * Aritiality (Functionality)
  * Copyright (c) 2021-2021 ChampionAsh5357.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public

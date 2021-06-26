@@ -4,16 +4,16 @@ plugins {
 }
 
 // Set project information
-classifier.id = project.projectCore
-classifier.version = project.coreVersion
+classifier.artifactName = project.projectAritiality
+classifier.version = project.aritialityVersion
 
 // Set specific publication data
 publishing {
     publications.create(archivesBaseName, MavenPublication) {
         from components.java
         pom {
-            name = "$project.projectName - ${project.projectCore.capitalize()}"
-            description = "A collection of common additional functional interfaces."
+            name = project.projectAritiality.capitalize()
+            description = "A collection of arity-based functional interfaces."
         }
     }
 }

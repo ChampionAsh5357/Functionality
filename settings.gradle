@@ -1,4 +1,4 @@
 // Set project data
 rootProject.name = 'functionality'
-include 'core', 'callability', 'all'
+include 'aritiality', 'callability', 'all'
 

@@ -9,7 +9,7 @@ classifier.version = project.functionalityVersion
 
 // Add dependencies on other projects
 dependencies {
-    api project(':core')
+    api project(':aritiality')
     api project(':callability')
 }
 
