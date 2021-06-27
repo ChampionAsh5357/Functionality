@@ -9,9 +9,9 @@ afterEvaluate {
     license {
         header = project.rootProject.file('HEADER')
         properties {
-            projectName = (classifier.artifactName.isPresent()
-                            ? "${classifier.artifactName.get().capitalize()} ($project.projectName)"
-                            : project.projectName)
+            projectName = (classifier.id.isPresent()
+                    ? project.projectName
+                    : "${classifier.artifactName.get().capitalize()} ($project.projectName)")
             year = Calendar.getInstance().get(Calendar.YEAR)
             author = project.userName
         }
