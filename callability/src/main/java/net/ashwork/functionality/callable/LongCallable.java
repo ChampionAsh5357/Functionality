@@ -74,6 +74,17 @@ public interface LongCallable {
     }
 
     /**
+     * Returns a {@link CallabilityCallable} with the input boxed to a
+     * {@link Long}.
+     *
+     * @return A {@link CallabilityCallable} with the input boxed to a
+     *         {@link Long}
+     *
+     * @see CallabilityCallable
+     */
+    default CallabilityCallable<Long> boxed() { return this::callAsLong; }
+
+    /**
      * Represents a handler that takes in the outer callable's parameters and
      * the thrown exception and returns a result safely.
      */

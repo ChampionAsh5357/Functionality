@@ -74,6 +74,17 @@ public interface BooleanCallable {
     }
 
     /**
+     * Returns a {@link CallabilityCallable} with the input boxed to a
+     * {@link Boolean}.
+     *
+     * @return A {@link CallabilityCallable} with the input boxed to a
+     *         {@link Boolean}
+     *
+     * @see CallabilityCallable
+     */
+    default CallabilityCallable<Boolean> boxed() { return this::callAsBoolean; }
+
+    /**
      * Represents a handler that takes in the outer callable's parameters and
      * the thrown exception and returns a result safely.
      */

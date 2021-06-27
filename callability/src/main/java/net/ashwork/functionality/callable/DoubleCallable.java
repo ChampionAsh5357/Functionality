@@ -74,6 +74,17 @@ public interface DoubleCallable {
     }
 
     /**
+     * Returns a {@link CallabilityCallable} with the input boxed to a
+     * {@link Double}.
+     *
+     * @return A {@link CallabilityCallable} with the input boxed to a
+     *         {@link Double}
+     *
+     * @see CallabilityCallable
+     */
+    default CallabilityCallable<Double> boxed() { return this::callAsDouble; }
+
+    /**
      * Represents a handler that takes in the outer callable's parameters and
      * the thrown exception and returns a result safely.
      */

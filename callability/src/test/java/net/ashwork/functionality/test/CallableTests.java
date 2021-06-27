@@ -67,6 +67,7 @@ public final class CallableTests {
      * Tested:
      * <ul>
      *     <li>{@link IntFunctionCallable#apply(int)}</li>
+     *     <li>{@link IntFunctionCallable#boxed()}</li>
      *     <li>{@link IntFunctionCallable#handle(IntFunctionCallable.ExceptionHandler)}</li>
      *     <li>{@link IntFunctionCallable#swallow()}</li>
      * </ul>
@@ -78,7 +79,7 @@ public final class CallableTests {
         };
         final IntFunctionCallable<String> normalFunc = IntFunctionCallable.from(String::valueOf);
         Assertions.assertThrows(Exception.class, () -> applyFunc.apply(RANDOM.nextInt(1000)));
-        Assertions.assertDoesNotThrow(() -> normalFunc.apply(RANDOM.nextInt(1000)));
+        Assertions.assertDoesNotThrow(() -> normalFunc.boxed().apply(RANDOM.nextInt(1000)));
         Assertions.assertEquals(applyFunc.handle((i, e) -> "null").apply(RANDOM.nextInt(1000)), "null");
         Assertions.assertNull(applyFunc.swallow().apply(RANDOM.nextInt(1000)));
     }
@@ -283,7 +284,7 @@ public final class CallableTests {
     /**
      * Tested:
      * <ul>
-     *     <li>{@link CallabilityCallable#call()}=</li>
+     *     <li>{@link CallabilityCallable#call()}</li>
      *     <li>{@link CallabilityCallable#handle(CallabilityCallable.ExceptionHandler)}</li>
      *     <li>{@link CallabilityCallable#swallow()}</li>
      *     <li>{@link CallabilityCallable#wrap(Callable)}</li>
@@ -306,7 +307,8 @@ public final class CallableTests {
     /**
      * Tested:
      * <ul>
-     *     <li>{@link BooleanCallable#callAsBoolean()}=</li>
+     *     <li>{@link BooleanCallable#callAsBoolean()}</li>
+     *     <li>{@link BooleanCallable#boxed()}</li>
      *     <li>{@link BooleanCallable#handle(BooleanCallable.ExceptionHandler)}</li>
      *     <li>{@link BooleanCallable#swallow()}</li>
      *     <li>{@link BooleanCallable#from(BooleanSupplier)}</li>
@@ -319,7 +321,7 @@ public final class CallableTests {
         };
         final BooleanCallable normalCall = BooleanCallable.from(() -> true);
         Assertions.assertThrows(Exception.class, call::callAsBoolean);
-        Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(normalCall.callAsBoolean()));
+        Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(normalCall.boxed().call()));
         Assertions.assertTrue(call.handle(e -> true).getAsBoolean());
         Assertions.assertFalse(call.swallow().getAsBoolean());
     }
@@ -327,7 +329,8 @@ public final class CallableTests {
     /**
      * Tested:
      * <ul>
-     *     <li>{@link DoubleCallable#callAsDouble()}=</li>
+     *     <li>{@link DoubleCallable#callAsDouble()}</li>
+     *     <li>{@link DoubleCallable#boxed()}</li>
      *     <li>{@link DoubleCallable#handle(DoubleCallable.ExceptionHandler)}</li>
      *     <li>{@link DoubleCallable#swallow()}</li>
      *     <li>{@link DoubleCallable#from(DoubleSupplier)}</li>
@@ -341,7 +344,7 @@ public final class CallableTests {
         final double random = RANDOM.nextDouble(1000);
         final DoubleCallable normalCall = DoubleCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::callAsDouble);
-        Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.callAsDouble(), random));
+        Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.boxed().call(), random));
         Assertions.assertEquals(call.handle(e -> 50.0D).getAsDouble(), 50.0D);
         Assertions.assertEquals(call.swallow().getAsDouble(), 0.0D);
     }
@@ -349,7 +352,8 @@ public final class CallableTests {
     /**
      * Tested:
      * <ul>
-     *     <li>{@link IntCallable#callAsInt()}=</li>
+     *     <li>{@link IntCallable#callAsInt()}</li>
+     *     <li>{@link IntCallable#boxed()}</li>
      *     <li>{@link IntCallable#handle(IntCallable.ExceptionHandler)}</li>
      *     <li>{@link IntCallable#swallow()}</li>
      *     <li>{@link IntCallable#from(IntSupplier)}</li>
@@ -363,7 +367,7 @@ public final class CallableTests {
         final int random = RANDOM.nextInt(1000);
         final IntCallable normalCall = IntCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::callAsInt);
-        Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.callAsInt(), random));
+        Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.boxed().call(), random));
         Assertions.assertEquals(call.handle(e -> 50).getAsInt(), 50);
         Assertions.assertEquals(call.swallow().getAsInt(), 0);
     }
@@ -371,7 +375,8 @@ public final class CallableTests {
     /**
      * Tested:
      * <ul>
-     *     <li>{@link LongCallable#callAsLong()}=</li>
+     *     <li>{@link LongCallable#callAsLong()}</li>
+     *     <li>{@link LongCallable#boxed()}</li>
      *     <li>{@link LongCallable#handle(LongCallable.ExceptionHandler)}</li>
      *     <li>{@link LongCallable#swallow()}</li>
      *     <li>{@link LongCallable#from(LongSupplier)}</li>
@@ -385,7 +390,7 @@ public final class CallableTests {
         final long random = RANDOM.nextLong(1000);
         final LongCallable normalCall = LongCallable.from(() -> random);
         Assertions.assertThrows(Exception.class, call::callAsLong);
-        Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.callAsLong(), random));
+        Assertions.assertDoesNotThrow(() -> Assertions.assertEquals(normalCall.boxed().call(), random));
         Assertions.assertEquals(call.handle(e -> 50L).getAsLong(), 50L);
         Assertions.assertEquals(call.swallow().getAsLong(), 0L);
     }

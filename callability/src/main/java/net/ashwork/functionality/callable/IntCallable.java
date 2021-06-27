@@ -74,6 +74,17 @@ public interface IntCallable {
     }
 
     /**
+     * Returns a {@link CallabilityCallable} with the input boxed to a
+     * {@link Integer}.
+     *
+     * @return A {@link CallabilityCallable} with the input boxed to a
+     *         {@link Integer}
+     *
+     * @see CallabilityCallable
+     */
+    default CallabilityCallable<Integer> boxed() { return this::callAsInt; }
+
+    /**
      * Represents a handler that takes in the outer callable's parameters and
      * the thrown exception and returns a result safely.
      */
