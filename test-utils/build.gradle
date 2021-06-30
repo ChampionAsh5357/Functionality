@@ -1,0 +1,8 @@
+// Setup Library
+plugins {
+    id 'java-conventions'
+}
+
+// Set project information
+classifier.id = 'test'
+classifier.version = '0'

@@ -9,7 +9,7 @@
 
 package net.ashwork.functionality.arity.operator;
 
-import net.ashwork.functionality.arity.function.TriFunction;
+import net.ashwork.functionality.arity.function.Function3;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -17,21 +17,20 @@ import java.util.function.UnaryOperator;
 
 /**
  * Represents an operation upon three operands of the same type, producing a result
- * of the same type as the operands.  This is a specialization of
- * {@link TriFunction} for the case where the operands and the result are all of
- * the same type.
+ * of the same type as the operands. This is a specialization of {@link Function3}
+ * for the case where the operands and the result are all of the same type.
  *
  * <p>This is a functional interface whose functional method is
  * {@link #apply(Object, Object, Object)}.
  *
  * @param <T> The type of the operands and result of the operator
  *
- * @see TriFunction
+ * @see Function3
  * @see UnaryOperator
- * @since 1.0.0
+ * @since 2.0.0
  */
 @FunctionalInterface
-public interface TernaryOperator<T> extends TriFunction<T, T, T, T> {
+public interface Operator3<T> extends Function3<T, T, T, T> {
 
     /**
      * Returns an operator which returns either the second or third argument based
@@ -44,7 +43,7 @@ public interface TernaryOperator<T> extends TriFunction<T, T, T, T> {
      *         on the {@code predicate}.
      * @throws NullPointerException If the {@code predicate} is null
      */
-    static <T> TernaryOperator<T> conditional(Predicate<? super T> predicate) {
+    static <T> Operator3<T> conditional(Predicate<? super T> predicate) {
         Objects.requireNonNull(predicate, "The predicate cannot be null.");
         return (final T a, final T b, final T c) -> predicate.test(a) ? b : c;
     }

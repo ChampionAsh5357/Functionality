@@ -13,23 +13,25 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * Represents an operation that accepts three input arguments and returns no
- * result. This is the three-arity specialization of {@link Consumer}.
- * Unlike most other functional interfaces, {@code TriConsumer} is expected
+ * Represents an operation that accepts five input arguments and returns no
+ * result. This is the five-arity specialization of {@link Consumer}.
+ * Unlike most other functional interfaces, {@link Consumer5} is expected
  * to operate via side-effects.
  *
  * <p>This is a functional interface whose functional method is
- * {@link #accept(Object, Object, Object)}.
+ * {@link #accept(Object, Object, Object, Object, Object)}.
  *
  * @param <T1> The type of the first argument to the operation
  * @param <T2> The type of the second argument to the operation
  * @param <T3> The type of the third argument to the operation
+ * @param <T4> The type of the fourth argument to the operation
+ * @param <T5> The type of the fifth argument to the operation
  *
  * @see Consumer
- * @since 1.0.0
+ * @since 2.0.0
  */
 @FunctionalInterface
-public interface TriConsumer<T1, T2, T3> {
+public interface Consumer5<T1, T2, T3, T4, T5> {
 
     /**
      * Performs this operation on the given arguments.
@@ -37,8 +39,10 @@ public interface TriConsumer<T1, T2, T3> {
      * @param t1 The first input argument
      * @param t2 The second input argument
      * @param t3 The third input argument
+     * @param t4 The fourth input argument
+     * @param t5 The fifth input argument
      */
-    void accept(final T1 t1, final T2 t2, final T3 t3);
+    void accept(final T1 t1, final T2 t2, final T3 t3, final T4 t4, final T5 t5);
 
     /**
      * Returns a composed consumer that performs, in sequence, this
@@ -52,11 +56,11 @@ public interface TriConsumer<T1, T2, T3> {
      *         operation followed by the {@code after} operation
      * @throws NullPointerException If {@code after} is null
      */
-    default TriConsumer<T1, T2, T3> andThen(final TriConsumer<? super T1, ? super T2, ? super T3> after) {
+    default Consumer5<T1, T2, T3, T4, T5> andThen(final Consumer5<? super T1, ? super T2, ? super T3, ? super T4, ? super T5> after) {
         Objects.requireNonNull(after, "The applied function cannot be null.");
-        return (final T1 t1, final T2 t2, final T3 t3) -> {
-            this.accept(t1, t2, t3);
-            after.accept(t1, t2, t3);
+        return (final T1 t1, final T2 t2, final T3 t3, final T4 t4, final T5 t5) -> {
+            this.accept(t1, t2, t3, t4, t5);
+            after.accept(t1, t2, t3, t4, t5);
         };
     }
 }

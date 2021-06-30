@@ -8,6 +8,12 @@ plugins {
 classifier.artifactName = project.projectAritiality
 classifier.version = project.aritialityVersion
 
+// Add dependencies
+project.evaluationDependsOn(':test-utils')
+dependencies {
+    testImplementation project(':test-utils').sourceSets.test.output
+}
+
 // Set specific publication data
 publishing {
     publications.create(archivesBaseName, MavenPublication) {
