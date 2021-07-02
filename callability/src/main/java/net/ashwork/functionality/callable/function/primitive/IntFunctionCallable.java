@@ -78,11 +78,9 @@ public interface IntFunctionCallable<R> {
     default IntFunction<R> swallow() { return this.handle((value, e) -> null); }
 
     /**
-     * Returns a {@link FunctionCallable} with the input boxed to an
-     * {@link Integer}.
+     * Returns a {@link FunctionCallable} with the input boxed to an {@link Integer}.
      *
-     * @return A {@link FunctionCallable} with the input boxed to an
-     *         {@link Integer}
+     * @return A {@link FunctionCallable} with the input boxed to an {@link Integer}
      *
      * @see FunctionCallable
      * @since 2.1.0

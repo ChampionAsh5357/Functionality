@@ -9,6 +9,8 @@
 
 package net.ashwork.functionality.callable.predicate;
 
+import net.ashwork.functionality.callable.function.BiFunctionCallable;
+
 import java.util.Objects;
 import java.util.function.BiPredicate;
 
@@ -116,6 +118,18 @@ public interface BiPredicateCallable<T, U> {
     default BiPredicateCallable<T, U> or(final BiPredicateCallable<? super T, ? super U> other) {
         Objects.requireNonNull(other, "The ORed predicate cannot be null.");
         return (final T t, final U u) -> this.test(t, u) || other.test(t, u);
+    }
+
+    /**
+     * Returns a {@link BiFunctionCallable} with the result boxed to a {@link Boolean}.
+     *
+     * @return A {@link BiFunctionCallable} with the result boxed to a {@link Boolean}
+     *
+     * @see BiFunctionCallable
+     * @since 2.2.0
+     */
+    default BiFunctionCallable<T, U, Boolean> boxed() {
+        return this::test;
     }
 
     /**

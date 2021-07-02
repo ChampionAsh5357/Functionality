@@ -8,6 +8,12 @@ plugins {
 classifier.artifactName = project.projectCallability
 classifier.version = project.callabilityVersion
 
+// Add dependencies
+project.evaluationDependsOn(':test-utils')
+dependencies {
+    testImplementation project(':test-utils').sourceSets.test.output
+}
+
 // Set specific publication data
 publishing {
     publications.create(archivesBaseName, MavenPublication) {

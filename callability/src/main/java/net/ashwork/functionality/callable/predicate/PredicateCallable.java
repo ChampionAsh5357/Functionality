@@ -9,6 +9,8 @@
 
 package net.ashwork.functionality.callable.predicate;
 
+import net.ashwork.functionality.callable.function.FunctionCallable;
+
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -117,6 +119,18 @@ public interface PredicateCallable<T> {
     }
 
     /**
+     * Returns a {@link FunctionCallable} with the result boxed to a {@link Boolean}.
+     *
+     * @return A {@link FunctionCallable} with the result boxed to a {@link Boolean}
+     *
+     * @see FunctionCallable
+     * @since 2.2.0
+     */
+    default FunctionCallable<T, Boolean> boxed() {
+        return this::test;
+    }
+
+    /**
      * Returns a predicate that tests if two arguments are equal according to
      * {@link Objects#equals(Object, Object)}.
      *
@@ -125,8 +139,10 @@ public interface PredicateCallable<T> {
      * @param <T> The type of arguments to the predicate
      * @return A predicate that tests if two arguments are equal according to
      *         {@link Objects#equals(Object, Object)}
+     *
+     * @since 2.2.0
      */
-    static <T> PredicateCallable<T> isEqual(final Object targetRef) {
+    static <T> PredicateCallable<T> isEqual(final T targetRef) {
         return (null == targetRef) ? Objects::isNull : targetRef::equals;
     }
 

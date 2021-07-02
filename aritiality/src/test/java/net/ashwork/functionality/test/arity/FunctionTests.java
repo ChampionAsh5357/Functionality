@@ -13,12 +13,10 @@ import net.ashwork.functionality.arity.function.Function3;
 import net.ashwork.functionality.arity.function.Function4;
 import net.ashwork.functionality.arity.function.Function5;
 import net.ashwork.functionality.arity.function.Function6;
-import net.ashwork.functionality.test.util.RandomUtil;
-import org.junit.jupiter.api.Assertions;
+import net.ashwork.functionality.test.util.TestUtil;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.function.*;
+import java.util.function.Function;
 
 /**
  * All tests associated with {@code net.ashwork.functionality.arity.function}.
@@ -34,7 +32,7 @@ public final class FunctionTests {
      */
     @Test
     public void three() {
-        runFunctionTest(3, () -> ((Function3<Integer, Integer, Integer, Integer>) (i1, i2, i3) -> i1 + i2 + i3),
+        TestUtil.runFunctionTest(3, () -> ((Function3<Integer, Integer, Integer, Integer>) (i1, i2, i3) -> i1 + i2 + i3),
                 (function, inputs) -> function.apply(inputs[0], inputs[1], inputs[2]),
                 (function, inputs) -> function.andThen(res -> String.valueOf(res).contains("n"))
                         .apply(inputs[0], inputs[1], inputs[2]));
@@ -49,7 +47,7 @@ public final class FunctionTests {
      */
     @Test
     public void four() {
-        runFunctionTest(4, () -> ((Function4<Integer, Integer, Integer, Integer, Integer>) (i1, i2, i3, i4) -> i1 + i2 + i3 + i4),
+        TestUtil.runFunctionTest(4, () -> ((Function4<Integer, Integer, Integer, Integer, Integer>) (i1, i2, i3, i4) -> i1 + i2 + i3 + i4),
                 (function, inputs) -> function.apply(inputs[0], inputs[1], inputs[2], inputs[3]),
                 (function, inputs) -> function.andThen(res -> String.valueOf(res).contains("n"))
                         .apply(inputs[0], inputs[1], inputs[2], inputs[3]));
@@ -64,7 +62,7 @@ public final class FunctionTests {
      */
     @Test
     public void five() {
-        runFunctionTest(5, () -> ((Function5<Integer, Integer, Integer, Integer, Integer, Integer>) (i1, i2, i3, i4, i5) -> i1 + i2 + i3 + i4 + i5),
+        TestUtil.runFunctionTest(5, () -> ((Function5<Integer, Integer, Integer, Integer, Integer, Integer>) (i1, i2, i3, i4, i5) -> i1 + i2 + i3 + i4 + i5),
                 (function, inputs) -> function.apply(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4]),
                 (function, inputs) -> function.andThen(res -> String.valueOf(res).contains("n"))
                         .apply(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4]));
@@ -79,26 +77,9 @@ public final class FunctionTests {
      */
     @Test
     public void six() {
-        runFunctionTest(6, () -> ((Function6<Integer, Integer, Integer, Integer, Integer, Integer, Integer>) (i1, i2, i3, i4, i5, i6) -> i1 + i2 + i3 + i4 + i5 + i6),
+        TestUtil.runFunctionTest(6, () -> ((Function6<Integer, Integer, Integer, Integer, Integer, Integer, Integer>) (i1, i2, i3, i4, i5, i6) -> i1 + i2 + i3 + i4 + i5 + i6),
                 (function, inputs) -> function.apply(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5]),
                 (function, inputs) -> function.andThen(res -> String.valueOf(res).contains("n"))
                         .apply(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5]));
-    }
-
-    /**
-     * Creates a n-arity function test.
-     *
-     * @param elements The number of elements the function takes in
-     * @param functionSupplier The supplied function
-     * @param apply The result method that the function uses to apply the input
-     * @param andThen The method used to apply a function to the result of this one
-     * @param <T> The type of the function
-     */
-    private static <T> void runFunctionTest(final int elements, final Supplier<T> functionSupplier, final BiFunction<T, int[], Integer> apply, final BiFunction<T, int[], Boolean> andThen) {
-        final int[] randoms = RandomUtil.current().ints(elements).distinct().toArray();
-        final int sum = Arrays.stream(randoms).sum();
-        final T function = functionSupplier.get();
-        Assertions.assertEquals(sum, apply.apply(function, randoms));
-        Assertions.assertFalse(andThen.apply(function, randoms));
     }
 }
