@@ -9,17 +9,55 @@
 
 package net.ashwork.functionality.test.arity;
 
-import net.ashwork.functionality.arity.predicate.Predicate3;
-import net.ashwork.functionality.arity.predicate.Predicate4;
-import net.ashwork.functionality.arity.predicate.Predicate5;
-import net.ashwork.functionality.arity.predicate.Predicate6;
+import net.ashwork.functionality.arity.predicate.*;
 import net.ashwork.functionality.test.util.TestUtil;
 import org.junit.jupiter.api.Test;
+
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 /**
  * All tests associated with {@code net.ashwork.functionality.arity.predicate}.
  */
 public final class PredicateTests {
+
+    /**
+     * Tested:
+     * <ul>
+     *     <li>{@link Predicate1#test(Object)}</li>
+     *     <li>{@link Predicate1#negate()}</li>
+     *     <li>{@link Predicate1#and(Predicate)}</li>
+     *     <li>{@link Predicate1#or(Predicate)}</li>
+     *     <li>{@link Predicate1#boxed()}</li>
+     * </ul>
+     */
+    @Test
+    public void one() {
+        TestUtil.runPredicateTest(1, () -> Predicate1.wrap((Integer i) -> i < 0),
+                () -> i -> i >= 0,
+                (predicate, inputs) -> predicate.test(inputs[0]),
+                Predicate1::negate, Predicate1::and, Predicate1::or, Predicate1::boxed,
+                (function, inputs) -> function.apply(inputs[0]));
+    }
+
+    /**
+     * Tested:
+     * <ul>
+     *     <li>{@link Predicate2#test(Object, Object)}</li>
+     *     <li>{@link Predicate2#negate()}</li>
+     *     <li>{@link Predicate2#and(BiPredicate)}</li>
+     *     <li>{@link Predicate2#or(BiPredicate)}</li>
+     *     <li>{@link Predicate2#boxed()}</li>
+     * </ul>
+     */
+    @Test
+    public void two() {
+        TestUtil.runPredicateTest(2, () -> Predicate2.wrap((Integer i1, Integer i2) -> i1 + i2 < 0),
+                () -> (i1, i2) -> i1 + i2 >= 0,
+                (predicate, inputs) -> predicate.test(inputs[0], inputs[1]),
+                Predicate2::negate, Predicate2::and, Predicate2::or, Predicate2::boxed,
+                (function, inputs) -> function.apply(inputs[0], inputs[1]));
+    }
 
     /**
      * Tested:
