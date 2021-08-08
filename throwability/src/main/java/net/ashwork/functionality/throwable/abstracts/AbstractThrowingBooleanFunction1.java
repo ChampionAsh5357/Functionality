@@ -9,41 +9,42 @@
 
 package net.ashwork.functionality.throwable.abstracts;
 
-import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.InputChainableInput;
+import net.ashwork.functionality.partial.UnboxedInput;
+import net.ashwork.functionality.primitive.booleans.BooleanFunction1;
+import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
- * Represents a function that accepts one argument and produces a result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingFunctionN}.
- * This is the throwing variation of {@link Function1}.
+ * Represents a function that accepts a {@code boolean}-valued argument and produces a result or throws a throwable.
+ * This is the one-arity specialization of {@link AbstractThrowingToBooleanFunctionN}.
+ * This is the {@code boolean}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <T1> the type of the input to the function
  * @param <R> the type of the result of the function
  * @param <H> the type of the handler to safely call the function
  *
- * @see AbstractThrowingFunctionN
+ * @see AbstractThrowingFunction1
+ * @see AbstractThrowingToBooleanFunctionN
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingFunction1<T1, R, H extends AbstractThrowingFunction1.Handler<T1, R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<T1> {
+public interface AbstractThrowingBooleanFunction1<R, H extends AbstractThrowingBooleanFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Boolean>, UnboxedInput<ThrowingFunction1<Boolean, R>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
      *
-     * @param t1 the function argument
+     * @param value the function argument
      * @return the function result
      */
-    R apply(final T1 t1) throws Throwable;
+    R apply(final boolean value) throws Throwable;
 
-    @SuppressWarnings("unchecked")
     @Override
     default R applyAllUnchecked(final Object... args) throws Throwable {
-        return this.apply((T1) args[0]);
+        return this.apply((boolean) args[0]);
     }
 
     @Override
@@ -52,49 +53,55 @@ public interface AbstractThrowingFunction1<T1, R, H extends AbstractThrowingFunc
     }
 
     /**
-     * @see Function1
+     * @see ThrowingFunction1
      */
     @Override
-    default Function1<T1, R> handle(final H handler) {
-        return (final T1 t1) -> {
+    default ThrowingFunction1<Boolean, R> boxInput() {
+        return this::apply;
+    }
+
+    /**
+     * @see BooleanFunction1
+     */
+    @Override
+    default BooleanFunction1<R> handle(final H handler) {
+        return (final boolean value) -> {
             try {
-                return this.apply(t1);
+                return this.apply(value);
             } catch (final Throwable t) {
-                return handler.onThrown(t, t1);
+                return handler.onThrown(t, value);
             }
         };
     }
 
     /**
-     * @see Function1
+     * @see BooleanFunction1
      */
     @Override
-    Function1<T1, R> swallow();
+    BooleanFunction1<R> swallow();
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and
      * the throwable and returns a result safely.
      *
-     * @param <T1> the type of the input to the function
      * @param <R> the type of the result of the function
      */
     @FunctionalInterface
-    interface Handler<T1, R> extends AbstractThrowingFunctionN.Handler<R> {
+    interface Handler<R> extends AbstractThrowingFunctionN.Handler<R> {
 
         /**
          * Handles a throwable thrown by the outer throwable and returns safely.
          * This should never throw an exception.
          *
          * @param t the thrown throwable
-         * @param t1 the function argument
+         * @param value the function argument
          * @return the handled result
          */
-        R onThrown(final Throwable t, final T1 t1);
+        R onThrown(final Throwable t, final boolean value);
 
-        @SuppressWarnings("unchecked")
         @Override
         default R onThrownUnchecked(final Throwable t, final Object... args) {
-            return this.onThrown(t, (T1) args[0]);
+            return this.onThrown(t, (boolean) args[0]);
         }
     }
 }

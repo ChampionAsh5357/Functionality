@@ -99,6 +99,9 @@ public interface ThrowingFunctionN<R> extends AbstractThrowingFunctionN<R, Abstr
             return this.function.apply(args);
         }
 
+        /**
+         * @see FunctionN.Instance
+         */
         @Override
         public FunctionN.Instance<R> handle(Handler<R> handler) {
             return new FunctionN.Instance<>(this.arity(), (final Object[] args) -> {
@@ -110,9 +113,12 @@ public interface ThrowingFunctionN<R> extends AbstractThrowingFunctionN<R, Abstr
             });
         }
 
+        /**
+         * @see FunctionN.Instance
+         */
         @Override
         public FunctionN.Instance<R> swallow() {
-            return this.handle((throwable, args) -> null);
+            return this.handle((t, args) -> null);
         }
 
         @SuppressWarnings("unchecked")

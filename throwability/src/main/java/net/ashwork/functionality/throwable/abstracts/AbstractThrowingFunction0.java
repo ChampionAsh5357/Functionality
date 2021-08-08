@@ -22,6 +22,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * be called by one of its subtypes.
  *
  * @param <R> the type of the result of the function
+ * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunctionN
  * @since 1.0.0
