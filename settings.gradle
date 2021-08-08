@@ -1,4 +1,4 @@
 // Set project data
 rootProject.name = 'functionality'
-include 'test-utils', 'aritiality', 'callability', 'all'
+include 'core', 'consumability', 'operating', 'predicating', 'throwability', 'all'
 

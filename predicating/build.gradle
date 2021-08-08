@@ -1,0 +1,28 @@
+// Setup Library
+plugins {
+    id 'library-conventions'
+    id 'license-manager'
+}
+
+// Set project information
+classifier.artifactName = project.projectPredicating
+classifier.version = project.predicatingVersion
+
+// Add dependencies
+project.evaluationDependsOn(':core')
+project.evaluationDependsOn(':operating')
+dependencies {
+    api project(':core')
+    api project(':operating')
+}
+
+// Set specific publication data
+publishing {
+    publications.create(archivesBaseName, MavenPublication) {
+        from components.java
+        pom {
+            name = project.projectPredicating.capitalize()
+            description = "A collection of extensible predicates."
+        }
+    }
+}

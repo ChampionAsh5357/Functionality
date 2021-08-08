@@ -1,0 +1,110 @@
+/*
+ * Functionality
+ * Copyright (c) 2021-2021 ChampionAsh5357.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+package net.ashwork.functionality.primitive.combined;
+
+import net.ashwork.functionality.Function1;
+import net.ashwork.functionality.partial.InputChainableInput;
+import net.ashwork.functionality.partial.UnboxedAll;
+import net.ashwork.functionality.primitive.ints.IntFunction1;
+import net.ashwork.functionality.primitive.booleans.ToBooleanFunction1;
+import net.ashwork.functionality.primitive.booleans.ToBooleanFunctionN;
+
+/**
+ * Represents a function that accepts an {@code int}-valued argument and produces a {@code boolean}-valued result.
+ * This is the one-arity specialization of {@link ToBooleanFunctionN}.
+ * This is the {@code int}-consuming primitive specialization of {@link ToBooleanFunction1}.
+ * This is the {@code boolean}-producing primitive specialization of {@link IntFunction1}.
+ *
+ * <p>This is a functional interface whose functional method is {@link #applyAsBoolean(int)}.
+ *
+ * @see IntFunction1
+ * @see ToBooleanFunction1
+ * @see ToBooleanFunctionN
+ * @since 3.0.0
+ */
+@FunctionalInterface
+public interface IntToBooleanFunction1 extends ToBooleanFunctionN, InputChainableInput<Integer>, UnboxedAll<Function1<Integer, Boolean>, ToBooleanFunction1<Integer>, IntFunction1<Boolean>> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param value the function argument
+     * @return the function result
+     */
+    boolean applyAsBoolean(final int value);
+
+    @Override
+    default boolean applyAllAsBooleanUnchecked(final Object... args) {
+        return this.applyAsBoolean((int) args[0]);
+    }
+
+    @Override
+    default int arity() {
+        return 1;
+    }
+
+    /**
+     * @see Function1
+     */
+    @Override
+    default Function1<Integer, Boolean> box() {
+        return this::applyAsBoolean;
+    }
+
+    /**
+     * @see ToBooleanFunction1
+     */
+    @Override
+    default ToBooleanFunction1<Integer> boxInput() {
+        return this::applyAsBoolean;
+    }
+
+    /**
+     * @see IntFunction1
+     */
+    @Override
+    default IntFunction1<Boolean> boxResult() {
+        return this::applyAsBoolean;
+    }
+
+    /**
+     * @see ToBooleanFunction1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> ToBooleanFunction1<V> compose(final Function1<? super V, ? extends Integer> before) {
+        return (ToBooleanFunction1<V>) InputChainableInput.super.compose(before);
+    }
+
+    /**
+     * @see ToBooleanFunction1
+     */
+    @Override
+    default <V> ToBooleanFunction1<V> composeUnchecked(final Function1<? super V, ? extends Integer> before) {
+        return (final V v) -> this.applyAsBoolean(before.apply(v));
+    }
+
+    /**
+     * @see IntFunction1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> IntFunction1<V> andThen(final Function1<? super Boolean, ? extends V> after) {
+        return (IntFunction1<V>) ToBooleanFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see IntFunction1
+     */
+    @Override
+    default <V> IntFunction1<V> andThenUnchecked(final Function1<? super Boolean, ? extends V> after) {
+        return (final int value) -> after.apply(this.applyAsBoolean(value));
+    }
+}

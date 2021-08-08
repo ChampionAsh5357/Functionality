@@ -4,13 +4,16 @@ plugins {
 }
 
 // Set project information
-classifier.id = ''
-classifier.version = project.functionalityVersion
+classifier.id = project.projectAll
+classifier.version = project.allVersion
 
 // Add dependencies on other projects
 dependencies {
-    api project(':aritiality')
-    api project(':callability')
+    api project(':core')
+    api project(':consumability')
+    api project(':operating')
+    api project(':predicating')
+    api project(':throwability')
 }
 
 // Set specific publication data
@@ -18,8 +21,8 @@ publishing {
     publications.create(archivesBaseName, MavenPublication) {
         from components.java
         pom {
-            name = project.projectName
-            description = "A collection of additional functional interfaces."
+            name = "$project.projectName - ${project.projectAll.capitalize()}"
+            description = "A collection of extensible functions, consumers, and predicates which have the ability to handle thrown errors and exceptions."
         }
     }
 }

@@ -1,0 +1,31 @@
+// Setup Library
+plugins {
+    id 'library-conventions'
+    id 'license-manager'
+}
+
+// Set project information
+classifier.artifactName = project.projectThrowability
+classifier.version = project.throwabilityVersion
+
+// Add dependencies
+project.evaluationDependsOn(':consumability')
+project.evaluationDependsOn(':operating')
+project.evaluationDependsOn(':predicating')
+dependencies {
+    api project(':core')
+    api project(':consumability')
+    api project(':operating')
+    api project(':predicating')
+}
+
+// Set specific publication data
+publishing {
+    publications.create(archivesBaseName, MavenPublication) {
+        from components.java
+        pom {
+            name = project.projectThrowability.capitalize()
+            description = "A collection of extensible functions, consumers, and operators that can handle thrown errors and exceptions."
+        }
+    }
+}

@@ -8,6 +8,15 @@ abstract class ClassifierExtension {
     abstract Property<String> getArtifactName();
     abstract Property<String> getId()
     abstract Property<String> getVersion()
+    abstract Property<String> getImplVersion()
+
+    ClassifierExtension() {
+        this.implVersion.convention(this.version)
+    }
+
+    void implFromSpec(Transformer<String, String> transformer) {
+        this.implVersion = transformer.transform(this.version)
+    }
 }
 
 // Set project information
@@ -17,13 +26,13 @@ afterEvaluate {
     if (!extension.artifactName.isPresent())
         extension.artifactName = project.projectBaseName + (!extension.id.get().isEmpty() ? "-${extension.id.get()}" : '')
     archivesBaseName = extension.artifactName.get()
-    version = extension.version.get()
+    version = extension.implVersion.get()
     // Set manifest attributes
     jar {
         manifest.attributes([
                 'Specification-Title': project.projectName,
                 'Specification-Vendor': project.generalAuthor,
-                'Specification-Version': project.version,
+                'Specification-Version': extension.version.get(),
                 'Implementation-Title': project.projectName,
                 'Implementation-Vendor': project.generalAuthor,
                 'Implementation-Version': project.version,
@@ -41,6 +50,17 @@ java {
         languageVersion = JavaLanguageVersion.of(project.jdkVersion)
         vendor = JvmVendorSpec.ADOPTOPENJDK
     }
+}
+
+// Add javadoc tags
+javadoc {
+    options.encoding = 'UTF-8'
+    options.tags = [
+            'apiNote:a:API Note:',
+            'implSpec:a:Implementation Requirements:',
+            'implNote:a:Implementation Note:',
+            'jls:a:Java Language Specification:'
+    ]
 }
 
 // Add maven central to grab dependencies

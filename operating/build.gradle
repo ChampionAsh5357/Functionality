@@ -1,0 +1,26 @@
+// Setup Library
+plugins {
+    id 'library-conventions'
+    id 'license-manager'
+}
+
+// Set project information
+classifier.artifactName = project.projectOperating
+classifier.version = project.operatingVersion
+
+// Add dependencies
+project.evaluationDependsOn(':core')
+dependencies {
+    api project(':core')
+}
+
+// Set specific publication data
+publishing {
+    publications.create(archivesBaseName, MavenPublication) {
+        from components.java
+        pom {
+            name = project.projectOperating.capitalize()
+            description = "A collection of extensible operators."
+        }
+    }
+}
