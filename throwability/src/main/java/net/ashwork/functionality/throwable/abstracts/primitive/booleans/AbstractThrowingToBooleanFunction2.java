@@ -7,11 +7,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.throwable.abstracts;
+package net.ashwork.functionality.throwable.abstracts.primitive.booleans;
 
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction2;
 import net.ashwork.functionality.throwable.ThrowingFunction2;
+import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**

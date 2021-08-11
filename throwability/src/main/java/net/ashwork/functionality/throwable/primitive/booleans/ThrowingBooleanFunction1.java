@@ -12,9 +12,9 @@ package net.ashwork.functionality.throwable.primitive.booleans;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.booleans.BooleanFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingBooleanFunction1;
+import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingBooleanFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingToBooleanFunctionN;
+import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunctionN;
 
 /**
  * Represents a function that accepts a {@code boolean}-valued argument and produces a result or throws a throwable.

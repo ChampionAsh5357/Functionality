@@ -13,8 +13,8 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction0;
 import net.ashwork.functionality.throwable.ThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingToBooleanFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingToBooleanFunctionN;
+import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunction0;
+import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunctionN;
 
 /**
  * Represents a function that accepts no arguments and produces a {@code boolean}-valued result or throws a throwable.
