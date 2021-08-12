@@ -66,8 +66,8 @@ public interface AbstractConsumerN<C extends AbstractConsumerN<C>> extends Funct
     @Override
     default AbstractConsumerN<C> andThenUnchecked(final C after) {
         return (final Object[] args) -> {
-            this.sizedAcceptAllUnchecked(args);
-            after.sizedAcceptAllUnchecked(args);
+            this.acceptAllUnchecked(args);
+            after.acceptAllUnchecked(args);
         };
     }
 }

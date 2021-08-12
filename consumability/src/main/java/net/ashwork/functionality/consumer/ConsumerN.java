@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.consumer;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.FunctionN;
 import net.ashwork.functionality.consumer.abstracts.AbstractConsumerN;
 
@@ -33,8 +34,8 @@ public interface ConsumerN extends AbstractConsumerN<ConsumerN> {
     @Override
     default ConsumerN andThenUnchecked(final ConsumerN after) {
         return (final Object[] args) -> {
-            this.sizedAcceptAllUnchecked(args);
-            after.sizedAcceptAllUnchecked(args);
+            this.acceptAllUnchecked(args);
+            after.acceptAllUnchecked(args);
         };
     }
 
@@ -78,8 +79,22 @@ public interface ConsumerN extends AbstractConsumerN<ConsumerN> {
         @Override
         public ConsumerN.Instance andThenUnchecked(final ConsumerN.Instance after) {
             return new ConsumerN.Instance(this.arity(), (final Object[] args) -> {
-                this.sizedAcceptAllUnchecked(args);
-                after.sizedAcceptAllUnchecked(args);
+                this.acceptAllUnchecked(args);
+                after.acceptAllUnchecked(args);
+            });
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <V> FunctionN.Instance<V> andThen(Function1<? super Void, ? extends V> after) {
+            return (Instance<V>) AbstractConsumerN.super.andThen(after);
+        }
+
+        @Override
+        public <V> FunctionN.Instance<V> andThenUnchecked(Function1<? super Void, ? extends V> after) {
+            return new FunctionN.Instance<>(this.arity(), (final Object[] args) -> {
+                this.acceptAllUnchecked(args);
+                return after.apply(null);
             });
         }
     }
