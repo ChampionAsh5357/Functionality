@@ -14,6 +14,8 @@
  * to some boolean primitive) where a throwable may be thrown. Some functional interfaces are specialized
  * such that the type parameters are primitives with additional type prefixes. For those that return a primitive
  * value, the interface is prefixed with {@code ToX} where {@code X} is the primitive type.
- * These schemes can be combined, as in {@link net.ashwork.functionality.primitive.combined.ByteToLongFunction1}.
+ * These schemes can be combined, as in {@link net.ashwork.functionality.throwable.primitive.combined.ThrowingByteToLongFunction1}.
+ *
+ * <p>This specific package (excluding subclasses) only holds the basic {@code Functions}.
  */
 package net.ashwork.functionality.throwable;
