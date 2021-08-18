@@ -12,26 +12,26 @@ package net.ashwork.functionality.throwable.primitive.shorts;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.shorts.ToShortFunction2;
 import net.ashwork.functionality.throwable.ThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.primitive.shorts.AbstractThrowingToShortFunction2;
-import net.ashwork.functionality.throwable.abstracts.primitive.shorts.AbstractThrowingToShortFunctionN;
 
 /**
  * Represents a function that accepts two arguments and produces a {@code short}-valued result or throws a throwable.
- * This is the two-arity specialization of {@link AbstractThrowingToShortFunctionN}.
- * This is the {@code short}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the two-arity specialization of {@link ThrowingToShortFunctionN}.
+ * This is the {@code short}-producing primitive specialization of {@link ThrowingFunction2}.
+ * This is the throwing variation of {@link ToShortFunction2}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsShort(Object, Object)}.
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
  *
- * @see AbstractThrowingFunction2
- * @see AbstractThrowingToShortFunctionN
+ * @see ThrowingFunction2
+ * @see ThrowingToShortFunctionN
+ * @see ToShortFunction2
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToShortFunction2<T1, T2> extends AbstractThrowingToShortFunction2<T1, T2, AbstractThrowingToShortFunction2.Handler<T1, T2>> {
+public interface ThrowingToShortFunction2<T1, T2> extends AbstractThrowingToShortFunction2<T1, T2, ThrowingFunction2<T1, T2, Short>, AbstractThrowingToShortFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -45,6 +45,14 @@ public interface ThrowingToShortFunction2<T1, T2> extends AbstractThrowingToShor
      */
     static <T1, T2> ThrowingToShortFunction2<T1, T2> from(final ToShortFunction2<T1, T2> function) {
         return function::applyAsShort;
+    }
+
+    /**
+     * @see ThrowingFunction2
+     */
+    @Override
+    default ThrowingFunction2<T1, T2, Short> boxResult() {
+        return this::applyAsShort;
     }
 
     @Override

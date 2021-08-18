@@ -12,25 +12,25 @@ package net.ashwork.functionality.throwable.primitive.doubles;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.doubles.DoubleFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingDoubleFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunctionN;
 
 /**
  * Represents a function that accepts a {@code double}-valued argument and produces a result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToDoubleFunctionN}.
- * This is the {@code double}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToDoubleFunctionN}.
+ * This is the {@code double}-consuming primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link DoubleFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply(double)}.
  *
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToDoubleFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToDoubleFunctionN
+ * @see DoubleFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingDoubleFunction1<R> extends AbstractThrowingDoubleFunction1<R, AbstractThrowingDoubleFunction1.Handler<R>> {
+public interface ThrowingDoubleFunction1<R> extends AbstractThrowingDoubleFunction1<R, ThrowingFunction1<Double, R>, AbstractThrowingDoubleFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,6 +43,14 @@ public interface ThrowingDoubleFunction1<R> extends AbstractThrowingDoubleFuncti
      */
     static <R> ThrowingDoubleFunction1<R> from(final DoubleFunction1<R> function) {
         return function::apply;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<Double, R> boxInput() {
+        return this::apply;
     }
 
     @Override

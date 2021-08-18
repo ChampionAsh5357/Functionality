@@ -12,26 +12,26 @@ package net.ashwork.functionality.throwable.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.floats.ToFloatFunction2;
 import net.ashwork.functionality.throwable.ThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunction2;
-import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 
 /**
  * Represents a function that accepts two arguments and produces a {@code float}-valued result or throws a throwable.
- * This is the two-arity specialization of {@link AbstractThrowingToFloatFunctionN}.
- * This is the {@code float}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the two-arity specialization of {@link ThrowingToFloatFunctionN}.
+ * This is the {@code float}-producing primitive specialization of {@link ThrowingFunction2}.
+ * This is the throwing variation of {@link ToFloatFunction2}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsFloat(Object, Object)}.
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
  *
- * @see AbstractThrowingFunction2
- * @see AbstractThrowingToFloatFunctionN
+ * @see ThrowingFunction2
+ * @see ThrowingToFloatFunctionN
+ * @see ToFloatFunction2
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToFloatFunction2<T1, T2> extends AbstractThrowingToFloatFunction2<T1, T2, AbstractThrowingToFloatFunction2.Handler<T1, T2>> {
+public interface ThrowingToFloatFunction2<T1, T2> extends AbstractThrowingToFloatFunction2<T1, T2, ThrowingFunction2<T1, T2, Float>, AbstractThrowingToFloatFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -47,9 +47,17 @@ public interface ThrowingToFloatFunction2<T1, T2> extends AbstractThrowingToFloa
         return function::applyAsFloat;
     }
 
+    /**
+     * @see ThrowingFunction2
+     */
+    @Override
+    default ThrowingFunction2<T1, T2, Float> boxResult() {
+        return this::applyAsFloat;
+    }
+
     @Override
     default ToFloatFunction2<T1, T2> swallow() {
-        return this.handle((t, t1, t2) -> 0F);
+        return this.handle((t, t1, t2) -> 0.0f);
     }
 
 

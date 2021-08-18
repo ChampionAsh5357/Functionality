@@ -11,21 +11,22 @@ package net.ashwork.functionality.throwable;
 
 import net.ashwork.functionality.Function0;
 import net.ashwork.functionality.Function1;
+import net.ashwork.functionality.FunctionN;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 
 import java.util.concurrent.Callable;
 
 /**
  * Represents a function that accepts no arguments and produces a result or throws a throwable.
- * This is the zero-arity specialization of {@link AbstractThrowingFunctionN}.
+ * This is the zero-arity specialization of {@link FunctionN}.
  * This is the throwing variation of {@link Function0}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply()}.
  *
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunctionN
+ * @see FunctionN
+ * @see Function0
  * @since 1.0.0
  */
 @FunctionalInterface

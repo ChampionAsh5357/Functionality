@@ -26,6 +26,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunctionN
+ * @see ToShortFunctionN
  * @since 1.0.0
  */
 @InheritOnly

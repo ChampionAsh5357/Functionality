@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.throwable.abstracts;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.Function2;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -27,6 +28,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunctionN
+ * @see Function2
  * @since 1.0.0
  */
 @InheritOnly
@@ -71,6 +73,15 @@ public interface AbstractThrowingFunction2<T1, T2, R, H extends AbstractThrowing
      */
     @Override
     Function2<T1, T2, R> swallow();
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction2<T1, T2, V, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingFunction2<T1, T2, V, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    }
+
+    @Override
+    <V> AbstractThrowingFunction2<T1, T2, V, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

@@ -12,26 +12,26 @@ package net.ashwork.functionality.throwable.primitive.booleans;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction2;
 import net.ashwork.functionality.throwable.ThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunction2;
-import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunctionN;
 
 /**
  * Represents a function that accepts two arguments and produces a {@code boolean}-valued result or throws a throwable.
- * This is the two-arity specialization of {@link AbstractThrowingToBooleanFunctionN}.
- * This is the {@code boolean}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the two-arity specialization of {@link ThrowingToBooleanFunctionN}.
+ * This is the {@code boolean}-producing primitive specialization of {@link ThrowingFunction2}.
+ * This is the throwing variation of {@link ToBooleanFunction2}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsBoolean(Object, Object)}.
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
  *
- * @see AbstractThrowingFunction2
- * @see AbstractThrowingToBooleanFunctionN
+ * @see ThrowingFunction2
+ * @see ThrowingToBooleanFunctionN
+ * @see ToBooleanFunction2
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToBooleanFunction2<T1, T2> extends AbstractThrowingToBooleanFunction2<T1, T2, AbstractThrowingToBooleanFunction2.Handler<T1, T2>> {
+public interface ThrowingToBooleanFunction2<T1, T2> extends AbstractThrowingToBooleanFunction2<T1, T2, ThrowingFunction2<T1, T2, Boolean>, AbstractThrowingToBooleanFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -45,6 +45,14 @@ public interface ThrowingToBooleanFunction2<T1, T2> extends AbstractThrowingToBo
      */
     static <T1, T2> ThrowingToBooleanFunction2<T1, T2> from(final ToBooleanFunction2<T1, T2> function) {
         return function::applyAsBoolean;
+    }
+
+    /**
+     * @see ThrowingFunction2
+     */
+    @Override
+    default ThrowingFunction2<T1, T2, Boolean> boxResult() {
+        return this::applyAsBoolean;
     }
 
     @Override

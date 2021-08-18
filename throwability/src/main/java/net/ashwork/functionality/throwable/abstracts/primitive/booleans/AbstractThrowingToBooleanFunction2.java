@@ -9,9 +9,9 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.booleans;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction2;
-import net.ashwork.functionality.throwable.ThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -19,6 +19,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * Represents a function that accepts two arguments and produces a {@code boolean}-valued result or throws a throwable.
  * This is the two-arity specialization of {@link AbstractThrowingToBooleanFunctionN}.
  * This is the {@code boolean}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the throwing variation of {@link ToBooleanFunction2}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
@@ -26,14 +27,16 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
+ * @param <U> the type of the function which unboxes the {@code boolean} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction2
  * @see AbstractThrowingToBooleanFunctionN
+ * @see ToBooleanFunction2
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToBooleanFunction2<T1, T2, H extends AbstractThrowingToBooleanFunction2.Handler<T1, T2>> extends AbstractThrowingToBooleanFunctionN<H>, UnboxedResult<ThrowingFunction2<T1, T2, Boolean>> {
+public interface AbstractThrowingToBooleanFunction2<T1, T2, U extends AbstractThrowingFunction2<T1, T2, Boolean, ?>, H extends AbstractThrowingToBooleanFunction2.Handler<T1, T2>> extends AbstractThrowingToBooleanFunctionN<H>, UnboxedResult<U> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -52,15 +55,7 @@ public interface AbstractThrowingToBooleanFunction2<T1, T2, H extends AbstractTh
 
     @Override
     default int arity() {
-        return 1;
-    }
-
-    /**
-     * @see ThrowingFunction2
-     */
-    @Override
-    default ThrowingFunction2<T1, T2, Boolean> boxResult() {
-        return this::applyAsBoolean;
+        return 2;
     }
 
     /**
@@ -82,6 +77,21 @@ public interface AbstractThrowingToBooleanFunction2<T1, T2, H extends AbstractTh
      */
     @Override
     ToBooleanFunction2<T1, T2> swallow();
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction2<T1, T2, V, ?> andThen(final Function1<? super Boolean, ? extends V> after) {
+        return (AbstractThrowingFunction2<T1, T2, V, ?>) AbstractThrowingToBooleanFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    <V> AbstractThrowingFunction2<T1, T2, V, ?> andThenUnchecked(final Function1<? super Boolean, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

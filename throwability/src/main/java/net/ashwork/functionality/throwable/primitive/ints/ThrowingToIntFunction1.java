@@ -12,24 +12,24 @@ package net.ashwork.functionality.throwable.primitive.ints;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.ints.ToIntFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.ints.AbstractThrowingToIntFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.ints.AbstractThrowingToIntFunctionN;
 
 /**
  * Represents a function that accepts one argument and produces an {@code int}-valued result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToIntFunctionN}.
- * This is the {@code int}-producing primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToIntFunctionN}.
+ * This is the {@code int}-producing primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link ToIntFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsInt(Object)}.
  *
  * @param <T1> the type of the input to the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToIntFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToIntFunctionN
+ * @see ToIntFunction1
  * @since 1.0.0
  */
-public interface ThrowingToIntFunction1<T1> extends AbstractThrowingToIntFunction1<T1, AbstractThrowingToIntFunction1.Handler<T1>> {
+public interface ThrowingToIntFunction1<T1> extends AbstractThrowingToIntFunction1<T1, ThrowingFunction1<T1, Integer>, AbstractThrowingToIntFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -42,6 +42,14 @@ public interface ThrowingToIntFunction1<T1> extends AbstractThrowingToIntFunctio
      */
     static <T1> ThrowingToIntFunction1<T1> from(final ToIntFunction1<T1> function) {
         return function::applyAsInt;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<T1, Integer> boxResult() {
+        return this::applyAsInt;
     }
 
     @Override

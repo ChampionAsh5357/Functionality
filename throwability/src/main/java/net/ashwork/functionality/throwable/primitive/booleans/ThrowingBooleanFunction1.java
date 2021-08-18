@@ -13,24 +13,24 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.booleans.BooleanFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingBooleanFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunctionN;
 
 /**
  * Represents a function that accepts a {@code boolean}-valued argument and produces a result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToBooleanFunctionN}.
- * This is the {@code boolean}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToBooleanFunctionN}.
+ * This is the {@code boolean}-consuming primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link BooleanFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply(boolean)}.
  *
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToBooleanFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToBooleanFunctionN
+ * @see BooleanFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingBooleanFunction1<R> extends AbstractThrowingBooleanFunction1<R, AbstractThrowingBooleanFunction1.Handler<R>> {
+public interface ThrowingBooleanFunction1<R> extends AbstractThrowingBooleanFunction1<R, ThrowingFunction1<Boolean, R>, AbstractThrowingBooleanFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,6 +43,14 @@ public interface ThrowingBooleanFunction1<R> extends AbstractThrowingBooleanFunc
      */
     static <R> ThrowingBooleanFunction1<R> from(final BooleanFunction1<R> function) {
         return function::apply;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<Boolean, R> boxInput() {
+        return this::apply;
     }
 
     @Override

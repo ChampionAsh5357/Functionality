@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.primitive.bytes;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.bytes.ToByteFunctionN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingToByteFunctionN;
 
 /**
  * Represents a function that accepts {@code n} arguments and produces a {@code byte}-valued result or throws a throwable.
- * This is the {@code byte}-producing primitive specialization for {@link AbstractThrowingFunctionN}.
+ * This is the {@code byte}-producing primitive specialization for {@link ThrowingFunctionN}.
  * All {@code byte}-producing functions are derived from this {@code n}-arity specialization.
  * This is the throwing variation of {@link ToByteFunctionN}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAllAsByteUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ToByteFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -89,7 +89,7 @@ public interface ThrowingToByteFunctionN extends AbstractThrowingToByteFunctionN
          * @param arity the number of arguments of the function
          * @param function the function to be applied
          */
-        public Instance(final int arity, final ThrowingToByteFunction1<Object[]> function) {  //TODO: Swap
+        public Instance(final int arity, final ThrowingToByteFunction1<Object[]> function) {
             this.arity = arity;
             this.function = function;
         }
@@ -126,12 +126,18 @@ public interface ThrowingToByteFunctionN extends AbstractThrowingToByteFunctionN
             return this.handle((t, args) -> (byte) 0);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThen(Function1<? super Byte, ? extends V> after) {
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingToByteFunctionN.super.andThen(after);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super Byte, ? extends V> after) {
             return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.function.applyAsByte(args)));

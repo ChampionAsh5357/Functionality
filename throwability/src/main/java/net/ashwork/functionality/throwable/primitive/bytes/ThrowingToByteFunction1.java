@@ -12,24 +12,24 @@ package net.ashwork.functionality.throwable.primitive.bytes;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.bytes.ToByteFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingToByteFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingToByteFunctionN;
 
 /**
  * Represents a function that accepts one argument and produces a {@code byte}-valued result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToByteFunctionN}.
- * This is the {@code byte}-producing primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToByteFunctionN}.
+ * This is the {@code byte}-producing primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link ToByteFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsByte(Object)}.
  *
  * @param <T1> the type of the input to the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToByteFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToByteFunctionN
+ * @see ToByteFunction1
  * @since 1.0.0
  */
-public interface ThrowingToByteFunction1<T1> extends AbstractThrowingToByteFunction1<T1, AbstractThrowingToByteFunction1.Handler<T1>> {
+public interface ThrowingToByteFunction1<T1> extends AbstractThrowingToByteFunction1<T1, ThrowingFunction1<T1, Byte>, AbstractThrowingToByteFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -42,6 +42,14 @@ public interface ThrowingToByteFunction1<T1> extends AbstractThrowingToByteFunct
      */
     static <T1> ThrowingToByteFunction1<T1> from(final ToByteFunction1<T1> function) {
         return function::applyAsByte;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<T1, Byte> boxResult() {
+        return this::applyAsByte;
     }
 
     @Override

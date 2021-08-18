@@ -9,10 +9,10 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.shorts;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.primitive.shorts.ShortFunction1;
-import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
@@ -21,20 +21,23 @@ import net.ashwork.functionality.util.InheritOnly;
  * Represents a function that accepts a {@code short}-valued argument and produces a result or throws a throwable.
  * This is the one-arity specialization of {@link AbstractThrowingToShortFunctionN}.
  * This is the {@code short}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the throwing variation of {@link ShortFunction1}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
  * @param <R> the type of the result of the function
+ * @param <I> the type of the function which unboxes the {@code short} input
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
  * @see AbstractThrowingToShortFunctionN
+ * @see ShortFunction1
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingShortFunction1<R, H extends AbstractThrowingShortFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Short>, UnboxedInput<ThrowingFunction1<Short, R>> {
+public interface AbstractThrowingShortFunction1<R, I extends AbstractThrowingFunction1<Short, R, ?>, H extends AbstractThrowingShortFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Short>, UnboxedInput<I> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -52,14 +55,6 @@ public interface AbstractThrowingShortFunction1<R, H extends AbstractThrowingSho
     @Override
     default int arity() {
         return 1;
-    }
-
-    /**
-     * @see ThrowingFunction1
-     */
-    @Override
-    default ThrowingFunction1<Short, R> boxInput() {
-        return this::apply;
     }
 
     /**
@@ -81,6 +76,30 @@ public interface AbstractThrowingShortFunction1<R, H extends AbstractThrowingSho
      */
     @Override
     ShortFunction1<R> swallow();
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction1<V, R, ?> compose(final Function1<? super V, ? extends Short> before) {
+        return (AbstractThrowingFunction1<V, R, ?>) InputChainableInput.super.compose(before);
+    }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    <V> AbstractThrowingFunction1<V, R, ?> composeUnchecked(final Function1<? super V, ? extends Short> before);
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingShortFunction1<V, ?, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingShortFunction1<V, ?, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    }
+
+    @Override
+    <V> AbstractThrowingShortFunction1<V, ?, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

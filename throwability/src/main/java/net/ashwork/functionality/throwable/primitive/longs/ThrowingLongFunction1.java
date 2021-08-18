@@ -12,25 +12,25 @@ package net.ashwork.functionality.throwable.primitive.longs;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.longs.LongFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingLongFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 
 /**
  * Represents a function that accepts a {@code long}-valued argument and produces a result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToLongFunctionN}.
- * This is the {@code long}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToLongFunctionN}.
+ * This is the {@code long}-consuming primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link LongFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply(long)}.
  *
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToLongFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToLongFunctionN
+ * @see LongFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingLongFunction1<R> extends AbstractThrowingLongFunction1<R, AbstractThrowingLongFunction1.Handler<R>> {
+public interface ThrowingLongFunction1<R> extends AbstractThrowingLongFunction1<R, ThrowingFunction1<Long, R>, AbstractThrowingLongFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,6 +43,14 @@ public interface ThrowingLongFunction1<R> extends AbstractThrowingLongFunction1<
      */
     static <R> ThrowingLongFunction1<R> from(final LongFunction1<R> function) {
         return function::apply;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<Long, R> boxInput() {
+        return this::apply;
     }
 
     @Override

@@ -9,9 +9,9 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.chars;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.chars.ToCharFunction2;
-import net.ashwork.functionality.throwable.ThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -19,6 +19,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * Represents a function that accepts two arguments and produces a {@code char}-valued result or throws a throwable.
  * This is the two-arity specialization of {@link AbstractThrowingToCharFunctionN}.
  * This is the {@code char}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the throwing variation of {@link ToCharFunction2}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
@@ -26,14 +27,16 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
+ * @param <U> the type of the function which unboxes the {@code char} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction2
  * @see AbstractThrowingToCharFunctionN
+ * @see ToCharFunction2
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToCharFunction2<T1, T2, H extends AbstractThrowingToCharFunction2.Handler<T1, T2>> extends AbstractThrowingToCharFunctionN<H>, UnboxedResult<ThrowingFunction2<T1, T2, Character>> {
+public interface AbstractThrowingToCharFunction2<T1, T2, U extends AbstractThrowingFunction2<T1, T2, Character, ?>, H extends AbstractThrowingToCharFunction2.Handler<T1, T2>> extends AbstractThrowingToCharFunctionN<H>, UnboxedResult<U> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -52,15 +55,7 @@ public interface AbstractThrowingToCharFunction2<T1, T2, H extends AbstractThrow
 
     @Override
     default int arity() {
-        return 1;
-    }
-
-    /**
-     * @see ThrowingFunction2
-     */
-    @Override
-    default ThrowingFunction2<T1, T2, Character> boxResult() {
-        return this::applyAsChar;
+        return 2;
     }
 
     /**
@@ -82,6 +77,21 @@ public interface AbstractThrowingToCharFunction2<T1, T2, H extends AbstractThrow
      */
     @Override
     ToCharFunction2<T1, T2> swallow();
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction2<T1, T2, V, ?> andThen(final Function1<? super Character, ? extends V> after) {
+        return (AbstractThrowingFunction2<T1, T2, V, ?>) AbstractThrowingToCharFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    <V> AbstractThrowingFunction2<T1, T2, V, ?> andThenUnchecked(final Function1<? super Character, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

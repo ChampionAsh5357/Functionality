@@ -12,14 +12,12 @@ package net.ashwork.functionality.throwable.consumer;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer2;
 import net.ashwork.functionality.throwable.ThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.consumer.AbstractThrowingConsumer2;
-import net.ashwork.functionality.throwable.abstracts.consumer.AbstractThrowingConsumerN;
 
 /**
  * Represents an operation that accepts two arguments and returns no result or throws a throwable.
- * This is the two-arity specialization of {@link AbstractThrowingConsumerN}.
- * This is the non-producing specialization of {@link AbstractThrowingFunction2}.
+ * This is the two-arity specialization of {@link ThrowingConsumerN}.
+ * This is the non-producing specialization of {@link ThrowingFunction2}.
  * This is the throwing variation of {@link Consumer2}.
  *
  * <p>This is a functional interface whose functional method is {@link #accept(Object, Object)}.
@@ -27,8 +25,9 @@ import net.ashwork.functionality.throwable.abstracts.consumer.AbstractThrowingCo
  * @param <T1> the type of the first argument to the operation
  * @param <T2> the type of the second argument to the operation
  *
- * @see AbstractThrowingConsumerN
- * @see AbstractThrowingFunction2
+ * @see ThrowingConsumerN
+ * @see ThrowingFunction2
+ * @see Consumer2
  * @since 1.0.0
  */
 @FunctionalInterface

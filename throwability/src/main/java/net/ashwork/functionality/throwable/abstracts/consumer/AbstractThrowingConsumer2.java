@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.throwable.abstracts.consumer;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.abstracts.AbstractConsumer2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
@@ -30,6 +31,7 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @see AbstractThrowingConsumerN
  * @see AbstractThrowingFunction2
+ * @see AbstractConsumer2
  * @since 1.0.0
  */
 @InheritOnly
@@ -61,6 +63,21 @@ public interface AbstractThrowingConsumer2<T1, T2, H extends AbstractThrowingCon
 
     @Override
     AbstractThrowingConsumer2<T1, T2, H, C> andThenUnchecked(final C after);
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction2<T1, T2, V, ?> andThen(final Function1<? super Void, ? extends V> after) {
+        return (AbstractThrowingFunction2<T1, T2, V, ?>) AbstractThrowingConsumerN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    <V> AbstractThrowingFunction2<T1, T2, V, ?> andThenUnchecked(final Function1<? super Void, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

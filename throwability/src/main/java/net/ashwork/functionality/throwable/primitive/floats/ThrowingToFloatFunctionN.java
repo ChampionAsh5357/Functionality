@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.floats.ToFloatFunctionN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 
 /**
  * Represents a function that accepts {@code n} arguments and produces a {@code float}-valued result or throws a throwable.
- * This is the {@code float}-producing primitive specialization for {@link AbstractThrowingFunctionN}.
+ * This is the {@code float}-producing primitive specialization for {@link ThrowingFunctionN}.
  * All {@code float}-producing functions are derived from this {@code n}-arity specialization.
  * This is the throwing variation of {@link ToFloatFunctionN}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAllAsFloatUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ToFloatFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -43,7 +43,7 @@ public interface ThrowingToFloatFunctionN extends AbstractThrowingToFloatFunctio
 
     @Override
     default ToFloatFunctionN swallow() {
-        return this.handle((t, args) -> 0F);
+        return this.handle((t, args) -> 0.0f);
     }
 
     /**
@@ -89,7 +89,7 @@ public interface ThrowingToFloatFunctionN extends AbstractThrowingToFloatFunctio
          * @param arity the number of arguments of the function
          * @param function the function to be applied
          */
-        public Instance(final int arity, final ThrowingToFloatFunction1<Object[]> function) {  //TODO: Swap
+        public Instance(final int arity, final ThrowingToFloatFunction1<Object[]> function) {
             this.arity = arity;
             this.function = function;
         }
@@ -123,15 +123,21 @@ public interface ThrowingToFloatFunctionN extends AbstractThrowingToFloatFunctio
          */
         @Override
         public ToFloatFunctionN.Instance swallow() {
-            return this.handle((t, args) -> 0F);
+            return this.handle((t, args) -> 0.0f);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThen(Function1<? super Float, ? extends V> after) {
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingToFloatFunctionN.super.andThen(after);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super Float, ? extends V> after) {
             return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.function.applyAsFloat(args)));

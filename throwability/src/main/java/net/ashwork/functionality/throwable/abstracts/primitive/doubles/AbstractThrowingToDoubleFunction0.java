@@ -9,9 +9,9 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.doubles;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.doubles.ToDoubleFunction0;
-import net.ashwork.functionality.throwable.ThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -25,14 +25,16 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
+ * @param <U> the type of the function which unboxes the {@code double} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction0
  * @see AbstractThrowingToDoubleFunctionN
+ * @see ToDoubleFunction0
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToDoubleFunction0<H extends AbstractThrowingToDoubleFunction0.Handler> extends AbstractThrowingToDoubleFunctionN<H>, UnboxedResult<ThrowingFunction0<Double>> {
+public interface AbstractThrowingToDoubleFunction0<U extends AbstractThrowingFunction0<Double, ?>, H extends AbstractThrowingToDoubleFunction0.Handler> extends AbstractThrowingToDoubleFunctionN<H>, UnboxedResult<U> {
 
     /**
      * Applies this function or throws a throwable.
@@ -49,14 +51,6 @@ public interface AbstractThrowingToDoubleFunction0<H extends AbstractThrowingToD
     @Override
     default int arity() {
         return 0;
-    }
-
-    /**
-     * @see ThrowingFunction0
-     */
-    @Override
-    default ThrowingFunction0<Double> boxResult() {
-        return this::applyAsDouble;
     }
 
     /**
@@ -78,6 +72,21 @@ public interface AbstractThrowingToDoubleFunction0<H extends AbstractThrowingToD
      */
     @Override
     ToDoubleFunction0 swallow();
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction0<V, ?> andThen(final Function1<? super Double, ? extends V> after) {
+        return (AbstractThrowingFunction0<V, ?>) AbstractThrowingToDoubleFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @Override
+    <V> AbstractThrowingFunction0<V, ?> andThenUnchecked(final Function1<? super Double, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

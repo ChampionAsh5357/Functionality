@@ -9,9 +9,9 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.doubles;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.doubles.ToDoubleFunction2;
-import net.ashwork.functionality.throwable.ThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -19,6 +19,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * Represents a function that accepts two arguments and produces a {@code double}-valued result or throws a throwable.
  * This is the two-arity specialization of {@link AbstractThrowingToDoubleFunctionN}.
  * This is the {@code double}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the throwing variation of {@link ToDoubleFunction2}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
@@ -26,14 +27,16 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
+ * @param <U> the type of the function which unboxes the {@code double} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction2
  * @see AbstractThrowingToDoubleFunctionN
+ * @see ToDoubleFunction2
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToDoubleFunction2<T1, T2, H extends AbstractThrowingToDoubleFunction2.Handler<T1, T2>> extends AbstractThrowingToDoubleFunctionN<H>, UnboxedResult<ThrowingFunction2<T1, T2, Double>> {
+public interface AbstractThrowingToDoubleFunction2<T1, T2, U extends AbstractThrowingFunction2<T1, T2, Double, ?>, H extends AbstractThrowingToDoubleFunction2.Handler<T1, T2>> extends AbstractThrowingToDoubleFunctionN<H>, UnboxedResult<U> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -52,15 +55,7 @@ public interface AbstractThrowingToDoubleFunction2<T1, T2, H extends AbstractThr
 
     @Override
     default int arity() {
-        return 1;
-    }
-
-    /**
-     * @see ThrowingFunction2
-     */
-    @Override
-    default ThrowingFunction2<T1, T2, Double> boxResult() {
-        return this::applyAsDouble;
+        return 2;
     }
 
     /**
@@ -82,6 +77,21 @@ public interface AbstractThrowingToDoubleFunction2<T1, T2, H extends AbstractThr
      */
     @Override
     ToDoubleFunction2<T1, T2> swallow();
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction2<T1, T2, V, ?> andThen(final Function1<? super Double, ? extends V> after) {
+        return (AbstractThrowingFunction2<T1, T2, V, ?>) AbstractThrowingToDoubleFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    <V> AbstractThrowingFunction2<T1, T2, V, ?> andThenUnchecked(final Function1<? super Double, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

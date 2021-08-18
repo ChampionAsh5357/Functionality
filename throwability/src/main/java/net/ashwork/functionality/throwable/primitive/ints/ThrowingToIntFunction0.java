@@ -12,24 +12,23 @@ package net.ashwork.functionality.throwable.primitive.ints;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.ints.ToIntFunction0;
 import net.ashwork.functionality.throwable.ThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.primitive.ints.AbstractThrowingToIntFunction0;
-import net.ashwork.functionality.throwable.abstracts.primitive.ints.AbstractThrowingToIntFunctionN;
 
 /**
  * Represents a function that accepts no arguments and produces an {@code int}-valued result or throws a throwable.
- * This is the zero-arity specialization of {@link AbstractThrowingToIntFunctionN}.
- * This is the {@code int}-producing primitive specialization of {@link AbstractThrowingFunction0}.
+ * This is the zero-arity specialization of {@link ThrowingToIntFunctionN}.
+ * This is the {@code int}-producing primitive specialization of {@link ThrowingFunction0}.
  * This is the throwing variation of {@link ToIntFunction0}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsInt()}.
  *
- * @see AbstractThrowingFunction0
- * @see AbstractThrowingToIntFunctionN
+ * @see ThrowingFunction0
+ * @see ThrowingToIntFunctionN
+ * @see ToIntFunction0
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToIntFunction0 extends AbstractThrowingToIntFunction0<AbstractThrowingToIntFunction0.Handler> {
+public interface ThrowingToIntFunction0 extends AbstractThrowingToIntFunction0<ThrowingFunction0<Integer>, AbstractThrowingToIntFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -41,6 +40,14 @@ public interface ThrowingToIntFunction0 extends AbstractThrowingToIntFunction0<A
      */
     static ThrowingToIntFunction0 from(final ToIntFunction0 function) {
         return function::applyAsInt;
+    }
+
+    /**
+     * @see ThrowingFunction0
+     */
+    @Override
+    default ThrowingFunction0<Integer> boxResult() {
+        return this::applyAsInt;
     }
 
     @Override

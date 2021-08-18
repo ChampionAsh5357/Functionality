@@ -12,24 +12,24 @@ package net.ashwork.functionality.throwable.primitive.booleans;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunctionN;
 
 /**
  * Represents a function that accepts one argument and produces a {@code boolean}-valued result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToBooleanFunctionN}.
- * This is the {@code boolean}-producing primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToBooleanFunctionN}.
+ * This is the {@code boolean}-producing primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link ToBooleanFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsBoolean(Object)}.
  *
  * @param <T1> the type of the input to the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToBooleanFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToBooleanFunctionN
+ * @see ToBooleanFunction1
  * @since 1.0.0
  */
-public interface ThrowingToBooleanFunction1<T1> extends AbstractThrowingToBooleanFunction1<T1, AbstractThrowingToBooleanFunction1.Handler<T1>> {
+public interface ThrowingToBooleanFunction1<T1> extends AbstractThrowingToBooleanFunction1<T1, ThrowingFunction1<T1, Boolean>, AbstractThrowingToBooleanFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -42,6 +42,14 @@ public interface ThrowingToBooleanFunction1<T1> extends AbstractThrowingToBoolea
      */
     static <T1> ThrowingToBooleanFunction1<T1> from(final ToBooleanFunction1<T1> function) {
         return function::applyAsBoolean;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<T1, Boolean> boxResult() {
+        return this::applyAsBoolean;
     }
 
     @Override

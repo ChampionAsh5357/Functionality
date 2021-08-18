@@ -9,10 +9,10 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.bytes;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.bytes.ToByteFunction1;
-import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -20,20 +20,23 @@ import net.ashwork.functionality.util.InheritOnly;
  * Represents a function that accepts one argument and produces a {@code byte}-valued result or throws a throwable.
  * This is the one-arity specialization of {@link AbstractThrowingToByteFunctionN}.
  * This is the {@code byte}-producing primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the throwing variation of {@link ToByteFunction1}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
  * @param <T1> the type of the input to the function
+ * @param <U> the type of the function which unboxes the {@code byte} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
  * @see AbstractThrowingToByteFunctionN
+ * @see ToByteFunction1
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToByteFunction1<T1, H extends AbstractThrowingToByteFunction1.Handler<T1>> extends AbstractThrowingToByteFunctionN<H>, InputChainableInput<T1>, UnboxedResult<ThrowingFunction1<T1, Byte>> {
+public interface AbstractThrowingToByteFunction1<T1, U extends AbstractThrowingFunction1<T1, Byte, ?>, H extends AbstractThrowingToByteFunction1.Handler<T1>> extends AbstractThrowingToByteFunctionN<H>, InputChainableInput<T1>, UnboxedResult<U> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -55,14 +58,6 @@ public interface AbstractThrowingToByteFunction1<T1, H extends AbstractThrowingT
     }
 
     /**
-     * @see ThrowingFunction1
-     */
-    @Override
-    default ThrowingFunction1<T1, Byte> boxResult() {
-        return this::applyAsByte;
-    }
-
-    /**
      * @see ToByteFunction1
      */
     @Override
@@ -81,6 +76,30 @@ public interface AbstractThrowingToByteFunction1<T1, H extends AbstractThrowingT
      */
     @Override
     ToByteFunction1<T1> swallow();
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingToByteFunction1<V, ?, ?> compose(final Function1<? super V, ? extends T1> before) {
+        return (AbstractThrowingToByteFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    }
+
+    @Override
+    <V> AbstractThrowingToByteFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction1<T1, V, ?> andThen(final Function1<? super Byte, ? extends V> after) {
+        return (AbstractThrowingFunction1<T1, V, ?>) AbstractThrowingToByteFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    <V> AbstractThrowingFunction1<T1, V, ?> andThenUnchecked(final Function1<? super Byte, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

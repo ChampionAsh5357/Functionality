@@ -22,6 +22,7 @@ import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
  *
  * @param <R> the type of the result of the function
  *
+ * @see FunctionN
  * @since 1.0.0
  */
 @FunctionalInterface

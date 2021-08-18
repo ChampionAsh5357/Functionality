@@ -12,24 +12,23 @@ package net.ashwork.functionality.throwable.primitive.longs;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.longs.ToLongFunction0;
 import net.ashwork.functionality.throwable.ThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunction0;
-import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 
 /**
  * Represents a function that accepts no arguments and produces a {@code long}-valued result or throws a throwable.
- * This is the zero-arity specialization of {@link AbstractThrowingToLongFunctionN}.
- * This is the {@code long}-producing primitive specialization of {@link AbstractThrowingFunction0}.
+ * This is the zero-arity specialization of {@link ThrowingToLongFunctionN}.
+ * This is the {@code long}-producing primitive specialization of {@link ThrowingFunction0}.
  * This is the throwing variation of {@link ToLongFunction0}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsLong()}.
  *
- * @see AbstractThrowingFunction0
- * @see AbstractThrowingToLongFunctionN
+ * @see ThrowingFunction0
+ * @see ThrowingToLongFunctionN
+ * @see ToLongFunction0
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToLongFunction0 extends AbstractThrowingToLongFunction0<AbstractThrowingToLongFunction0.Handler> {
+public interface ThrowingToLongFunction0 extends AbstractThrowingToLongFunction0<ThrowingFunction0<Long>, AbstractThrowingToLongFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -41,6 +40,14 @@ public interface ThrowingToLongFunction0 extends AbstractThrowingToLongFunction0
      */
     static ThrowingToLongFunction0 from(final ToLongFunction0 function) {
         return function::applyAsLong;
+    }
+
+    /**
+     * @see ThrowingFunction0
+     */
+    @Override
+    default ThrowingFunction0<Long> boxResult() {
+        return this::applyAsLong;
     }
 
     @Override

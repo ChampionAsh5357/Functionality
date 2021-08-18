@@ -12,25 +12,25 @@ package net.ashwork.functionality.throwable.primitive.chars;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.chars.CharFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThrowingCharFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThrowingToCharFunctionN;
 
 /**
  * Represents a function that accepts a {@code char}-valued argument and produces a result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToCharFunctionN}.
- * This is the {@code char}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToCharFunctionN}.
+ * This is the {@code char}-consuming primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link CharFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply(char)}.
  *
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToCharFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToCharFunctionN
+ * @see CharFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingCharFunction1<R> extends AbstractThrowingCharFunction1<R, AbstractThrowingCharFunction1.Handler<R>> {
+public interface ThrowingCharFunction1<R> extends AbstractThrowingCharFunction1<R, ThrowingFunction1<Character, R>, AbstractThrowingCharFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,6 +43,14 @@ public interface ThrowingCharFunction1<R> extends AbstractThrowingCharFunction1<
      */
     static <R> ThrowingCharFunction1<R> from(final CharFunction1<R> function) {
         return function::apply;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<Character, R> boxInput() {
+        return this::apply;
     }
 
     @Override

@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.primitive.booleans;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunctionN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.primitive.booleans.AbstractThrowingToBooleanFunctionN;
 
 /**
  * Represents a function that accepts {@code n} arguments and produces a {@code boolean}-valued result or throws a throwable.
- * This is the {@code boolean}-producing primitive specialization for {@link AbstractThrowingFunctionN}.
+ * This is the {@code boolean}-producing primitive specialization for {@link ThrowingFunctionN}.
  * All {@code boolean}-producing functions are derived from this {@code n}-arity specialization.
  * This is the throwing variation of {@link ToBooleanFunctionN}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAllAsBooleanUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ToBooleanFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -89,7 +89,7 @@ public interface ThrowingToBooleanFunctionN extends AbstractThrowingToBooleanFun
          * @param arity the number of arguments of the function
          * @param function the function to be applied
          */
-        public Instance(final int arity, final ThrowingToBooleanFunction1<Object[]> function) {  //TODO: Swap
+        public Instance(final int arity, final ThrowingToBooleanFunction1<Object[]> function) {
             this.arity = arity;
             this.function = function;
         }
@@ -126,12 +126,18 @@ public interface ThrowingToBooleanFunctionN extends AbstractThrowingToBooleanFun
             return this.handle((t, args) -> false);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThen(Function1<? super Boolean, ? extends V> after) {
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingToBooleanFunctionN.super.andThen(after);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super Boolean, ? extends V> after) {
             return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.function.applyAsBoolean(args)));

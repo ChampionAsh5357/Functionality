@@ -9,10 +9,10 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.ints;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.primitive.ints.IntFunction1;
-import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
@@ -21,20 +21,23 @@ import net.ashwork.functionality.util.InheritOnly;
  * Represents a function that accepts an {@code int}-valued argument and produces a result or throws a throwable.
  * This is the one-arity specialization of {@link AbstractThrowingToIntFunctionN}.
  * This is the {@code int}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the throwing variation of {@link IntFunction1}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
  * @param <R> the type of the result of the function
+ * @param <I> the type of the function which unboxes the {@code int} input
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
  * @see AbstractThrowingToIntFunctionN
+ * @see IntFunction1
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingIntFunction1<R, H extends AbstractThrowingIntFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Integer>, UnboxedInput<ThrowingFunction1<Integer, R>> {
+public interface AbstractThrowingIntFunction1<R, I extends AbstractThrowingFunction1<Integer, R, ?>, H extends AbstractThrowingIntFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Integer>, UnboxedInput<I> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -52,14 +55,6 @@ public interface AbstractThrowingIntFunction1<R, H extends AbstractThrowingIntFu
     @Override
     default int arity() {
         return 1;
-    }
-
-    /**
-     * @see ThrowingFunction1
-     */
-    @Override
-    default ThrowingFunction1<Integer, R> boxInput() {
-        return this::apply;
     }
 
     /**
@@ -81,6 +76,30 @@ public interface AbstractThrowingIntFunction1<R, H extends AbstractThrowingIntFu
      */
     @Override
     IntFunction1<R> swallow();
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction1<V, R, ?> compose(final Function1<? super V, ? extends Integer> before) {
+        return (AbstractThrowingFunction1<V, R, ?>) InputChainableInput.super.compose(before);
+    }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    <V> AbstractThrowingFunction1<V, R, ?> composeUnchecked(final Function1<? super V, ? extends Integer> before);
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingIntFunction1<V, ?, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingIntFunction1<V, ?, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    }
+
+    @Override
+    <V> AbstractThrowingIntFunction1<V, ?, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

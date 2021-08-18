@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.consumer;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.ConsumerN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.consumer.AbstractThrowingConsumerN;
 
 /**
  * Represents an operation that accepts {@code n} arguments and returns no result or throws a throwable.
  * All consumers are derived from this {@code n}-arity specialization.
- * This is the non-producing specialization of {@link AbstractThrowingFunctionN}.
+ * This is the non-producing specialization of {@link ThrowingFunctionN}.
  * This is the throwing variation of {@link ConsumerN}.
  *
  * <p>This is a functional interface whose functional method is {@link #acceptAllUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ConsumerN
  * @since 1.0.0
  */
 @FunctionalInterface

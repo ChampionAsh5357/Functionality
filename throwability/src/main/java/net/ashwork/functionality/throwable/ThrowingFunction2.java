@@ -11,12 +11,12 @@ package net.ashwork.functionality.throwable;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.Function2;
+import net.ashwork.functionality.FunctionN;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 
 /**
  * Represents a function that accepts two arguments and produces a result or throws a throwable.
- * This is the two-arity specialization of {@link AbstractThrowingFunctionN}.
+ * This is the two-arity specialization of {@link FunctionN}.
  * This is the throwing variation of {@link Function2}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply(Object, Object)}.
@@ -25,7 +25,8 @@ import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
  * @param <T2> the type of the second argument to the function
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunctionN
+ * @see FunctionN
+ * @see Function2
  * @since 1.0.0
  */
 @FunctionalInterface

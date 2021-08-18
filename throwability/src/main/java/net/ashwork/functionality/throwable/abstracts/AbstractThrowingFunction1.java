@@ -27,6 +27,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunctionN
+ * @see Function1
  * @since 1.0.0
  */
 @InheritOnly
@@ -70,6 +71,24 @@ public interface AbstractThrowingFunction1<T1, R, H extends AbstractThrowingFunc
      */
     @Override
     Function1<T1, R> swallow();
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction1<V, R, ?> compose(final Function1<? super V, ? extends T1> before) {
+        return (AbstractThrowingFunction1<V, R, ?>) InputChainableInput.super.compose(before);
+    }
+
+    @Override
+    <V> AbstractThrowingFunction1<V, R, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction1<T1, V, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingFunction1<T1, V, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    }
+
+    @Override
+    <V> AbstractThrowingFunction1<T1, V, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

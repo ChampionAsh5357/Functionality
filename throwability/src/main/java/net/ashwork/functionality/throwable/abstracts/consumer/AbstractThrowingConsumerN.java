@@ -29,6 +29,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @param <C> the type of this consumer
  *
  * @see AbstractThrowingFunctionN
+ * @see AbstractConsumerN
  * @since 1.0.0
  */
 @InheritOnly

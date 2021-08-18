@@ -12,24 +12,24 @@ package net.ashwork.functionality.throwable.primitive.doubles;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.doubles.ToDoubleFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunctionN;
 
 /**
  * Represents a function that accepts one argument and produces a {@code double}-valued result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToDoubleFunctionN}.
- * This is the {@code double}-producing primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToDoubleFunctionN}.
+ * This is the {@code double}-producing primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link ToDoubleFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsDouble(Object)}.
  *
  * @param <T1> the type of the input to the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToDoubleFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToDoubleFunctionN
+ * @see ToDoubleFunction1
  * @since 1.0.0
  */
-public interface ThrowingToDoubleFunction1<T1> extends AbstractThrowingToDoubleFunction1<T1, AbstractThrowingToDoubleFunction1.Handler<T1>> {
+public interface ThrowingToDoubleFunction1<T1> extends AbstractThrowingToDoubleFunction1<T1, ThrowingFunction1<T1, Double>, AbstractThrowingToDoubleFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -44,9 +44,17 @@ public interface ThrowingToDoubleFunction1<T1> extends AbstractThrowingToDoubleF
         return function::applyAsDouble;
     }
 
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<T1, Double> boxResult() {
+        return this::applyAsDouble;
+    }
+
     @Override
     default ToDoubleFunction1<T1> swallow() {
-        return this.handle((t, t1) -> 0D);
+        return this.handle((t, t1) -> 0.0d);
     }
 
     @SuppressWarnings("unchecked")

@@ -12,25 +12,25 @@ package net.ashwork.functionality.throwable.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.floats.FloatFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingFloatFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 
 /**
  * Represents a function that accepts a {@code float}-valued argument and produces a result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToFloatFunctionN}.
- * This is the {@code float}-consuming primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToFloatFunctionN}.
+ * This is the {@code float}-consuming primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link FloatFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #apply(float)}.
  *
  * @param <R> the type of the result of the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToFloatFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToFloatFunctionN
+ * @see FloatFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingFloatFunction1<R> extends AbstractThrowingFloatFunction1<R, AbstractThrowingFloatFunction1.Handler<R>> {
+public interface ThrowingFloatFunction1<R> extends AbstractThrowingFloatFunction1<R, ThrowingFunction1<Float, R>, AbstractThrowingFloatFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,6 +43,14 @@ public interface ThrowingFloatFunction1<R> extends AbstractThrowingFloatFunction
      */
     static <R> ThrowingFloatFunction1<R> from(final FloatFunction1<R> function) {
         return function::apply;
+    }
+
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<Float, R> boxInput() {
+        return this::apply;
     }
 
     @Override

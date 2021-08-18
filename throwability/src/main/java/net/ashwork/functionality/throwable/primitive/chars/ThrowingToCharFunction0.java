@@ -12,24 +12,23 @@ package net.ashwork.functionality.throwable.primitive.chars;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.chars.ToCharFunction0;
 import net.ashwork.functionality.throwable.ThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThrowingToCharFunction0;
-import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThrowingToCharFunctionN;
 
 /**
  * Represents a function that accepts no arguments and produces a {@code char}-valued result or throws a throwable.
- * This is the zero-arity specialization of {@link AbstractThrowingToCharFunctionN}.
- * This is the {@code char}-producing primitive specialization of {@link AbstractThrowingFunction0}.
+ * This is the zero-arity specialization of {@link ThrowingToCharFunctionN}.
+ * This is the {@code char}-producing primitive specialization of {@link ThrowingFunction0}.
  * This is the throwing variation of {@link ToCharFunction0}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsChar()}.
  *
- * @see AbstractThrowingFunction0
- * @see AbstractThrowingToCharFunctionN
+ * @see ThrowingFunction0
+ * @see ThrowingToCharFunctionN
+ * @see ToCharFunction0
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToCharFunction0 extends AbstractThrowingToCharFunction0<AbstractThrowingToCharFunction0.Handler> {
+public interface ThrowingToCharFunction0 extends AbstractThrowingToCharFunction0<ThrowingFunction0<Character>, AbstractThrowingToCharFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -41,6 +40,14 @@ public interface ThrowingToCharFunction0 extends AbstractThrowingToCharFunction0
      */
     static ThrowingToCharFunction0 from(final ToCharFunction0 function) {
         return function::applyAsChar;
+    }
+
+    /**
+     * @see ThrowingFunction0
+     */
+    @Override
+    default ThrowingFunction0<Character> boxResult() {
+        return this::applyAsChar;
     }
 
     @Override

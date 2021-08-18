@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.primitive.chars;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.chars.ToCharFunctionN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThrowingToCharFunctionN;
 
 /**
  * Represents a function that accepts {@code n} arguments and produces a {@code char}-valued result or throws a throwable.
- * This is the {@code char}-producing primitive specialization for {@link AbstractThrowingFunctionN}.
+ * This is the {@code char}-producing primitive specialization for {@link ThrowingFunctionN}.
  * All {@code char}-producing functions are derived from this {@code n}-arity specialization.
  * This is the throwing variation of {@link ToCharFunctionN}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAllAsCharUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ToCharFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -89,7 +89,7 @@ public interface ThrowingToCharFunctionN extends AbstractThrowingToCharFunctionN
          * @param arity the number of arguments of the function
          * @param function the function to be applied
          */
-        public Instance(final int arity, final ThrowingToCharFunction1<Object[]> function) {  //TODO: Swap
+        public Instance(final int arity, final ThrowingToCharFunction1<Object[]> function) {
             this.arity = arity;
             this.function = function;
         }
@@ -126,12 +126,18 @@ public interface ThrowingToCharFunctionN extends AbstractThrowingToCharFunctionN
             return this.handle((t, args) -> '\u0000');
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThen(Function1<? super Character, ? extends V> after) {
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingToCharFunctionN.super.andThen(after);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super Character, ? extends V> after) {
             return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.function.applyAsChar(args)));

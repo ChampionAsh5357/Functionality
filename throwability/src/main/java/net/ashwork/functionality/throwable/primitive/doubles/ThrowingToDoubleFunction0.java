@@ -12,24 +12,23 @@ package net.ashwork.functionality.throwable.primitive.doubles;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.doubles.ToDoubleFunction0;
 import net.ashwork.functionality.throwable.ThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunction0;
-import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunctionN;
 
 /**
  * Represents a function that accepts no arguments and produces a {@code double}-valued result or throws a throwable.
- * This is the zero-arity specialization of {@link AbstractThrowingToDoubleFunctionN}.
- * This is the {@code double}-producing primitive specialization of {@link AbstractThrowingFunction0}.
+ * This is the zero-arity specialization of {@link ThrowingToDoubleFunctionN}.
+ * This is the {@code double}-producing primitive specialization of {@link ThrowingFunction0}.
  * This is the throwing variation of {@link ToDoubleFunction0}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsDouble()}.
  *
- * @see AbstractThrowingFunction0
- * @see AbstractThrowingToDoubleFunctionN
+ * @see ThrowingFunction0
+ * @see ThrowingToDoubleFunctionN
+ * @see ToDoubleFunction0
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToDoubleFunction0 extends AbstractThrowingToDoubleFunction0<AbstractThrowingToDoubleFunction0.Handler> {
+public interface ThrowingToDoubleFunction0 extends AbstractThrowingToDoubleFunction0<ThrowingFunction0<Double>, AbstractThrowingToDoubleFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,9 +42,17 @@ public interface ThrowingToDoubleFunction0 extends AbstractThrowingToDoubleFunct
         return function::applyAsDouble;
     }
 
+    /**
+     * @see ThrowingFunction0
+     */
+    @Override
+    default ThrowingFunction0<Double> boxResult() {
+        return this::applyAsDouble;
+    }
+
     @Override
     default ToDoubleFunction0 swallow() {
-        return this.handle(t -> 0D);
+        return this.handle(t -> 0.0d);
     }
 
     /**

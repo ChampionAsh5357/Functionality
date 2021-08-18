@@ -9,9 +9,9 @@
 
 package net.ashwork.functionality.throwable.abstracts.primitive.longs;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.longs.ToLongFunction0;
-import net.ashwork.functionality.throwable.ThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -25,14 +25,16 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
+ * @param <U> the type of the function which unboxes the {@code long} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction0
  * @see AbstractThrowingToLongFunctionN
+ * @see ToLongFunction0
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToLongFunction0<H extends AbstractThrowingToLongFunction0.Handler> extends AbstractThrowingToLongFunctionN<H>, UnboxedResult<ThrowingFunction0<Long>> {
+public interface AbstractThrowingToLongFunction0<U extends AbstractThrowingFunction0<Long, ?>, H extends AbstractThrowingToLongFunction0.Handler> extends AbstractThrowingToLongFunctionN<H>, UnboxedResult<U> {
 
     /**
      * Applies this function or throws a throwable.
@@ -49,14 +51,6 @@ public interface AbstractThrowingToLongFunction0<H extends AbstractThrowingToLon
     @Override
     default int arity() {
         return 0;
-    }
-
-    /**
-     * @see ThrowingFunction0
-     */
-    @Override
-    default ThrowingFunction0<Long> boxResult() {
-        return this::applyAsLong;
     }
 
     /**
@@ -78,6 +72,21 @@ public interface AbstractThrowingToLongFunction0<H extends AbstractThrowingToLon
      */
     @Override
     ToLongFunction0 swallow();
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractThrowingFunction0<V, ?> andThen(final Function1<? super Long, ? extends V> after) {
+        return (AbstractThrowingFunction0<V, ?>) AbstractThrowingToLongFunctionN.super.andThen(after);
+    }
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @Override
+    <V> AbstractThrowingFunction0<V, ?> andThenUnchecked(final Function1<? super Long, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

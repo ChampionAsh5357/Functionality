@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.primitive.longs;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.longs.ToLongFunctionN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 
 /**
  * Represents a function that accepts {@code n} arguments and produces a {@code long}-valued result or throws a throwable.
- * This is the {@code long}-producing primitive specialization for {@link AbstractThrowingFunctionN}.
+ * This is the {@code long}-producing primitive specialization for {@link ThrowingFunctionN}.
  * All {@code long}-producing functions are derived from this {@code n}-arity specialization.
  * This is the throwing variation of {@link ToLongFunctionN}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAllAsLongUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ToLongFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -89,7 +89,7 @@ public interface ThrowingToLongFunctionN extends AbstractThrowingToLongFunctionN
          * @param arity the number of arguments of the function
          * @param function the function to be applied
          */
-        public Instance(final int arity, final ThrowingToLongFunction1<Object[]> function) {  //TODO: Swap
+        public Instance(final int arity, final ThrowingToLongFunction1<Object[]> function) {
             this.arity = arity;
             this.function = function;
         }
@@ -126,12 +126,18 @@ public interface ThrowingToLongFunctionN extends AbstractThrowingToLongFunctionN
             return this.handle((t, args) -> 0L);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThen(Function1<? super Long, ? extends V> after) {
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingToLongFunctionN.super.andThen(after);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super Long, ? extends V> after) {
             return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.function.applyAsLong(args)));

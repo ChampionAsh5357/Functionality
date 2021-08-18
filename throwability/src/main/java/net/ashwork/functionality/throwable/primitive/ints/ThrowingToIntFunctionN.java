@@ -12,18 +12,18 @@ package net.ashwork.functionality.throwable.primitive.ints;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.ints.ToIntFunctionN;
 import net.ashwork.functionality.throwable.ThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
 import net.ashwork.functionality.throwable.abstracts.primitive.ints.AbstractThrowingToIntFunctionN;
 
 /**
  * Represents a function that accepts {@code n} arguments and produces an {@code int}-valued result or throws a throwable.
- * This is the {@code int}-producing primitive specialization for {@link AbstractThrowingFunctionN}.
+ * This is the {@code int}-producing primitive specialization for {@link ThrowingFunctionN}.
  * All {@code int}-producing functions are derived from this {@code n}-arity specialization.
  * This is the throwing variation of {@link ToIntFunctionN}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAllAsIntUnchecked(Object...)}.
  *
- * @see AbstractThrowingFunctionN
+ * @see ThrowingFunctionN
+ * @see ToIntFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -89,7 +89,7 @@ public interface ThrowingToIntFunctionN extends AbstractThrowingToIntFunctionN<A
          * @param arity the number of arguments of the function
          * @param function the function to be applied
          */
-        public Instance(final int arity, final ThrowingToIntFunction1<Object[]> function) {  //TODO: Swap
+        public Instance(final int arity, final ThrowingToIntFunction1<Object[]> function) {
             this.arity = arity;
             this.function = function;
         }
@@ -126,12 +126,18 @@ public interface ThrowingToIntFunctionN extends AbstractThrowingToIntFunctionN<A
             return this.handle((t, args) -> 0);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThen(Function1<? super Integer, ? extends V> after) {
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingToIntFunctionN.super.andThen(after);
         }
 
+        /**
+         * @see ThrowingFunctionN.Instance
+         */
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super Integer, ? extends V> after) {
             return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.function.applyAsInt(args)));

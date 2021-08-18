@@ -12,26 +12,26 @@ package net.ashwork.functionality.throwable.primitive.longs;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.longs.ToLongFunction2;
 import net.ashwork.functionality.throwable.ThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunction2;
-import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 
 /**
  * Represents a function that accepts two arguments and produces a {@code long}-valued result or throws a throwable.
- * This is the two-arity specialization of {@link AbstractThrowingToLongFunctionN}.
- * This is the {@code long}-producing primitive specialization of {@link AbstractThrowingFunction2}.
+ * This is the two-arity specialization of {@link ThrowingToLongFunctionN}.
+ * This is the {@code long}-producing primitive specialization of {@link ThrowingFunction2}.
+ * This is the throwing variation of {@link ToLongFunction2}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsLong(Object, Object)}.
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
  *
- * @see AbstractThrowingFunction2
- * @see AbstractThrowingToLongFunctionN
+ * @see ThrowingFunction2
+ * @see ThrowingToLongFunctionN
+ * @see ToLongFunction2
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToLongFunction2<T1, T2> extends AbstractThrowingToLongFunction2<T1, T2, AbstractThrowingToLongFunction2.Handler<T1, T2>> {
+public interface ThrowingToLongFunction2<T1, T2> extends AbstractThrowingToLongFunction2<T1, T2, ThrowingFunction2<T1, T2, Long>, AbstractThrowingToLongFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -45,6 +45,14 @@ public interface ThrowingToLongFunction2<T1, T2> extends AbstractThrowingToLongF
      */
     static <T1, T2> ThrowingToLongFunction2<T1, T2> from(final ToLongFunction2<T1, T2> function) {
         return function::applyAsLong;
+    }
+
+    /**
+     * @see ThrowingFunction2
+     */
+    @Override
+    default ThrowingFunction2<T1, T2, Long> boxResult() {
+        return this::applyAsLong;
     }
 
     @Override

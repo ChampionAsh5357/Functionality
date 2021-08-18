@@ -12,24 +12,24 @@ package net.ashwork.functionality.throwable.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.floats.ToFloatFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 
 /**
  * Represents a function that accepts one argument and produces a {@code float}-valued result or throws a throwable.
- * This is the one-arity specialization of {@link AbstractThrowingToFloatFunctionN}.
- * This is the {@code float}-producing primitive specialization of {@link AbstractThrowingFunction1}.
+ * This is the one-arity specialization of {@link ThrowingToFloatFunctionN}.
+ * This is the {@code float}-producing primitive specialization of {@link ThrowingFunction1}.
+ * This is the throwing variation of {@link ToFloatFunction1}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsFloat(Object)}.
  *
  * @param <T1> the type of the input to the function
  *
- * @see AbstractThrowingFunction1
- * @see AbstractThrowingToFloatFunctionN
+ * @see ThrowingFunction1
+ * @see ThrowingToFloatFunctionN
+ * @see ToFloatFunction1
  * @since 1.0.0
  */
-public interface ThrowingToFloatFunction1<T1> extends AbstractThrowingToFloatFunction1<T1, AbstractThrowingToFloatFunction1.Handler<T1>> {
+public interface ThrowingToFloatFunction1<T1> extends AbstractThrowingToFloatFunction1<T1, ThrowingFunction1<T1, Float>, AbstractThrowingToFloatFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -44,9 +44,17 @@ public interface ThrowingToFloatFunction1<T1> extends AbstractThrowingToFloatFun
         return function::applyAsFloat;
     }
 
+    /**
+     * @see ThrowingFunction1
+     */
+    @Override
+    default ThrowingFunction1<T1, Float> boxResult() {
+        return this::applyAsFloat;
+    }
+
     @Override
     default ToFloatFunction1<T1> swallow() {
-        return this.handle((t, t1) -> 0F);
+        return this.handle((t, t1) -> 0.0f);
     }
 
     @SuppressWarnings("unchecked")

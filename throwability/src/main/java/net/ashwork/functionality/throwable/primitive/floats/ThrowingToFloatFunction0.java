@@ -12,24 +12,23 @@ package net.ashwork.functionality.throwable.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.floats.ToFloatFunction0;
 import net.ashwork.functionality.throwable.ThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
 import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunction0;
-import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 
 /**
  * Represents a function that accepts no arguments and produces a {@code float}-valued result or throws a throwable.
- * This is the zero-arity specialization of {@link AbstractThrowingToFloatFunctionN}.
- * This is the {@code float}-producing primitive specialization of {@link AbstractThrowingFunction0}.
+ * This is the zero-arity specialization of {@link ThrowingToFloatFunctionN}.
+ * This is the {@code float}-producing primitive specialization of {@link ThrowingFunction0}.
  * This is the throwing variation of {@link ToFloatFunction0}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsFloat()}.
  *
- * @see AbstractThrowingFunction0
- * @see AbstractThrowingToFloatFunctionN
+ * @see ThrowingFunction0
+ * @see ThrowingToFloatFunctionN
+ * @see ToFloatFunction0
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToFloatFunction0 extends AbstractThrowingToFloatFunction0<AbstractThrowingToFloatFunction0.Handler> {
+public interface ThrowingToFloatFunction0 extends AbstractThrowingToFloatFunction0<ThrowingFunction0<Float>, AbstractThrowingToFloatFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
@@ -43,9 +42,17 @@ public interface ThrowingToFloatFunction0 extends AbstractThrowingToFloatFunctio
         return function::applyAsFloat;
     }
 
+    /**
+     * @see ThrowingFunction0
+     */
+    @Override
+    default ThrowingFunction0<Float> boxResult() {
+        return this::applyAsFloat;
+    }
+
     @Override
     default ToFloatFunction0 swallow() {
-        return this.handle(t -> 0F);
+        return this.handle(t -> 0.0f);
     }
 
     /**
