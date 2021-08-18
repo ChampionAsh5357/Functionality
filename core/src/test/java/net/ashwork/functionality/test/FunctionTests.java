@@ -29,13 +29,18 @@ import java.util.stream.IntStream;
 public final class FunctionTests {
 
     /**
+     * A random instance.
+     */
+    public static final Random RANDOM = new Random();
+
+    /**
      * Tests the n-arity function.
      */
     @Test
     public void n() {
         FunctionN<String> function = args -> Arrays.stream(args).reduce("", (s, o) -> s + o.toString(), (s1, s2) -> s1 + s2);
-        commonFunctionTest(r -> r.nextInt(100), a -> function);
-        commonArityFunctionTest(r -> r.nextInt(100), a -> new FunctionN.Instance<>(a, function::applyAllUnchecked));
+        objectCFT(r -> r.nextInt(100), a -> function);
+        arityObjectCFT(r -> r.nextInt(100), a -> new FunctionN.Instance<>(a, function::applyAllUnchecked));
     }
 
     /**
@@ -44,7 +49,7 @@ public final class FunctionTests {
     @Test
     public void zero() {
         Function0<String> function = () -> "";
-        commonArityFunctionTest(0, a -> function);
+        arityObjectCFT(0, a -> function);
     }
 
     /**
@@ -53,7 +58,7 @@ public final class FunctionTests {
     @Test
     public void one() {
         Function1<Object, String> function = Object::toString;
-        commonFunction1Test(a -> function);
+        object1CFT(a -> function);
     }
 
     /**
@@ -62,7 +67,7 @@ public final class FunctionTests {
     @Test
     public void two() {
         Function2<Object, Object, String> function = (t1, t2) -> t1.toString() + t2.toString();
-        commonArityFunctionTest(2, a -> function);
+        arityObjectCFT(2, a -> function);
     }
 
     /**
@@ -71,8 +76,8 @@ public final class FunctionTests {
      * @param functionFactory the supplied function instance
      * @param <F> the type of the function
      */
-    public static <F extends Function1<Object, String>> void commonFunction1Test(final IntFunction<F> functionFactory) {
-        commonFunctionTest(null, functionFactory, (r, a, f, t, i, e) -> testFunction1(r, f, s -> s + " ", t, i, e));
+    public static <F extends Function1<Object, String>> void object1CFT(final IntFunction<F> functionFactory) {
+        objectCFT(null, functionFactory, (r, a, f, t, i, e) -> testFunction1(r, f, s -> s + " ", t, i, e));
     }
 
     /**
@@ -82,9 +87,9 @@ public final class FunctionTests {
      * @param functionFactory the supplied function instance
      * @param <F> the type of the function
      */
-    public static <F extends FunctionN<String>> void commonArityFunctionTest(final int arity,
-                                                                             final IntFunction<F> functionFactory) {
-        commonArityFunctionTest(r -> arity, functionFactory);
+    public static <F extends FunctionN<String>> void arityObjectCFT(final int arity,
+                                                                    final IntFunction<F> functionFactory) {
+        arityObjectCFT(r -> arity, functionFactory);
     }
 
     /**
@@ -94,9 +99,9 @@ public final class FunctionTests {
      * @param functionFactory the supplied function instance
      * @param <F> the type of the function
      */
-    public static <F extends FunctionN<String>> void commonArityFunctionTest(final ToIntFunction<Random> arityFunction,
-                                                                        final IntFunction<F> functionFactory) {
-        commonFunctionTest(arityFunction, functionFactory, FunctionTests::testArityFunction);
+    public static <F extends FunctionN<String>> void arityObjectCFT(final ToIntFunction<Random> arityFunction,
+                                                                    final IntFunction<F> functionFactory) {
+        objectCFT(arityFunction, functionFactory, FunctionTests::testArityFunction);
     }
 
     /**
@@ -106,9 +111,9 @@ public final class FunctionTests {
      * @param functionFactory the supplied function instance
      * @param <F> the type of the function
      */
-    public static <F extends FunctionN<String>> void commonFunctionTest(final ToIntFunction<Random> arityFunction,
-                                                                        final IntFunction<F> functionFactory) {
-        commonFunctionTest(arityFunction, functionFactory, FunctionTests::testFunction);
+    public static <F extends FunctionN<String>> void objectCFT(final ToIntFunction<Random> arityFunction,
+                                                               final IntFunction<F> functionFactory) {
+        objectCFT(arityFunction, functionFactory, FunctionTests::testFunction);
     }
 
     /**
@@ -119,10 +124,10 @@ public final class FunctionTests {
      * @param testCase a test case to test the function implementation
      * @param <F> the type of the function
      */
-    public static <F extends FunctionN<String>> void commonFunctionTest(final ToIntFunction<Random> arityFunction,
-                                                                        final IntFunction<F> functionFactory,
-                                                                        final CommonFunctionTest<F> testCase) {
-        testCase.test(new Random(),
+    public static <F extends FunctionN<String>> void objectCFT(final ToIntFunction<Random> arityFunction,
+                                                               final IntFunction<F> functionFactory,
+                                                               final ObjectCFT<F> testCase) {
+        testCase.test(RANDOM,
                 arityFunction,
                 functionFactory,
                 t -> t.length() % 2 == 0,
@@ -373,15 +378,26 @@ public final class FunctionTests {
     }
 
     /**
-     * A common function test to verify all working parts of a {@link FunctionN} implementation.
+     * A common function test to verify all working parts of an object based function implementation.
      *
-     * @param <F>
+     * @param <F> the type of the function
      */
     @FunctionalInterface
-    public interface CommonFunctionTest<F extends FunctionN<String>> {
+    public interface ObjectCFT<F extends FunctionN<String>> extends CommonFunctionTest<Object, String, Boolean, F> {}
 
+    /**
+     * A common function test to verify all working parts of a function implementation.
+     *
+     * @param <I> the type of the input(s) to the function
+     * @param <R> the type of the result of the function
+     * @param <V> the type of the result of the chained function via {@code andThen}
+     * @param <F> the type of the function
+     */
+    @FunctionalInterface
+    public interface CommonFunctionTest<I, R, V, F extends FunctionN<R>> {
+        
         /**
-         * Runs a common function test for a {@link FunctionN} implementation.
+         * Runs a common function test for a function implementation.
          *
          * @param random a random instance
          * @param arityFunction the arity of the function
@@ -393,8 +409,8 @@ public final class FunctionTests {
         void test(final Random random,
                   final ToIntFunction<Random> arityFunction,
                   final IntFunction<F> functionFactory,
-                  final Function<String, Boolean> andThenFunction,
-                  final Function<Random, Object> inputFactory,
-                  final Function<List<Object>, String> expectedResultFactory);
+                  final Function<R, V> andThenFunction,
+                  final Function<Random, I> inputFactory,
+                  final Function<List<I>, R> expectedResultFactory);
     }
 }
