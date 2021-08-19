@@ -33,12 +33,27 @@ public final class FunctionTests {
      */
     public static final Random RANDOM = new Random();
 
+    // Standardized Functions for Testing
+    public static final Function<Random, Object> GENERATOR = r -> r.nextBoolean() ? Integer.valueOf(r.nextInt(100)) : Double.valueOf(r.nextDouble());
+    public static final Function<List<Object>, Object[]> LIST = List::toArray;
+    public static final Function<Object[], String> FUNCTION = args -> Arrays.stream(args).reduce("", (s, o) -> s + o.toString(), (s1, s2) -> s1 + s2);
+    public static final Function<List<Object>, String> LIST_FUNCTION = l -> FUNCTION.apply(LIST.apply(l));
+    public static final Function<Object, Object> OBJECT = o -> o + " ";
+    public static final Function<String, Character> CHAR = s -> (char) s.chars().findFirst().orElse(0);
+    public static final Function<String, Integer> INT = String::length;
+    public static final Function<String, Boolean> BOOLEAN = s -> INT.apply(s) % 2 == 0;
+    public static final Function<String, Double> DOUBLE = s -> INT.apply(s) / 3.0;
+    public static final Function<String, Float> FLOAT = s -> INT.apply(s) / 3.0f;
+    public static final Function<String, Byte> BYTE = s -> INT.apply(s).byteValue();
+    public static final Function<String, Short> SHORT = s -> INT.apply(s).shortValue();
+    public static final Function<String, Long> LONG = s -> INT.apply(s).longValue();
+
     /**
      * Tests the n-arity function.
      */
     @Test
     public void n() {
-        FunctionN<String> function = args -> Arrays.stream(args).reduce("", (s, o) -> s + o.toString(), (s1, s2) -> s1 + s2);
+        FunctionN<String> function = FUNCTION::apply;
         objectCFT(r -> r.nextInt(100), a -> function);
         arityObjectCFT(r -> r.nextInt(100), a -> new FunctionN.Instance<>(a, function::applyAllUnchecked));
     }
@@ -48,7 +63,7 @@ public final class FunctionTests {
      */
     @Test
     public void zero() {
-        Function0<String> function = () -> "";
+        Function0<String> function = () -> FUNCTION.apply(new Object[]{});
         arityObjectCFT(0, a -> function);
     }
 
@@ -57,7 +72,7 @@ public final class FunctionTests {
      */
     @Test
     public void one() {
-        Function1<Object, String> function = Object::toString;
+        Function1<Object, String> function = o1 -> FUNCTION.apply(new Object[]{o1});
         object1CFT(a -> function);
     }
 
@@ -66,7 +81,7 @@ public final class FunctionTests {
      */
     @Test
     public void two() {
-        Function2<Object, Object, String> function = (t1, t2) -> t1.toString() + t2.toString();
+        Function2<Object, Object, String> function = (o1, o2) -> FUNCTION.apply(new Object[]{o1, o2});
         arityObjectCFT(2, a -> function);
     }
 
@@ -77,7 +92,7 @@ public final class FunctionTests {
      * @param <F> the type of the function
      */
     public static <F extends Function1<Object, String>> void object1CFT(final IntFunction<F> functionFactory) {
-        objectCFT(null, functionFactory, (r, a, f, t, i, e) -> testFunction1(r, f, s -> s + " ", t, i, e));
+        objectCFT(null, functionFactory, (r, a, f, t, i, e) -> testFunction1(r, f, OBJECT, t, i, e));
     }
 
     /**
@@ -131,8 +146,8 @@ public final class FunctionTests {
                 arityFunction,
                 functionFactory,
                 t -> t.length() % 2 == 0,
-                r -> r.nextBoolean() ? Integer.valueOf(r.nextInt(100)) : Double.valueOf(r.nextDouble()),
-                l -> l.stream().reduce("", (s, o) -> s + o.toString(), (s1, s2) -> s1 + s2));
+                GENERATOR,
+                LIST_FUNCTION);
     }
 
     /**

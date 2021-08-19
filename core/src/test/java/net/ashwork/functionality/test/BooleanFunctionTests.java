@@ -12,8 +12,9 @@ package net.ashwork.functionality.test;
 import net.ashwork.functionality.primitive.booleans.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.ToIntFunction;
 
@@ -22,12 +23,17 @@ import java.util.function.ToIntFunction;
  */
 public final class BooleanFunctionTests {
 
+    // Standardized Functions for Testing
+    public static final Function<Object[], Boolean> FUNCTION = o -> FunctionTests.BOOLEAN.apply(FunctionTests.FUNCTION.apply(o));
+    public static final Function<List<Object>, Boolean> LIST_FUNCTION = l -> FUNCTION.apply(FunctionTests.LIST.apply(l));
+    public static final Function<Boolean, String> BOOLEAN = Object::toString;
+
     /**
      * Tests the n-arity {@code boolean} function.
      */
     @Test
     public void n() {
-        ToBooleanFunctionN function = args -> Arrays.stream(args).reduce("", (s, o) -> s + o.toString(), (s1, s2) -> s1 + s2).length() % 2 == 0;
+        ToBooleanFunctionN function = FUNCTION::apply;
         toBooleanCFT(r -> r.nextInt(100), a -> function);
         arityToBooleanCFT(r -> r.nextInt(100), a -> new ToBooleanFunctionN.Instance(a, function::applyAllUnchecked));
     }
@@ -37,7 +43,7 @@ public final class BooleanFunctionTests {
      */
     @Test
     public void zero() {
-        ToBooleanFunction0 function = () -> true;
+        ToBooleanFunction0 function = () -> FUNCTION.apply(new Object[]{});
         arityToBooleanCFT(0, a -> function);
     }
 
@@ -46,9 +52,9 @@ public final class BooleanFunctionTests {
      */
     @Test
     public void one() {
-        ToBooleanFunction1<Object> function = o -> o.toString().length() % 2 == 0;
+        ToBooleanFunction1<Object> function = o1 -> FUNCTION.apply(new Object[]{o1});
         toBoolean1CFT(a -> function);
-        BooleanFunction1<String> bFunction = Boolean::toString;
+        BooleanFunction1<String> bFunction = BOOLEAN::apply;
         booleanObject1CFT(a -> bFunction);
     }
 
@@ -57,7 +63,7 @@ public final class BooleanFunctionTests {
      */
     @Test
     public void two() {
-        ToBooleanFunction2<Object, Object> function = (t1, t2) -> (t1.toString() + t2.toString()).length() % 2 == 0;
+        ToBooleanFunction2<Object, Object> function = (o1, o2) -> FUNCTION.apply(new Object[]{o1, o2});
         arityToBooleanCFT(2, a -> function);
     }
 
@@ -68,7 +74,7 @@ public final class BooleanFunctionTests {
      * @param <F> the type of the function
      */
     public static <F extends BooleanFunction1<String>> void booleanObject1CFT(final IntFunction<F> functionFactory) {
-        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((boolean) o), s -> s.toString().length() % 3 == 0, t, i, e));
+        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((boolean) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
     }
 
     /**
@@ -78,7 +84,7 @@ public final class BooleanFunctionTests {
      * @param <F> the type of the function
      */
     public static <F extends ToBooleanFunction1<Object>> void toBoolean1CFT(final IntFunction<F> functionFactory) {
-        toBooleanCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsBoolean, s -> s + " ", t, i, e));
+        toBooleanCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsBoolean, FunctionTests.OBJECT, t, i, e));
     }
 
     /**
@@ -132,8 +138,8 @@ public final class BooleanFunctionTests {
                 arityFunction,
                 functionFactory,
                 t -> !t,
-                r -> r.nextBoolean() ? Integer.valueOf(r.nextInt(100)) : Double.valueOf(r.nextDouble()),
-                l -> l.stream().reduce("", (s, o) -> s + o.toString(), (s1, s2) -> s1 + s2).length() % 2 == 0);
+                FunctionTests.GENERATOR,
+                LIST_FUNCTION);
     }
 
     /**
