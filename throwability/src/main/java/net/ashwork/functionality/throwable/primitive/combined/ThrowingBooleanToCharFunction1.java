@@ -73,7 +73,7 @@ public interface ThrowingBooleanToCharFunction1 extends AbstractThrowingBooleanT
 
     @Override
     default BooleanToCharFunction1 swallow() {
-        return this.handle((t, value) -> (char) 0);
+        return this.handle((t, value) -> '\u0000');
     }
 
     /**

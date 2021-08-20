@@ -73,7 +73,7 @@ public interface ThrowingBooleanToIntFunction1 extends AbstractThrowingBooleanTo
 
     @Override
     default BooleanToIntFunction1 swallow() {
-        return this.handle((t, value) -> (int) 0);
+        return this.handle((t, value) -> 0);
     }
 
     /**

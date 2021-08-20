@@ -73,7 +73,7 @@ public interface ThrowingBooleanToDoubleFunction1 extends AbstractThrowingBoolea
 
     @Override
     default BooleanToDoubleFunction1 swallow() {
-        return this.handle((t, value) -> (double) 0);
+        return this.handle((t, value) -> 0.0d);
     }
 
     /**

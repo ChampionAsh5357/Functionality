@@ -73,7 +73,7 @@ public interface ThrowingBooleanToLongFunction1 extends AbstractThrowingBooleanT
 
     @Override
     default BooleanToLongFunction1 swallow() {
-        return this.handle((t, value) -> (long) 0);
+        return this.handle((t, value) -> 0L);
     }
 
     /**

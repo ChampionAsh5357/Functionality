@@ -73,7 +73,7 @@ public interface ThrowingBooleanToFloatFunction1 extends AbstractThrowingBoolean
 
     @Override
     default BooleanToFloatFunction1 swallow() {
-        return this.handle((t, value) -> (float) 0);
+        return this.handle((t, value) -> 0.0f);
     }
 
     /**
