@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.booleans;
 import net.ashwork.functionality.operator.primitive.booleans.BooleanOperator1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.AbstractBooleanPredicate1;
+import net.ashwork.functionality.predicate.abstracts.booleans.AbstractBooleanPredicate1;
 
 /**
  * Represents a predicate that accepts a {@code boolean}-valued argument and produces a {@code boolean}-valued result.

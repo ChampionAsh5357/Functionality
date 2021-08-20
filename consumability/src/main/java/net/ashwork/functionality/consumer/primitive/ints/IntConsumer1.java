@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.ints;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.AbstractIntConsumer1;
+import net.ashwork.functionality.consumer.abstracts.ints.AbstractIntConsumer1;
 
 import java.util.function.IntConsumer;
 

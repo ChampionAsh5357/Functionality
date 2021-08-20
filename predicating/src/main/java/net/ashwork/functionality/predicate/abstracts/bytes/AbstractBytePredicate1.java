@@ -7,11 +7,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.predicate.abstracts;
+package net.ashwork.functionality.predicate.abstracts.bytes;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
 import net.ashwork.functionality.partial.UnboxedInput;
+import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
+import net.ashwork.functionality.predicate.abstracts.AbstractPredicateN;
 import net.ashwork.functionality.primitive.bytes.ByteFunction1;
 import net.ashwork.functionality.primitive.combined.ByteToBooleanFunction1;
 import net.ashwork.functionality.util.InheritOnly;

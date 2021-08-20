@@ -11,7 +11,7 @@ package net.ashwork.functionality.predicate.primitive.doubles;
 
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.AbstractDoublePredicate1;
+import net.ashwork.functionality.predicate.abstracts.doubles.AbstractDoublePredicate1;
 import net.ashwork.functionality.primitive.combined.DoubleToBooleanFunction1;
 
 import java.util.function.DoublePredicate;

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.predicate.primitive.chars;
+package net.ashwork.functionality.predicate.abstracts.chars;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;

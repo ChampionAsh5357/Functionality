@@ -11,7 +11,7 @@ package net.ashwork.functionality.predicate.primitive.floats;
 
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.AbstractFloatPredicate1;
+import net.ashwork.functionality.predicate.abstracts.floats.AbstractFloatPredicate1;
 import net.ashwork.functionality.primitive.combined.FloatToBooleanFunction1;
 
 /**

@@ -7,21 +7,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.consumer.abstracts;
+package net.ashwork.functionality.consumer.abstracts.doubles;
 
 import net.ashwork.functionality.Function1;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumer1;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumerN;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.partial.Variant;
-import net.ashwork.functionality.primitive.longs.LongFunction1;
+import net.ashwork.functionality.primitive.doubles.DoubleFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 
-import java.util.function.LongConsumer;
+import java.util.function.DoubleConsumer;
 
 /**
- * Represents an operation that accepts a {@code long}-valued argument and returns no result.
+ * Represents an operation that accepts a {@code double}-valued argument and returns no result.
  * This is the one-arity specialization of {@link AbstractConsumerN}.
  * This is the non-producing specialization of {@link Function1}.
- * This is the {@code long}-consuming primitive specialization of {@link AbstractConsumer1}.
+ * This is the {@code double}-consuming primitive specialization of {@link AbstractConsumer1}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
@@ -36,17 +38,17 @@ import java.util.function.LongConsumer;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractLongConsumer1<B extends AbstractConsumer1<Long, B>, C extends AbstractLongConsumer1<B, C>> extends AbstractConsumerN<C>, UnboxedInput<AbstractConsumer1<Long, B>>, Variant<LongConsumer> {
+public interface AbstractDoubleConsumer1<B extends AbstractConsumer1<Double, B>, C extends AbstractDoubleConsumer1<B, C>> extends AbstractConsumerN<C>, UnboxedInput<AbstractConsumer1<Double, B>>, Variant<DoubleConsumer> {
 
     /**
      * Performs this operation on the given argument.
      *
      * @param value the input argument
      */
-    void accept(final long value);
+    void accept(final double value);
 
     @Override
-    default void acceptAllUnchecked(final Object... args) { this.accept((long) args[0]); }
+    default void acceptAllUnchecked(final Object... args) { this.accept((double) args[0]); }
 
     @Override
     default int arity() {
@@ -54,10 +56,10 @@ public interface AbstractLongConsumer1<B extends AbstractConsumer1<Long, B>, C e
     }
 
     /**
-     * @see LongConsumer
+     * @see DoubleConsumer
      */
     @Override
-    default LongConsumer toVariant() {
+    default DoubleConsumer toVariant() {
         return this::accept;
     }
 
@@ -65,38 +67,38 @@ public interface AbstractLongConsumer1<B extends AbstractConsumer1<Long, B>, C e
      * @see AbstractConsumer1
      */
     @Override
-    default AbstractConsumer1<Long, B> boxInput() {
+    default AbstractConsumer1<Double, B> boxInput() {
         return this::accept;
     }
 
     @Override
-    default AbstractLongConsumer1<B, C> andThen(final C after) {
-        return (AbstractLongConsumer1<B, C>) AbstractConsumerN.super.andThen(after);
+    default AbstractDoubleConsumer1<B, C> andThen(final C after) {
+        return (AbstractDoubleConsumer1<B, C>) AbstractConsumerN.super.andThen(after);
     }
 
     @Override
-    default AbstractLongConsumer1<B, C> andThenUnchecked(final C after) {
-        return (final long value) -> {
+    default AbstractDoubleConsumer1<B, C> andThenUnchecked(final C after) {
+        return (final double value) -> {
             this.accept(value);
             after.accept(value);
         };
     }
 
     /**
-     * @see LongFunction1
+     * @see DoubleFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> LongFunction1<V> andThen(final Function1<? super Void, ? extends V> after) {
-        return (LongFunction1<V>) AbstractConsumerN.super.andThen(after);
+    default <V> DoubleFunction1<V> andThen(final Function1<? super Void, ? extends V> after) {
+        return (DoubleFunction1<V>) AbstractConsumerN.super.andThen(after);
     }
 
     /**
-     * @see LongFunction1
+     * @see DoubleFunction1
      */
     @Override
-    default <V> LongFunction1<V> andThenUnchecked(final Function1<? super Void, ? extends V> after) {
-        return (final long value) -> {
+    default <V> DoubleFunction1<V> andThenUnchecked(final Function1<? super Void, ? extends V> after) {
+        return (final double value) -> {
             this.accept(value);
             return after.apply(null);
         };

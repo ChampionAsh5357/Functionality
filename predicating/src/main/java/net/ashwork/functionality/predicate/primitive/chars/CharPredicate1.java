@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.primitive.chars;
 
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
+import net.ashwork.functionality.predicate.abstracts.chars.AbstractCharPredicate1;
 import net.ashwork.functionality.primitive.combined.CharToBooleanFunction1;
 
 /**

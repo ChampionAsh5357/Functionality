@@ -11,7 +11,7 @@ package net.ashwork.functionality.predicate.primitive.longs;
 
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.AbstractLongPredicate1;
+import net.ashwork.functionality.predicate.abstracts.longs.AbstractLongPredicate1;
 import net.ashwork.functionality.primitive.combined.LongToBooleanFunction1;
 
 import java.util.function.LongPredicate;

@@ -7,21 +7,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.consumer.abstracts;
+package net.ashwork.functionality.consumer.abstracts.longs;
 
 import net.ashwork.functionality.Function1;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumer1;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumerN;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.partial.Variant;
-import net.ashwork.functionality.primitive.ints.IntFunction1;
+import net.ashwork.functionality.primitive.longs.LongFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 
-import java.util.function.IntConsumer;
+import java.util.function.LongConsumer;
 
 /**
- * Represents an operation that accepts an {@code int}-valued argument and returns no result.
+ * Represents an operation that accepts a {@code long}-valued argument and returns no result.
  * This is the one-arity specialization of {@link AbstractConsumerN}.
  * This is the non-producing specialization of {@link Function1}.
- * This is the {@code int}-consuming primitive specialization of {@link AbstractConsumer1}.
+ * This is the {@code long}-consuming primitive specialization of {@link AbstractConsumer1}.
  *
  * @apiNote
  * This is an abstract consumer and should not be used directly. It should instead
@@ -36,17 +38,17 @@ import java.util.function.IntConsumer;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractIntConsumer1<B extends AbstractConsumer1<Integer, B>, C extends AbstractIntConsumer1<B, C>> extends AbstractConsumerN<C>, UnboxedInput<AbstractConsumer1<Integer, B>>, Variant<IntConsumer> {
+public interface AbstractLongConsumer1<B extends AbstractConsumer1<Long, B>, C extends AbstractLongConsumer1<B, C>> extends AbstractConsumerN<C>, UnboxedInput<AbstractConsumer1<Long, B>>, Variant<LongConsumer> {
 
     /**
      * Performs this operation on the given argument.
      *
      * @param value the input argument
      */
-    void accept(final int value);
+    void accept(final long value);
 
     @Override
-    default void acceptAllUnchecked(final Object... args) { this.accept((int) args[0]); }
+    default void acceptAllUnchecked(final Object... args) { this.accept((long) args[0]); }
 
     @Override
     default int arity() {
@@ -54,10 +56,10 @@ public interface AbstractIntConsumer1<B extends AbstractConsumer1<Integer, B>, C
     }
 
     /**
-     * @see IntConsumer
+     * @see LongConsumer
      */
     @Override
-    default IntConsumer toVariant() {
+    default LongConsumer toVariant() {
         return this::accept;
     }
 
@@ -65,38 +67,38 @@ public interface AbstractIntConsumer1<B extends AbstractConsumer1<Integer, B>, C
      * @see AbstractConsumer1
      */
     @Override
-    default AbstractConsumer1<Integer, B> boxInput() {
+    default AbstractConsumer1<Long, B> boxInput() {
         return this::accept;
     }
 
     @Override
-    default AbstractIntConsumer1<B, C> andThen(final C after) {
-        return (AbstractIntConsumer1<B, C>) AbstractConsumerN.super.andThen(after);
+    default AbstractLongConsumer1<B, C> andThen(final C after) {
+        return (AbstractLongConsumer1<B, C>) AbstractConsumerN.super.andThen(after);
     }
 
     @Override
-    default AbstractIntConsumer1<B, C> andThenUnchecked(final C after) {
-        return (final int value) -> {
+    default AbstractLongConsumer1<B, C> andThenUnchecked(final C after) {
+        return (final long value) -> {
             this.accept(value);
             after.accept(value);
         };
     }
 
     /**
-     * @see IntFunction1
+     * @see LongFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> IntFunction1<V> andThen(final Function1<? super Void, ? extends V> after) {
-        return (IntFunction1<V>) AbstractConsumerN.super.andThen(after);
+    default <V> LongFunction1<V> andThen(final Function1<? super Void, ? extends V> after) {
+        return (LongFunction1<V>) AbstractConsumerN.super.andThen(after);
     }
 
     /**
-     * @see IntFunction1
+     * @see LongFunction1
      */
     @Override
-    default <V> IntFunction1<V> andThenUnchecked(final Function1<? super Void, ? extends V> after) {
-        return (final int value) -> {
+    default <V> LongFunction1<V> andThenUnchecked(final Function1<? super Void, ? extends V> after) {
+        return (final long value) -> {
             this.accept(value);
             return after.apply(null);
         };

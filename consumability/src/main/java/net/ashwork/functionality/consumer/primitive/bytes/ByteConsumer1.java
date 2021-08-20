@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.bytes;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.AbstractByteConsumer1;
+import net.ashwork.functionality.consumer.abstracts.bytes.AbstractByteConsumer1;
 
 /**
  * Represents an operation that accepts a {@code byte}-valued argument and returns no result.

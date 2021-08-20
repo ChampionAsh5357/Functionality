@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.shorts;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.AbstractShortConsumer1;
+import net.ashwork.functionality.consumer.abstracts.shorts.AbstractShortConsumer1;
 
 /**
  * Represents an operation that accepts a {@code short}-valued argument and returns no result.

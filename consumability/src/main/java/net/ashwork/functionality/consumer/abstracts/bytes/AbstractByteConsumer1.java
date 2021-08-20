@@ -7,9 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.consumer.abstracts;
+package net.ashwork.functionality.consumer.abstracts.bytes;
 
 import net.ashwork.functionality.Function1;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumer1;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumerN;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.primitive.bytes.ByteFunction1;
 import net.ashwork.functionality.util.InheritOnly;

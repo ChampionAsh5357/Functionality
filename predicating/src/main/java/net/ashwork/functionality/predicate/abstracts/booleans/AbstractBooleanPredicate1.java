@@ -7,12 +7,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package net.ashwork.functionality.predicate.abstracts;
+package net.ashwork.functionality.predicate.abstracts.booleans;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.operator.primitive.booleans.BooleanOperator1;
 import net.ashwork.functionality.partial.FunctionVariant;
 import net.ashwork.functionality.partial.UnboxedInput;
+import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
+import net.ashwork.functionality.predicate.abstracts.AbstractPredicateN;
 import net.ashwork.functionality.primitive.booleans.BooleanFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 

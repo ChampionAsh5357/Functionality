@@ -11,7 +11,7 @@ package net.ashwork.functionality.predicate.primitive.ints;
 
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.AbstractIntPredicate1;
+import net.ashwork.functionality.predicate.abstracts.ints.AbstractIntPredicate1;
 import net.ashwork.functionality.primitive.combined.IntToBooleanFunction1;
 
 import java.util.function.IntPredicate;

@@ -11,7 +11,7 @@ package net.ashwork.functionality.predicate.primitive.bytes;
 
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.AbstractBytePredicate1;
+import net.ashwork.functionality.predicate.abstracts.bytes.AbstractBytePredicate1;
 import net.ashwork.functionality.primitive.combined.ByteToBooleanFunction1;
 
 /**

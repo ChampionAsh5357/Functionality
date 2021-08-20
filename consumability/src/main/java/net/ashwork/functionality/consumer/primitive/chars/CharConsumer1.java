@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.chars;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.AbstractCharConsumer1;
+import net.ashwork.functionality.consumer.abstracts.chars.AbstractCharConsumer1;
 
 /**
  * Represents an operation that accepts a {@code char}-valued argument and returns no result.
