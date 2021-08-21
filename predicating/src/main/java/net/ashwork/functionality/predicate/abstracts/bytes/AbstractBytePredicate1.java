@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.abstracts.bytes;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
+import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicateN;
@@ -37,7 +38,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractBytePredicate1<B extends AbstractPredicate1<Byte, B>, P extends AbstractBytePredicate1<B, P>> extends AbstractPredicateN<P>, FunctionVariant<Boolean, ByteToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Byte, B>> {
+public interface AbstractBytePredicate1<B extends AbstractPredicate1<Byte, B>, P extends AbstractBytePredicate1<B, P>> extends AbstractPredicateN<P>, InputChainableInput<Byte>, FunctionVariant<Boolean, ByteToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Byte, B>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -70,9 +71,22 @@ public interface AbstractBytePredicate1<B extends AbstractPredicate1<Byte, B>, P
      * @see AbstractPredicate1
      */
     @Override
-    default AbstractPredicate1<Byte, B> boxInput() {
-        return this::test;
+    AbstractPredicate1<Byte, B> boxInput();
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractPredicate1<V, ?> compose(final Function1<? super V, ? extends Byte> before) {
+        return (AbstractPredicate1<V, ?>) InputChainableInput.super.compose(before);
     }
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @Override
+    <V> AbstractPredicate1<V, ?> composeUnchecked(final Function1<? super V, ? extends Byte> before);
 
     /**
      * @see ByteFunction1
@@ -92,19 +106,13 @@ public interface AbstractBytePredicate1<B extends AbstractPredicate1<Byte, B>, P
     }
 
     @Override
-    default AbstractBytePredicate1<B, P> not() {
-        return (final byte value) -> !this.test(value);
-    }
+    AbstractBytePredicate1<B, P> not();
 
     @Override
-    default AbstractBytePredicate1<B, P> and(final P other) {
-        return (final byte value) -> this.test(value) && other.test(value);
-    }
+    AbstractBytePredicate1<B, P> and(final P other);
 
     @Override
-    default AbstractBytePredicate1<B, P> or(final P other) {
-        return (final byte value) -> this.test(value) || other.test(value);
-    }
+    AbstractBytePredicate1<B, P> or(final P other);
 
     @Override
     default AbstractBytePredicate1<B, P> xor(final P other) {

@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.predicate;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction1;
 
@@ -54,6 +55,17 @@ public interface Predicate1<T1> extends AbstractPredicate1<T1, Predicate1<T1>> {
      */
     static <T1> Predicate1<T1> fromVariant(final Predicate<T1> predicate) {
         return predicate::test;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> Predicate1<V> compose(final Function1<? super V, ? extends T1> before) {
+        return (Predicate1<V>) AbstractPredicate1.super.compose(before);
+    }
+
+    @Override
+    default <V> Predicate1<V> composeUnchecked(final Function1<? super V, ? extends T1> before) {
+        return (final V v) -> this.test(before.apply(v));
     }
 
     @Override

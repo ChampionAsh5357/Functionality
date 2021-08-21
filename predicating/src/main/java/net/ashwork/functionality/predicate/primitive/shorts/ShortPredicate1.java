@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.predicate.primitive.shorts;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
 import net.ashwork.functionality.predicate.abstracts.shorts.AbstractShortPredicate1;
@@ -48,6 +49,23 @@ public interface ShortPredicate1 extends AbstractShortPredicate1<Predicate1<Shor
     @Override
     default Predicate1<Short> boxInput() {
         return this::test;
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> Predicate1<V> compose(final Function1<? super V, ? extends Short> before) {
+        return (Predicate1<V>) AbstractShortPredicate1.super.compose(before);
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @Override
+    default <V> Predicate1<V> composeUnchecked(final Function1<? super V, ? extends Short> before) {
+        return (final V v) -> this.test(before.apply(v));
     }
 
     @Override

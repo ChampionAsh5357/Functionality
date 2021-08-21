@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.predicate.primitive.floats;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
 import net.ashwork.functionality.predicate.abstracts.floats.AbstractFloatPredicate1;
@@ -48,6 +49,23 @@ public interface FloatPredicate1 extends AbstractFloatPredicate1<Predicate1<Floa
     @Override
     default Predicate1<Float> boxInput() {
         return this::test;
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> Predicate1<V> compose(final Function1<? super V, ? extends Float> before) {
+        return (Predicate1<V>) AbstractFloatPredicate1.super.compose(before);
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @Override
+    default <V> Predicate1<V> composeUnchecked(final Function1<? super V, ? extends Float> before) {
+        return (final V v) -> this.test(before.apply(v));
     }
 
     @Override

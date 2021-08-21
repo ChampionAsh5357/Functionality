@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.abstracts;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
+import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.Variant;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunction1;
 import net.ashwork.functionality.util.InheritOnly;
@@ -34,7 +35,7 @@ import java.util.function.Predicate;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractPredicate1<T1, P extends AbstractPredicate1<T1, P>> extends AbstractPredicateN<P>, Variant<Predicate<T1>>, FunctionVariant<Boolean, ToBooleanFunction1<T1>> {
+public interface AbstractPredicate1<T1, P extends AbstractPredicate1<T1, P>> extends AbstractPredicateN<P>, InputChainableInput<T1>, Variant<Predicate<T1>>, FunctionVariant<Boolean, ToBooleanFunction1<T1>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -72,6 +73,15 @@ public interface AbstractPredicate1<T1, P extends AbstractPredicate1<T1, P>> ext
         return this::test;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractPredicate1<V, ?> compose(final Function1<? super V, ? extends T1> before) {
+        return (AbstractPredicate1<V, ?>) InputChainableInput.super.compose(before);
+    }
+
+    @Override
+    <V> AbstractPredicate1<V, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
+
     /**
      * @see Function1
      */
@@ -90,19 +100,13 @@ public interface AbstractPredicate1<T1, P extends AbstractPredicate1<T1, P>> ext
     }
 
     @Override
-    default AbstractPredicate1<T1, P> not() {
-        return (final T1 t1) -> !this.test(t1);
-    }
+    AbstractPredicate1<T1, P> not();
 
     @Override
-    default AbstractPredicate1<T1, P> and(final P other) {
-        return (final T1 t1) -> this.test(t1) && other.test(t1);
-    }
+    AbstractPredicate1<T1, P> and(final P other);
 
     @Override
-    default AbstractPredicate1<T1, P> or(final P other) {
-        return (final T1 t1) -> this.test(t1) || other.test(t1);
-    }
+    AbstractPredicate1<T1, P> or(final P other);
 
     @Override
     default AbstractPredicate1<T1, P> xor(final P other) {

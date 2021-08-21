@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.predicate.primitive.chars;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
 import net.ashwork.functionality.predicate.abstracts.chars.AbstractCharPredicate1;
@@ -48,6 +49,23 @@ public interface CharPredicate1 extends AbstractCharPredicate1<Predicate1<Charac
     @Override
     default Predicate1<Character> boxInput() {
         return this::test;
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> Predicate1<V> compose(final Function1<? super V, ? extends Character> before) {
+        return (Predicate1<V>) AbstractCharPredicate1.super.compose(before);
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @Override
+    default <V> Predicate1<V> composeUnchecked(final Function1<? super V, ? extends Character> before) {
+        return (final V v) -> this.test(before.apply(v));
     }
 
     @Override

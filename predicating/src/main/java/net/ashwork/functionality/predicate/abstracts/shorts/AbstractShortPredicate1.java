@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.abstracts.shorts;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
+import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicateN;
@@ -37,7 +38,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractShortPredicate1<B extends AbstractPredicate1<Short, B>, P extends AbstractShortPredicate1<B, P>> extends AbstractPredicateN<P>, FunctionVariant<Boolean, ShortToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Short, B>> {
+public interface AbstractShortPredicate1<B extends AbstractPredicate1<Short, B>, P extends AbstractShortPredicate1<B, P>> extends AbstractPredicateN<P>, InputChainableInput<Short>, FunctionVariant<Boolean, ShortToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Short, B>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -70,9 +71,22 @@ public interface AbstractShortPredicate1<B extends AbstractPredicate1<Short, B>,
      * @see AbstractPredicate1
      */
     @Override
-    default AbstractPredicate1<Short, B> boxInput() {
-        return this::test;
+    AbstractPredicate1<Short, B> boxInput();
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractPredicate1<V, ?> compose(final Function1<? super V, ? extends Short> before) {
+        return (AbstractPredicate1<V, ?>) InputChainableInput.super.compose(before);
     }
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @Override
+    <V> AbstractPredicate1<V, ?> composeUnchecked(final Function1<? super V, ? extends Short> before);
 
     /**
      * @see ShortFunction1
@@ -92,19 +106,13 @@ public interface AbstractShortPredicate1<B extends AbstractPredicate1<Short, B>,
     }
 
     @Override
-    default AbstractShortPredicate1<B, P> not() {
-        return (final short value) -> !this.test(value);
-    }
+    AbstractShortPredicate1<B, P> not();
 
     @Override
-    default AbstractShortPredicate1<B, P> and(final P other) {
-        return (final short value) -> this.test(value) && other.test(value);
-    }
+    AbstractShortPredicate1<B, P> and(final P other);
 
     @Override
-    default AbstractShortPredicate1<B, P> or(final P other) {
-        return (final short value) -> this.test(value) || other.test(value);
-    }
+    AbstractShortPredicate1<B, P> or(final P other);
 
     @Override
     default AbstractShortPredicate1<B, P> xor(final P other) {

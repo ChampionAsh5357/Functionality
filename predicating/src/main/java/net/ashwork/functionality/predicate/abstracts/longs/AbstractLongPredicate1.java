@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.abstracts.longs;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
+import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.partial.Variant;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
@@ -40,7 +41,7 @@ import java.util.function.LongPredicate;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractLongPredicate1<B extends AbstractPredicate1<Long, B>, P extends AbstractLongPredicate1<B, P>> extends AbstractPredicateN<P>, Variant<LongPredicate>, FunctionVariant<Boolean, LongToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Long, B>> {
+public interface AbstractLongPredicate1<B extends AbstractPredicate1<Long, B>, P extends AbstractLongPredicate1<B, P>> extends AbstractPredicateN<P>, InputChainableInput<Long>, Variant<LongPredicate>, FunctionVariant<Boolean, LongToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Long, B>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -81,9 +82,22 @@ public interface AbstractLongPredicate1<B extends AbstractPredicate1<Long, B>, P
      * @see AbstractPredicate1
      */
     @Override
-    default AbstractPredicate1<Long, B> boxInput() {
-        return this::test;
+    AbstractPredicate1<Long, B> boxInput();
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractPredicate1<V, ?> compose(final Function1<? super V, ? extends Long> before) {
+        return (AbstractPredicate1<V, ?>) InputChainableInput.super.compose(before);
     }
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @Override
+    <V> AbstractPredicate1<V, ?> composeUnchecked(final Function1<? super V, ? extends Long> before);
 
     /**
      * @see LongFunction1
@@ -103,19 +117,13 @@ public interface AbstractLongPredicate1<B extends AbstractPredicate1<Long, B>, P
     }
 
     @Override
-    default AbstractLongPredicate1<B, P> not() {
-        return (final long value) -> !this.test(value);
-    }
+    AbstractLongPredicate1<B, P> not();
 
     @Override
-    default AbstractLongPredicate1<B, P> and(final P other) {
-        return (final long value) -> this.test(value) && other.test(value);
-    }
+    AbstractLongPredicate1<B, P> and(final P other);
 
     @Override
-    default AbstractLongPredicate1<B, P> or(final P other) {
-        return (final long value) -> this.test(value) || other.test(value);
-    }
+    AbstractLongPredicate1<B, P> or(final P other);
 
     @Override
     default AbstractLongPredicate1<B, P> xor(final P other) {

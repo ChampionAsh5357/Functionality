@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.abstracts.doubles;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
+import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.partial.Variant;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
@@ -40,7 +41,7 @@ import java.util.function.DoublePredicate;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractDoublePredicate1<B extends AbstractPredicate1<Double, B>, P extends AbstractDoublePredicate1<B, P>> extends AbstractPredicateN<P>, Variant<DoublePredicate>, FunctionVariant<Boolean, DoubleToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Double, B>> {
+public interface AbstractDoublePredicate1<B extends AbstractPredicate1<Double, B>, P extends AbstractDoublePredicate1<B, P>> extends AbstractPredicateN<P>, InputChainableInput<Double>, Variant<DoublePredicate>, FunctionVariant<Boolean, DoubleToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Double, B>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -81,9 +82,22 @@ public interface AbstractDoublePredicate1<B extends AbstractPredicate1<Double, B
      * @see AbstractPredicate1
      */
     @Override
-    default AbstractPredicate1<Double, B> boxInput() {
-        return this::test;
+    AbstractPredicate1<Double, B> boxInput();
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractPredicate1<V, ?> compose(final Function1<? super V, ? extends Double> before) {
+        return (AbstractPredicate1<V, ?>) InputChainableInput.super.compose(before);
     }
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @Override
+    <V> AbstractPredicate1<V, ?> composeUnchecked(final Function1<? super V, ? extends Double> before);
 
     /**
      * @see DoubleFunction1
@@ -103,19 +117,13 @@ public interface AbstractDoublePredicate1<B extends AbstractPredicate1<Double, B
     }
 
     @Override
-    default AbstractDoublePredicate1<B, P> not() {
-        return (final double value) -> !this.test(value);
-    }
+    AbstractDoublePredicate1<B, P> not();
 
     @Override
-    default AbstractDoublePredicate1<B, P> and(final P other) {
-        return (final double value) -> this.test(value) && other.test(value);
-    }
+    AbstractDoublePredicate1<B, P> and(final P other);
 
     @Override
-    default AbstractDoublePredicate1<B, P> or(final P other) {
-        return (final double value) -> this.test(value) || other.test(value);
-    }
+    AbstractDoublePredicate1<B, P> or(final P other);
 
     @Override
     default AbstractDoublePredicate1<B, P> xor(final P other) {

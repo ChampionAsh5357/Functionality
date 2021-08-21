@@ -11,6 +11,7 @@ package net.ashwork.functionality.predicate.abstracts.floats;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.FunctionVariant;
+import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicate1;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicateN;
@@ -37,7 +38,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractFloatPredicate1<B extends AbstractPredicate1<Float, B>, P extends AbstractFloatPredicate1<B, P>> extends AbstractPredicateN<P>, FunctionVariant<Boolean, FloatToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Float, B>> {
+public interface AbstractFloatPredicate1<B extends AbstractPredicate1<Float, B>, P extends AbstractFloatPredicate1<B, P>> extends AbstractPredicateN<P>, InputChainableInput<Float>, FunctionVariant<Boolean, FloatToBooleanFunction1>, UnboxedInput<AbstractPredicate1<Float, B>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -70,9 +71,22 @@ public interface AbstractFloatPredicate1<B extends AbstractPredicate1<Float, B>,
      * @see AbstractPredicate1
      */
     @Override
-    default AbstractPredicate1<Float, B> boxInput() {
-        return this::test;
+    AbstractPredicate1<Float, B> boxInput();
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> AbstractPredicate1<V, ?> compose(final Function1<? super V, ? extends Float> before) {
+        return (AbstractPredicate1<V, ?>) InputChainableInput.super.compose(before);
     }
+
+    /**
+     * @see AbstractPredicate1
+     */
+    @Override
+    <V> AbstractPredicate1<V, ?> composeUnchecked(final Function1<? super V, ? extends Float> before);
 
     /**
      * @see FloatFunction1
@@ -92,19 +106,13 @@ public interface AbstractFloatPredicate1<B extends AbstractPredicate1<Float, B>,
     }
 
     @Override
-    default AbstractFloatPredicate1<B, P> not() {
-        return (final float value) -> !this.test(value);
-    }
+    AbstractFloatPredicate1<B, P> not();
 
     @Override
-    default AbstractFloatPredicate1<B, P> and(final P other) {
-        return (final float value) -> this.test(value) && other.test(value);
-    }
+    AbstractFloatPredicate1<B, P> and(final P other);
 
     @Override
-    default AbstractFloatPredicate1<B, P> or(final P other) {
-        return (final float value) -> this.test(value) || other.test(value);
-    }
+    AbstractFloatPredicate1<B, P> or(final P other);
 
     @Override
     default AbstractFloatPredicate1<B, P> xor(final P other) {

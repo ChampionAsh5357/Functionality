@@ -9,6 +9,7 @@
 
 package net.ashwork.functionality.predicate.primitive.ints;
 
+import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
 import net.ashwork.functionality.predicate.abstracts.ints.AbstractIntPredicate1;
@@ -62,6 +63,23 @@ public interface IntPredicate1 extends AbstractIntPredicate1<Predicate1<Integer>
     @Override
     default Predicate1<Integer> boxInput() {
         return this::test;
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default <V> Predicate1<V> compose(final Function1<? super V, ? extends Integer> before) {
+        return (Predicate1<V>) AbstractIntPredicate1.super.compose(before);
+    }
+
+    /**
+     * @see Predicate1
+     */
+    @Override
+    default <V> Predicate1<V> composeUnchecked(final Function1<? super V, ? extends Integer> before) {
+        return (final V v) -> this.test(before.apply(v));
     }
 
     @Override
