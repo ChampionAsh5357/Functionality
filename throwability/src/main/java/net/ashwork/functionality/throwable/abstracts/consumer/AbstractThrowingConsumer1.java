@@ -54,6 +54,21 @@ public interface AbstractThrowingConsumer1<T1, H extends AbstractThrowingConsume
         return 1;
     }
 
+    /**
+     * @see AbstractConsumer1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default AbstractConsumer1<T1, ?> handle(final H handler) {
+        return (AbstractConsumer1<T1, ?>) AbstractThrowingConsumerN.super.handle(handler);
+    }
+
+    /**
+     * @see AbstractConsumer1
+     */
+    @Override
+    AbstractConsumer1<T1, ?> swallow();
+
     @Override
     default AbstractThrowingConsumer1<T1, H, C> andThen(final C after) {
         return (AbstractThrowingConsumer1<T1, H, C>) AbstractThrowingConsumerN.super.andThen(after);

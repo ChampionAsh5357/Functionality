@@ -63,6 +63,20 @@ public interface AbstractThrowingConsumerN<H extends AbstractThrowingConsumerN.H
         this.acceptAllUnchecked(FunctionN.checkSize(this.arity(), args));
     }
 
+    /**
+     * @see AbstractConsumerN
+     */
+    @Override
+    default AbstractConsumerN<?> handle(final H handler) {
+        return (AbstractConsumerN<?>) AbstractThrowingFunctionN.super.handle(handler);
+    }
+
+    /**
+     * @see AbstractConsumerN
+     */
+    @Override
+    AbstractConsumerN<?> swallow();
+
     @Override
     default AbstractThrowingConsumerN<H, C> andThen(final C after) {
         return (AbstractThrowingConsumerN<H, C>) ConsumerChainableConsumer.super.andThen(after);

@@ -11,6 +11,7 @@ package net.ashwork.functionality.throwable.abstracts.consumer;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.abstracts.AbstractConsumer2;
+import net.ashwork.functionality.consumer.abstracts.AbstractConsumerN;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
 
@@ -55,6 +56,21 @@ public interface AbstractThrowingConsumer2<T1, T2, H extends AbstractThrowingCon
     default int arity() {
         return 2;
     }
+
+    /**
+     * @see AbstractConsumer2
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    default AbstractConsumer2<T1, T2, ?> handle(final H handler) {
+        return (AbstractConsumer2<T1, T2, ?>) AbstractThrowingConsumerN.super.handle(handler);
+    }
+
+    /**
+     * @see AbstractConsumer2
+     */
+    @Override
+    AbstractConsumer2<T1, T2, ?> swallow();
 
     @Override
     default AbstractThrowingConsumer2<T1, T2, H, C> andThen(final C after) {

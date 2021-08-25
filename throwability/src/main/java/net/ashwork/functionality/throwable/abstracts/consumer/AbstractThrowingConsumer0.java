@@ -50,6 +50,20 @@ public interface AbstractThrowingConsumer0<H extends AbstractThrowingConsumer0.H
         return 0;
     }
 
+    /**
+     * @see AbstractConsumer0
+     */
+    @Override
+    default AbstractConsumer0<?> handle(final H handler) {
+        return (AbstractConsumer0<?>) AbstractThrowingConsumerN.super.handle(handler);
+    }
+
+    /**
+     * @see AbstractConsumer0
+     */
+    @Override
+    AbstractConsumer0<?> swallow();
+
     @Override
     default AbstractThrowingConsumer0<H, C> andThen(final C after) {
         return (AbstractThrowingConsumer0<H, C>) AbstractThrowingConsumerN.super.andThen(after);
