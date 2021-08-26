@@ -75,6 +75,7 @@ public final class LongFunctionTests {
      */
     public static <F extends LongFunction1<String>> void longObject1CFT(final IntFunction<F> functionFactory) {
         FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((long) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
+        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).boxInput().apply((long) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
     }
 
     /**
@@ -85,6 +86,7 @@ public final class LongFunctionTests {
      */
     public static <F extends ToLongFunction1<Object>> void toLong1CFT(final IntFunction<F> functionFactory) {
         toLongCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsLong, FunctionTests.OBJECT, t, i, e));
+        toLongCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0).boxResult()::apply, FunctionTests.OBJECT, t, i, e));
     }
 
     /**

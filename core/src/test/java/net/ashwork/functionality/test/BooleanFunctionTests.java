@@ -75,6 +75,7 @@ public final class BooleanFunctionTests {
      */
     public static <F extends BooleanFunction1<String>> void booleanObject1CFT(final IntFunction<F> functionFactory) {
         FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((boolean) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
+        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).boxInput().apply((boolean) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
     }
 
     /**
@@ -85,6 +86,7 @@ public final class BooleanFunctionTests {
      */
     public static <F extends ToBooleanFunction1<Object>> void toBoolean1CFT(final IntFunction<F> functionFactory) {
         toBooleanCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsBoolean, FunctionTests.OBJECT, t, i, e));
+        toBooleanCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0).boxResult()::apply, FunctionTests.OBJECT, t, i, e));
     }
 
     /**

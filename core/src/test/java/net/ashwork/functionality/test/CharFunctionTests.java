@@ -75,6 +75,7 @@ public final class CharFunctionTests {
      */
     public static <F extends CharFunction1<String>> void charObject1CFT(final IntFunction<F> functionFactory) {
         FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((char) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
+        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).boxInput().apply((char) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
     }
 
     /**
@@ -85,6 +86,7 @@ public final class CharFunctionTests {
      */
     public static <F extends ToCharFunction1<Object>> void toChar1CFT(final IntFunction<F> functionFactory) {
         toCharCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsChar, FunctionTests.OBJECT, t, i, e));
+        toCharCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0).boxResult()::apply, FunctionTests.OBJECT, t, i, e));
     }
 
     /**

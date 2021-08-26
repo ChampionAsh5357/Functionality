@@ -75,6 +75,7 @@ public final class FloatFunctionTests {
      */
     public static <F extends FloatFunction1<String>> void floatObject1CFT(final IntFunction<F> functionFactory) {
         FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((float) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
+        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).boxInput().apply((float) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
     }
 
     /**
@@ -85,6 +86,7 @@ public final class FloatFunctionTests {
      */
     public static <F extends ToFloatFunction1<Object>> void toFloat1CFT(final IntFunction<F> functionFactory) {
         toFloatCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsFloat, FunctionTests.OBJECT, t, i, e));
+        toFloatCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0).boxResult()::apply, FunctionTests.OBJECT, t, i, e));
     }
 
     /**

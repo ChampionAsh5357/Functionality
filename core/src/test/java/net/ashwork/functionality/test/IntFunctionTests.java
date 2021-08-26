@@ -75,6 +75,7 @@ public final class IntFunctionTests {
      */
     public static <F extends IntFunction1<String>> void intObject1CFT(final IntFunction<F> functionFactory) {
         FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).apply((int) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
+        FunctionTests.objectCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, b -> o -> f.apply(b).boxInput().apply((int) o), o1 -> FUNCTION.apply(new Object[]{o1}), t, i, e));
     }
 
     /**
@@ -85,6 +86,7 @@ public final class IntFunctionTests {
      */
     public static <F extends ToIntFunction1<Object>> void toInt1CFT(final IntFunction<F> functionFactory) {
         toIntCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0)::applyAsInt, FunctionTests.OBJECT, t, i, e));
+        toIntCFT(null, functionFactory, (r, a, f, t, i, e) -> FunctionTests.testFunction1(r, i0 -> f.apply(i0).boxResult()::apply, FunctionTests.OBJECT, t, i, e));
     }
 
     /**
