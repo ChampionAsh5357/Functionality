@@ -31,7 +31,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThr
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToByteFunction2<T1, T2> extends AbstractThrowingToByteFunction2<T1, T2, ThrowingFunction2<T1, T2, Byte>, AbstractThrowingToByteFunction2.Handler<T1, T2>> {
+public interface ThrowingToByteFunction2<T1, T2> extends AbstractThrowingToByteFunction2<T1, T2, AbstractThrowingToByteFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

@@ -29,7 +29,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractTh
  * @see ToFloatFunction1
  * @since 1.0.0
  */
-public interface ThrowingToFloatFunction1<T1> extends AbstractThrowingToFloatFunction1<T1, ThrowingFunction1<T1, Float>, AbstractThrowingToFloatFunction1.Handler<T1>> {
+public interface ThrowingToFloatFunction1<T1> extends AbstractThrowingToFloatFunction1<T1, AbstractThrowingToFloatFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

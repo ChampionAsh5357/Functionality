@@ -27,7 +27,6 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
- * @param <U> the type of the function which unboxes the {@code boolean} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction2
@@ -36,7 +35,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToBooleanFunction2<T1, T2, U extends AbstractThrowingFunction2<T1, T2, Boolean, ?>, H extends AbstractThrowingToBooleanFunction2.Handler<T1, T2>> extends AbstractThrowingToBooleanFunctionN<H>, UnboxedResult<U> {
+public interface AbstractThrowingToBooleanFunction2<T1, T2, H extends AbstractThrowingToBooleanFunction2.Handler<T1, T2>> extends AbstractThrowingToBooleanFunctionN<H>, UnboxedResult<AbstractThrowingFunction2<T1, T2, Boolean, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -57,6 +56,12 @@ public interface AbstractThrowingToBooleanFunction2<T1, T2, U extends AbstractTh
     default int arity() {
         return 2;
     }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    AbstractThrowingFunction2<T1, T2, Boolean, ?> boxResult();
 
     /**
      * @see ToBooleanFunction2

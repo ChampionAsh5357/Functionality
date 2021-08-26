@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.chars.ThrowingToCharFunctio
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingByteToCharFunction1 extends AbstractThrowingByteToCharFunction1<ThrowingFunction1<Byte, Character>, ThrowingToCharFunction1<Byte>, ThrowingByteFunction1<Character>, AbstractThrowingByteToCharFunction1.Handler> {
+public interface ThrowingByteToCharFunction1 extends AbstractThrowingByteToCharFunction1<AbstractThrowingByteToCharFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

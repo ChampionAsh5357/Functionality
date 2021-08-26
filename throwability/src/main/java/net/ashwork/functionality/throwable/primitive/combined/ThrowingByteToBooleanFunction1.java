@@ -13,9 +13,9 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.combined.ByteToBooleanFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.combined.AbstractThrowingByteToBooleanFunction1;
-import net.ashwork.functionality.throwable.primitive.bytes.ThrowingByteFunction1;
 import net.ashwork.functionality.throwable.primitive.booleans.ThrowingToBooleanFunction1;
 import net.ashwork.functionality.throwable.primitive.booleans.ThrowingToBooleanFunctionN;
+import net.ashwork.functionality.throwable.primitive.bytes.ThrowingByteFunction1;
 
 /**
  * Represents a function that accepts a {@code byte}-valued argument and produces a {@code boolean}-valued result or throws a throwable.
@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.booleans.ThrowingToBooleanF
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingByteToBooleanFunction1 extends AbstractThrowingByteToBooleanFunction1<ThrowingFunction1<Byte, Boolean>, ThrowingToBooleanFunction1<Byte>, ThrowingByteFunction1<Boolean>, AbstractThrowingByteToBooleanFunction1.Handler> {
+public interface ThrowingByteToBooleanFunction1 extends AbstractThrowingByteToBooleanFunction1<AbstractThrowingByteToBooleanFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

@@ -31,7 +31,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThr
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToCharFunction2<T1, T2> extends AbstractThrowingToCharFunction2<T1, T2, ThrowingFunction2<T1, T2, Character>, AbstractThrowingToCharFunction2.Handler<T1, T2>> {
+public interface ThrowingToCharFunction2<T1, T2> extends AbstractThrowingToCharFunction2<T1, T2, AbstractThrowingToCharFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

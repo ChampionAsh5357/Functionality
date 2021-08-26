@@ -13,6 +13,7 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.longs.ToLongFunction2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
+import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -27,7 +28,6 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
- * @param <U> the type of the function which unboxes the {@code long} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction2
@@ -36,7 +36,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToLongFunction2<T1, T2, U extends AbstractThrowingFunction2<T1, T2, Long, ?>, H extends AbstractThrowingToLongFunction2.Handler<T1, T2>> extends AbstractThrowingToLongFunctionN<H>, UnboxedResult<U> {
+public interface AbstractThrowingToLongFunction2<T1, T2, H extends AbstractThrowingToLongFunction2.Handler<T1, T2>> extends AbstractThrowingToLongFunctionN<H>, UnboxedResult<AbstractThrowingFunction2<T1, T2, Long, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -57,6 +57,12 @@ public interface AbstractThrowingToLongFunction2<T1, T2, U extends AbstractThrow
     default int arity() {
         return 2;
     }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    AbstractThrowingFunction2<T1, T2, Long, ?> boxResult();
 
     /**
      * @see ToLongFunction2

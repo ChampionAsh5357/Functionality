@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.doubles.ThrowingToDoubleFun
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingByteToDoubleFunction1 extends AbstractThrowingByteToDoubleFunction1<ThrowingFunction1<Byte, Double>, ThrowingToDoubleFunction1<Byte>, ThrowingByteFunction1<Double>, AbstractThrowingByteToDoubleFunction1.Handler> {
+public interface ThrowingByteToDoubleFunction1 extends AbstractThrowingByteToDoubleFunction1<AbstractThrowingByteToDoubleFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

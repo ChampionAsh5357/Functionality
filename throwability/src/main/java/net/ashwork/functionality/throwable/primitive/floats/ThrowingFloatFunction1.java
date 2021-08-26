@@ -30,7 +30,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractTh
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingFloatFunction1<R> extends AbstractThrowingFloatFunction1<R, ThrowingFunction1<Float, R>, AbstractThrowingFloatFunction1.Handler<R>> {
+public interface ThrowingFloatFunction1<R> extends AbstractThrowingFloatFunction1<R, AbstractThrowingFloatFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

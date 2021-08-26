@@ -13,6 +13,7 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.longs.ToLongFunction0;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
+import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -25,7 +26,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <U> the type of the function which unboxes the {@code long} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction0
@@ -34,7 +34,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToLongFunction0<U extends AbstractThrowingFunction0<Long, ?>, H extends AbstractThrowingToLongFunction0.Handler> extends AbstractThrowingToLongFunctionN<H>, UnboxedResult<U> {
+public interface AbstractThrowingToLongFunction0<H extends AbstractThrowingToLongFunction0.Handler> extends AbstractThrowingToLongFunctionN<H>, UnboxedResult<AbstractThrowingFunction0<Long, ?>> {
 
     /**
      * Applies this function or throws a throwable.
@@ -52,6 +52,12 @@ public interface AbstractThrowingToLongFunction0<U extends AbstractThrowingFunct
     default int arity() {
         return 0;
     }
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @Override
+    AbstractThrowingFunction0<Long, ?> boxResult();
 
     /**
      * @see ToLongFunction0

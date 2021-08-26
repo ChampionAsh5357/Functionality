@@ -27,7 +27,6 @@ import net.ashwork.functionality.util.InheritOnly;
  *
  * @param <T1> the type of the first argument to the function
  * @param <T2> the type of the second argument to the function
- * @param <U> the type of the function which unboxes the {@code float} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction2
@@ -36,7 +35,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToFloatFunction2<T1, T2, U extends AbstractThrowingFunction2<T1, T2, Float, ?>, H extends AbstractThrowingToFloatFunction2.Handler<T1, T2>> extends AbstractThrowingToFloatFunctionN<H>, UnboxedResult<U> {
+public interface AbstractThrowingToFloatFunction2<T1, T2, H extends AbstractThrowingToFloatFunction2.Handler<T1, T2>> extends AbstractThrowingToFloatFunctionN<H>, UnboxedResult<AbstractThrowingFunction2<T1, T2, Float, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -57,6 +56,12 @@ public interface AbstractThrowingToFloatFunction2<T1, T2, U extends AbstractThro
     default int arity() {
         return 2;
     }
+
+    /**
+     * @see AbstractThrowingFunction2
+     */
+    @Override
+    AbstractThrowingFunction2<T1, T2, Float, ?> boxResult();
 
     /**
      * @see ToFloatFunction2

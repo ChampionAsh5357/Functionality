@@ -13,6 +13,7 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.floats.ToFloatFunction0;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
+import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -25,7 +26,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <U> the type of the function which unboxes the {@code float} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction0
@@ -34,7 +34,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToFloatFunction0<U extends AbstractThrowingFunction0<Float, ?>, H extends AbstractThrowingToFloatFunction0.Handler> extends AbstractThrowingToFloatFunctionN<H>, UnboxedResult<U> {
+public interface AbstractThrowingToFloatFunction0<H extends AbstractThrowingToFloatFunction0.Handler> extends AbstractThrowingToFloatFunctionN<H>, UnboxedResult<AbstractThrowingFunction0<Float, ?>> {
 
     /**
      * Applies this function or throws a throwable.
@@ -52,6 +52,12 @@ public interface AbstractThrowingToFloatFunction0<U extends AbstractThrowingFunc
     default int arity() {
         return 0;
     }
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @Override
+    AbstractThrowingFunction0<Float, ?> boxResult();
 
     /**
      * @see ToFloatFunction0

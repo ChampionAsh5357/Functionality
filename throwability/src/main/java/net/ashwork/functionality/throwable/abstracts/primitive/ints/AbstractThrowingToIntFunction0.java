@@ -25,7 +25,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <U> the type of the function which unboxes the {@code int} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction0
@@ -34,7 +33,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToIntFunction0<U extends AbstractThrowingFunction0<Integer, ?>, H extends AbstractThrowingToIntFunction0.Handler> extends AbstractThrowingToIntFunctionN<H>, UnboxedResult<U> {
+public interface AbstractThrowingToIntFunction0<H extends AbstractThrowingToIntFunction0.Handler> extends AbstractThrowingToIntFunctionN<H>, UnboxedResult<AbstractThrowingFunction0<Integer, ?>> {
 
     /**
      * Applies this function or throws a throwable.
@@ -52,6 +51,12 @@ public interface AbstractThrowingToIntFunction0<U extends AbstractThrowingFuncti
     default int arity() {
         return 0;
     }
+
+    /**
+     * @see AbstractThrowingFunction0
+     */
+    @Override
+    AbstractThrowingFunction0<Integer, ?> boxResult();
 
     /**
      * @see ToIntFunction0

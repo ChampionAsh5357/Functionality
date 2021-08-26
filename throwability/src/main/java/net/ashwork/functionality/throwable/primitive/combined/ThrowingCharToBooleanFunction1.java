@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.chars.ThrowingCharFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingCharToBooleanFunction1 extends AbstractThrowingCharToBooleanFunction1<ThrowingFunction1<Character, Boolean>, ThrowingToBooleanFunction1<Character>, ThrowingCharFunction1<Boolean>, AbstractThrowingCharToBooleanFunction1.Handler> {
+public interface ThrowingCharToBooleanFunction1 extends AbstractThrowingCharToBooleanFunction1<AbstractThrowingCharToBooleanFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

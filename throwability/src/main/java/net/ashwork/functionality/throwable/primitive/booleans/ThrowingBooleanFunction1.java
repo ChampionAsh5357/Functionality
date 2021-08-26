@@ -30,7 +30,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.booleans.Abstract
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingBooleanFunction1<R> extends AbstractThrowingBooleanFunction1<R, ThrowingFunction1<Boolean, R>, AbstractThrowingBooleanFunction1.Handler<R>> {
+public interface ThrowingBooleanFunction1<R> extends AbstractThrowingBooleanFunction1<R, AbstractThrowingBooleanFunction1.Handler<R>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

@@ -30,9 +30,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <A> the type of the function which unboxes the {@code short} input and {@code double} result
- * @param <I> the type of the function which unboxes the {@code short} input
- * @param <R> the type of the function which unboxes the {@code double} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingShortFunction1
@@ -42,7 +39,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingShortToDoubleFunction1<A extends AbstractThrowingFunction1<Short, Double, ?>, I extends AbstractThrowingToDoubleFunction1<Short, A, ?>, R extends AbstractThrowingShortFunction1<Double, A, ?>, H extends AbstractThrowingShortToDoubleFunction1.Handler> extends AbstractThrowingToDoubleFunctionN<H>, InputChainableInput<Short>, UnboxedAll<A, I, R> {
+public interface AbstractThrowingShortToDoubleFunction1<H extends AbstractThrowingShortToDoubleFunction1.Handler> extends AbstractThrowingToDoubleFunctionN<H>, InputChainableInput<Short>, UnboxedAll<AbstractThrowingFunction1<Short, Double, ?>, AbstractThrowingToDoubleFunction1<Short, ?>, AbstractThrowingShortFunction1<Double, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -61,6 +58,24 @@ public interface AbstractThrowingShortToDoubleFunction1<A extends AbstractThrowi
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Short, Double, ?> box();
+
+    /**
+     * @see AbstractThrowingToDoubleFunction1
+     */
+    @Override
+    AbstractThrowingToDoubleFunction1<Short, ?> boxInput();
+
+    /**
+     * @see AbstractThrowingShortFunction1
+     */
+    @Override
+    AbstractThrowingShortFunction1<Double, ?> boxResult();
 
     /**
      * @see ShortToDoubleFunction1
@@ -87,30 +102,30 @@ public interface AbstractThrowingShortToDoubleFunction1<A extends AbstractThrowi
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToDoubleFunction1<V, ?, ?> compose(final Function1<? super V, ? extends Short> before) {
-        return (AbstractThrowingToDoubleFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToDoubleFunction1<V, ?> compose(final Function1<? super V, ? extends Short> before) {
+        return (AbstractThrowingToDoubleFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     /**
      * @see AbstractThrowingToDoubleFunction1
      */
     @Override
-    <V> AbstractThrowingToDoubleFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends Short> before);
+    <V> AbstractThrowingToDoubleFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends Short> before);
 
     /**
      * @see AbstractThrowingShortFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingShortFunction1<V, ?, ?> andThen(final Function1<? super Double, ? extends V> after) {
-        return (AbstractThrowingShortFunction1<V, ?, ?>) AbstractThrowingToDoubleFunctionN.super.andThen(after);
+    default <V> AbstractThrowingShortFunction1<V, ?> andThen(final Function1<? super Double, ? extends V> after) {
+        return (AbstractThrowingShortFunction1<V, ?>) AbstractThrowingToDoubleFunctionN.super.andThen(after);
     }
 
     /**
      * @see AbstractThrowingShortFunction1
      */
     @Override
-    <V> AbstractThrowingShortFunction1<V, ?, ?> andThenUnchecked(final Function1<? super Double, ? extends V> after);
+    <V> AbstractThrowingShortFunction1<V, ?> andThenUnchecked(final Function1<? super Double, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

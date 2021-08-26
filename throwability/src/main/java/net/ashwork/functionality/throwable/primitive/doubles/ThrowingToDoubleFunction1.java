@@ -29,7 +29,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractT
  * @see ToDoubleFunction1
  * @since 1.0.0
  */
-public interface ThrowingToDoubleFunction1<T1> extends AbstractThrowingToDoubleFunction1<T1, ThrowingFunction1<T1, Double>, AbstractThrowingToDoubleFunction1.Handler<T1>> {
+public interface ThrowingToDoubleFunction1<T1> extends AbstractThrowingToDoubleFunction1<T1, AbstractThrowingToDoubleFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

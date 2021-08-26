@@ -28,7 +28,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.shorts.AbstractTh
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToShortFunction0 extends AbstractThrowingToShortFunction0<ThrowingFunction0<Short>, AbstractThrowingToShortFunction0.Handler> {
+public interface ThrowingToShortFunction0 extends AbstractThrowingToShortFunction0<AbstractThrowingToShortFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

@@ -13,9 +13,9 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.combined.LongToByteFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.combined.AbstractThrowingLongToByteFunction1;
-import net.ashwork.functionality.throwable.primitive.longs.ThrowingLongFunction1;
 import net.ashwork.functionality.throwable.primitive.bytes.ThrowingToByteFunction1;
 import net.ashwork.functionality.throwable.primitive.bytes.ThrowingToByteFunctionN;
+import net.ashwork.functionality.throwable.primitive.longs.ThrowingLongFunction1;
 
 /**
  * Represents a function that accepts a {@code long}-valued argument and produces a {@code byte}-valued result or throws a throwable.
@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.bytes.ThrowingToByteFunctio
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingLongToByteFunction1 extends AbstractThrowingLongToByteFunction1<ThrowingFunction1<Long, Byte>, ThrowingToByteFunction1<Long>, ThrowingLongFunction1<Byte>, AbstractThrowingLongToByteFunction1.Handler> {
+public interface ThrowingLongToByteFunction1 extends AbstractThrowingLongToByteFunction1<AbstractThrowingLongToByteFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

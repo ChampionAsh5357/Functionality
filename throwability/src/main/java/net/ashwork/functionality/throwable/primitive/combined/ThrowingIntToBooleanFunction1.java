@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.ints.ThrowingIntFunction1;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingIntToBooleanFunction1 extends AbstractThrowingIntToBooleanFunction1<ThrowingFunction1<Integer, Boolean>, ThrowingToBooleanFunction1<Integer>, ThrowingIntFunction1<Boolean>, AbstractThrowingIntToBooleanFunction1.Handler> {
+public interface ThrowingIntToBooleanFunction1 extends AbstractThrowingIntToBooleanFunction1<AbstractThrowingIntToBooleanFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

@@ -15,6 +15,7 @@ import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.primitive.doubles.DoubleFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
+import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -28,7 +29,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * be called by one of its subtypes.
  *
  * @param <R> the type of the result of the function
- * @param <I> the type of the function which unboxes the {@code double} input
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
@@ -37,7 +37,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingDoubleFunction1<R, I extends AbstractThrowingFunction1<Double, R, ?>, H extends AbstractThrowingDoubleFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Double>, UnboxedInput<I> {
+public interface AbstractThrowingDoubleFunction1<R, H extends AbstractThrowingDoubleFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Double>, UnboxedInput<AbstractThrowingFunction1<Double, R, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -56,6 +56,12 @@ public interface AbstractThrowingDoubleFunction1<R, I extends AbstractThrowingFu
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Double, R, ?> boxInput();
 
     /**
      * @see DoubleFunction1
@@ -94,12 +100,12 @@ public interface AbstractThrowingDoubleFunction1<R, I extends AbstractThrowingFu
 
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingDoubleFunction1<V, ?, ?> andThen(final Function1<? super R, ? extends V> after) {
-        return (AbstractThrowingDoubleFunction1<V, ?, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    default <V> AbstractThrowingDoubleFunction1<V, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingDoubleFunction1<V, ?>) AbstractThrowingFunctionN.super.andThen(after);
     }
 
     @Override
-    <V> AbstractThrowingDoubleFunction1<V, ?, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
+    <V> AbstractThrowingDoubleFunction1<V, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

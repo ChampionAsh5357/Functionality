@@ -30,9 +30,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <A> the type of the function which unboxes the {@code boolean} input and {@code short} result
- * @param <I> the type of the function which unboxes the {@code boolean} input
- * @param <R> the type of the function which unboxes the {@code short} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingBooleanFunction1
@@ -42,7 +39,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingBooleanToShortFunction1<A extends AbstractThrowingFunction1<Boolean, Short, ?>, I extends AbstractThrowingToShortFunction1<Boolean, A, ?>, R extends AbstractThrowingBooleanFunction1<Short, A, ?>, H extends AbstractThrowingBooleanToShortFunction1.Handler> extends AbstractThrowingToShortFunctionN<H>, InputChainableInput<Boolean>, UnboxedAll<A, I, R> {
+public interface AbstractThrowingBooleanToShortFunction1<H extends AbstractThrowingBooleanToShortFunction1.Handler> extends AbstractThrowingToShortFunctionN<H>, InputChainableInput<Boolean>, UnboxedAll<AbstractThrowingFunction1<Boolean, Short, ?>, AbstractThrowingToShortFunction1<Boolean, ?>, AbstractThrowingBooleanFunction1<Short, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -61,6 +58,24 @@ public interface AbstractThrowingBooleanToShortFunction1<A extends AbstractThrow
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Boolean, Short, ?> box();
+
+    /**
+     * @see AbstractThrowingToShortFunction1
+     */
+    @Override
+    AbstractThrowingToShortFunction1<Boolean, ?> boxInput();
+
+    /**
+     * @see AbstractThrowingBooleanFunction1
+     */
+    @Override
+    AbstractThrowingBooleanFunction1<Short, ?> boxResult();
 
     /**
      * @see BooleanToShortFunction1
@@ -87,30 +102,30 @@ public interface AbstractThrowingBooleanToShortFunction1<A extends AbstractThrow
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToShortFunction1<V, ?, ?> compose(final Function1<? super V, ? extends Boolean> before) {
-        return (AbstractThrowingToShortFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToShortFunction1<V, ?> compose(final Function1<? super V, ? extends Boolean> before) {
+        return (AbstractThrowingToShortFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     /**
      * @see AbstractThrowingToShortFunction1
      */
     @Override
-    <V> AbstractThrowingToShortFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends Boolean> before);
+    <V> AbstractThrowingToShortFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends Boolean> before);
 
     /**
      * @see AbstractThrowingBooleanFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingBooleanFunction1<V, ?, ?> andThen(final Function1<? super Short, ? extends V> after) {
-        return (AbstractThrowingBooleanFunction1<V, ?, ?>) AbstractThrowingToShortFunctionN.super.andThen(after);
+    default <V> AbstractThrowingBooleanFunction1<V, ?> andThen(final Function1<? super Short, ? extends V> after) {
+        return (AbstractThrowingBooleanFunction1<V, ?>) AbstractThrowingToShortFunctionN.super.andThen(after);
     }
 
     /**
      * @see AbstractThrowingBooleanFunction1
      */
     @Override
-    <V> AbstractThrowingBooleanFunction1<V, ?, ?> andThenUnchecked(final Function1<? super Short, ? extends V> after);
+    <V> AbstractThrowingBooleanFunction1<V, ?> andThenUnchecked(final Function1<? super Short, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

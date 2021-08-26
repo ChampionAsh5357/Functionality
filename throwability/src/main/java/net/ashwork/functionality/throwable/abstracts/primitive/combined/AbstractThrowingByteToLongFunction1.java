@@ -14,9 +14,9 @@ import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedAll;
 import net.ashwork.functionality.primitive.combined.ByteToLongFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingByteFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
+import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingByteFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -30,9 +30,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <A> the type of the function which unboxes the {@code byte} input and {@code long} result
- * @param <I> the type of the function which unboxes the {@code byte} input
- * @param <R> the type of the function which unboxes the {@code long} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingByteFunction1
@@ -42,7 +39,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingByteToLongFunction1<A extends AbstractThrowingFunction1<Byte, Long, ?>, I extends AbstractThrowingToLongFunction1<Byte, A, ?>, R extends AbstractThrowingByteFunction1<Long, A, ?>, H extends AbstractThrowingByteToLongFunction1.Handler> extends AbstractThrowingToLongFunctionN<H>, InputChainableInput<Byte>, UnboxedAll<A, I, R> {
+public interface AbstractThrowingByteToLongFunction1<H extends AbstractThrowingByteToLongFunction1.Handler> extends AbstractThrowingToLongFunctionN<H>, InputChainableInput<Byte>, UnboxedAll<AbstractThrowingFunction1<Byte, Long, ?>, AbstractThrowingToLongFunction1<Byte, ?>, AbstractThrowingByteFunction1<Long, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -61,6 +58,24 @@ public interface AbstractThrowingByteToLongFunction1<A extends AbstractThrowingF
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Byte, Long, ?> box();
+
+    /**
+     * @see AbstractThrowingToLongFunction1
+     */
+    @Override
+    AbstractThrowingToLongFunction1<Byte, ?> boxInput();
+
+    /**
+     * @see AbstractThrowingByteFunction1
+     */
+    @Override
+    AbstractThrowingByteFunction1<Long, ?> boxResult();
 
     /**
      * @see ByteToLongFunction1
@@ -87,30 +102,30 @@ public interface AbstractThrowingByteToLongFunction1<A extends AbstractThrowingF
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToLongFunction1<V, ?, ?> compose(final Function1<? super V, ? extends Byte> before) {
-        return (AbstractThrowingToLongFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToLongFunction1<V, ?> compose(final Function1<? super V, ? extends Byte> before) {
+        return (AbstractThrowingToLongFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     /**
      * @see AbstractThrowingToLongFunction1
      */
     @Override
-    <V> AbstractThrowingToLongFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends Byte> before);
+    <V> AbstractThrowingToLongFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends Byte> before);
 
     /**
      * @see AbstractThrowingByteFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingByteFunction1<V, ?, ?> andThen(final Function1<? super Long, ? extends V> after) {
-        return (AbstractThrowingByteFunction1<V, ?, ?>) AbstractThrowingToLongFunctionN.super.andThen(after);
+    default <V> AbstractThrowingByteFunction1<V, ?> andThen(final Function1<? super Long, ? extends V> after) {
+        return (AbstractThrowingByteFunction1<V, ?>) AbstractThrowingToLongFunctionN.super.andThen(after);
     }
 
     /**
      * @see AbstractThrowingByteFunction1
      */
     @Override
-    <V> AbstractThrowingByteFunction1<V, ?, ?> andThenUnchecked(final Function1<? super Long, ? extends V> after);
+    <V> AbstractThrowingByteFunction1<V, ?> andThenUnchecked(final Function1<? super Long, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

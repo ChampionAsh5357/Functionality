@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.ints.ThrowingToIntFunctionN
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingFloatToIntFunction1 extends AbstractThrowingFloatToIntFunction1<ThrowingFunction1<Float, Integer>, ThrowingToIntFunction1<Float>, ThrowingFloatFunction1<Integer>, AbstractThrowingFloatToIntFunction1.Handler> {
+public interface ThrowingFloatToIntFunction1 extends AbstractThrowingFloatToIntFunction1<AbstractThrowingFloatToIntFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

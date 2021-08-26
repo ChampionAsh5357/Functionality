@@ -31,7 +31,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThr
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToLongFunction2<T1, T2> extends AbstractThrowingToLongFunction2<T1, T2, ThrowingFunction2<T1, T2, Long>, AbstractThrowingToLongFunction2.Handler<T1, T2>> {
+public interface ThrowingToLongFunction2<T1, T2> extends AbstractThrowingToLongFunction2<T1, T2, AbstractThrowingToLongFunction2.Handler<T1, T2>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

@@ -14,6 +14,7 @@ import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.shorts.ToShortFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
+import net.ashwork.functionality.throwable.abstracts.primitive.shorts.AbstractThrowingToShortFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -27,7 +28,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * be called by one of its subtypes.
  *
  * @param <T1> the type of the input to the function
- * @param <U> the type of the function which unboxes the {@code short} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
@@ -36,7 +36,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToShortFunction1<T1, U extends AbstractThrowingFunction1<T1, Short, ?>, H extends AbstractThrowingToShortFunction1.Handler<T1>> extends AbstractThrowingToShortFunctionN<H>, InputChainableInput<T1>, UnboxedResult<U> {
+public interface AbstractThrowingToShortFunction1<T1, H extends AbstractThrowingToShortFunction1.Handler<T1>> extends AbstractThrowingToShortFunctionN<H>, InputChainableInput<T1>, UnboxedResult<AbstractThrowingFunction1<T1, Short, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -56,6 +56,12 @@ public interface AbstractThrowingToShortFunction1<T1, U extends AbstractThrowing
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<T1, Short, ?> boxResult();
 
     /**
      * @see ToShortFunction1
@@ -79,12 +85,12 @@ public interface AbstractThrowingToShortFunction1<T1, U extends AbstractThrowing
 
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToShortFunction1<V, ?, ?> compose(final Function1<? super V, ? extends T1> before) {
-        return (AbstractThrowingToShortFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToShortFunction1<V, ?> compose(final Function1<? super V, ? extends T1> before) {
+        return (AbstractThrowingToShortFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     @Override
-    <V> AbstractThrowingToShortFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
+    <V> AbstractThrowingToShortFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
 
     /**
      * @see AbstractThrowingFunction1

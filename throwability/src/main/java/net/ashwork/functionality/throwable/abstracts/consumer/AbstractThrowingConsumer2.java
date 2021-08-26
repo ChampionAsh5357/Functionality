@@ -11,7 +11,6 @@ package net.ashwork.functionality.throwable.abstracts.consumer;
 
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.abstracts.AbstractConsumer2;
-import net.ashwork.functionality.consumer.abstracts.AbstractConsumerN;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
 import net.ashwork.functionality.util.InheritOnly;
 

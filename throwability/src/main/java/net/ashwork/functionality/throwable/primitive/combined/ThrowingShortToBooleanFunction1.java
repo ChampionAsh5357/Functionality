@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.shorts.ThrowingShortFunctio
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingShortToBooleanFunction1 extends AbstractThrowingShortToBooleanFunction1<ThrowingFunction1<Short, Boolean>, ThrowingToBooleanFunction1<Short>, ThrowingShortFunction1<Boolean>, AbstractThrowingShortToBooleanFunction1.Handler> {
+public interface ThrowingShortToBooleanFunction1 extends AbstractThrowingShortToBooleanFunction1<AbstractThrowingShortToBooleanFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

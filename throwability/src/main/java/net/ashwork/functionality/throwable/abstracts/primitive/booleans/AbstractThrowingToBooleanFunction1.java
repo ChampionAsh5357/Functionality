@@ -27,7 +27,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * be called by one of its subtypes.
  *
  * @param <T1> the type of the input to the function
- * @param <U> the type of the function which unboxes the {@code boolean} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
@@ -36,7 +35,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingToBooleanFunction1<T1, U extends AbstractThrowingFunction1<T1, Boolean, ?>, H extends AbstractThrowingToBooleanFunction1.Handler<T1>> extends AbstractThrowingToBooleanFunctionN<H>, InputChainableInput<T1>, UnboxedResult<U> {
+public interface AbstractThrowingToBooleanFunction1<T1, H extends AbstractThrowingToBooleanFunction1.Handler<T1>> extends AbstractThrowingToBooleanFunctionN<H>, InputChainableInput<T1>, UnboxedResult<AbstractThrowingFunction1<T1, Boolean, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -56,6 +55,12 @@ public interface AbstractThrowingToBooleanFunction1<T1, U extends AbstractThrowi
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<T1, Boolean, ?> boxResult();
 
     /**
      * @see ToBooleanFunction1
@@ -79,12 +84,12 @@ public interface AbstractThrowingToBooleanFunction1<T1, U extends AbstractThrowi
 
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToBooleanFunction1<V, ?, ?> compose(final Function1<? super V, ? extends T1> before) {
-        return (AbstractThrowingToBooleanFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToBooleanFunction1<V, ?> compose(final Function1<? super V, ? extends T1> before) {
+        return (AbstractThrowingToBooleanFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     @Override
-    <V> AbstractThrowingToBooleanFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
+    <V> AbstractThrowingToBooleanFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends T1> before);
 
     /**
      * @see AbstractThrowingFunction1

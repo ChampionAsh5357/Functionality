@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.bytes.ThrowingToByteFunctio
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingBooleanToByteFunction1 extends AbstractThrowingBooleanToByteFunction1<ThrowingFunction1<Boolean, Byte>, ThrowingToByteFunction1<Boolean>, ThrowingBooleanFunction1<Byte>, AbstractThrowingBooleanToByteFunction1.Handler> {
+public interface ThrowingBooleanToByteFunction1 extends AbstractThrowingBooleanToByteFunction1<AbstractThrowingBooleanToByteFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

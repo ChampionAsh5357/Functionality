@@ -28,7 +28,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * be called by one of its subtypes.
  *
  * @param <R> the type of the result of the function
- * @param <I> the type of the function which unboxes the {@code char} input
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
@@ -37,7 +36,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingCharFunction1<R, I extends AbstractThrowingFunction1<Character, R, ?>, H extends AbstractThrowingCharFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Character>, UnboxedInput<I> {
+public interface AbstractThrowingCharFunction1<R, H extends AbstractThrowingCharFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Character>, UnboxedInput<AbstractThrowingFunction1<Character, R, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -56,6 +55,12 @@ public interface AbstractThrowingCharFunction1<R, I extends AbstractThrowingFunc
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Character, R, ?> boxInput();
 
     /**
      * @see CharFunction1
@@ -94,12 +99,12 @@ public interface AbstractThrowingCharFunction1<R, I extends AbstractThrowingFunc
 
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingCharFunction1<V, ?, ?> andThen(final Function1<? super R, ? extends V> after) {
-        return (AbstractThrowingCharFunction1<V, ?, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    default <V> AbstractThrowingCharFunction1<V, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingCharFunction1<V, ?>) AbstractThrowingFunctionN.super.andThen(after);
     }
 
     @Override
-    <V> AbstractThrowingCharFunction1<V, ?, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
+    <V> AbstractThrowingCharFunction1<V, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

@@ -13,9 +13,9 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.primitive.combined.CharToShortFunction1;
 import net.ashwork.functionality.throwable.ThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.combined.AbstractThrowingCharToShortFunction1;
+import net.ashwork.functionality.throwable.primitive.chars.ThrowingCharFunction1;
 import net.ashwork.functionality.throwable.primitive.shorts.ThrowingToShortFunction1;
 import net.ashwork.functionality.throwable.primitive.shorts.ThrowingToShortFunctionN;
-import net.ashwork.functionality.throwable.primitive.chars.ThrowingCharFunction1;
 
 /**
  * Represents a function that accepts a {@code char}-valued argument and produces a {@code short}-valued result or throws a throwable.
@@ -33,7 +33,7 @@ import net.ashwork.functionality.throwable.primitive.chars.ThrowingCharFunction1
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingCharToShortFunction1 extends AbstractThrowingCharToShortFunction1<ThrowingFunction1<Character, Short>, ThrowingToShortFunction1<Character>, ThrowingCharFunction1<Short>, AbstractThrowingCharToShortFunction1.Handler> {
+public interface ThrowingCharToShortFunction1 extends AbstractThrowingCharToShortFunction1<AbstractThrowingCharToShortFunction1.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

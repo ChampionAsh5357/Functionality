@@ -28,7 +28,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * be called by one of its subtypes.
  *
  * @param <R> the type of the result of the function
- * @param <I> the type of the function which unboxes the {@code float} input
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFunction1
@@ -37,7 +36,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingFloatFunction1<R, I extends AbstractThrowingFunction1<Float, R, ?>, H extends AbstractThrowingFloatFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Float>, UnboxedInput<I> {
+public interface AbstractThrowingFloatFunction1<R, H extends AbstractThrowingFloatFunction1.Handler<R>> extends AbstractThrowingFunctionN<R, H>, InputChainableInput<Float>, UnboxedInput<AbstractThrowingFunction1<Float, R, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -56,6 +55,12 @@ public interface AbstractThrowingFloatFunction1<R, I extends AbstractThrowingFun
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Float, R, ?> boxInput();
 
     /**
      * @see FloatFunction1
@@ -94,12 +99,12 @@ public interface AbstractThrowingFloatFunction1<R, I extends AbstractThrowingFun
 
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingFloatFunction1<V, ?, ?> andThen(final Function1<? super R, ? extends V> after) {
-        return (AbstractThrowingFloatFunction1<V, ?, ?>) AbstractThrowingFunctionN.super.andThen(after);
+    default <V> AbstractThrowingFloatFunction1<V, ?> andThen(final Function1<? super R, ? extends V> after) {
+        return (AbstractThrowingFloatFunction1<V, ?>) AbstractThrowingFunctionN.super.andThen(after);
     }
 
     @Override
-    <V> AbstractThrowingFloatFunction1<V, ?, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
+    <V> AbstractThrowingFloatFunction1<V, ?> andThenUnchecked(final Function1<? super R, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

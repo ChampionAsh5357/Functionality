@@ -30,9 +30,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <A> the type of the function which unboxes the {@code boolean} input and {@code byte} result
- * @param <I> the type of the function which unboxes the {@code boolean} input
- * @param <R> the type of the function which unboxes the {@code byte} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingBooleanFunction1
@@ -42,7 +39,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingBooleanToByteFunction1<A extends AbstractThrowingFunction1<Boolean, Byte, ?>, I extends AbstractThrowingToByteFunction1<Boolean, A, ?>, R extends AbstractThrowingBooleanFunction1<Byte, A, ?>, H extends AbstractThrowingBooleanToByteFunction1.Handler> extends AbstractThrowingToByteFunctionN<H>, InputChainableInput<Boolean>, UnboxedAll<A, I, R> {
+public interface AbstractThrowingBooleanToByteFunction1<H extends AbstractThrowingBooleanToByteFunction1.Handler> extends AbstractThrowingToByteFunctionN<H>, InputChainableInput<Boolean>, UnboxedAll<AbstractThrowingFunction1<Boolean, Byte, ?>, AbstractThrowingToByteFunction1<Boolean, ?>, AbstractThrowingBooleanFunction1<Byte, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -61,6 +58,24 @@ public interface AbstractThrowingBooleanToByteFunction1<A extends AbstractThrowi
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Boolean, Byte, ?> box();
+
+    /**
+     * @see AbstractThrowingToByteFunction1
+     */
+    @Override
+    AbstractThrowingToByteFunction1<Boolean, ?> boxInput();
+
+    /**
+     * @see AbstractThrowingBooleanFunction1
+     */
+    @Override
+    AbstractThrowingBooleanFunction1<Byte, ?> boxResult();
 
     /**
      * @see BooleanToByteFunction1
@@ -87,30 +102,30 @@ public interface AbstractThrowingBooleanToByteFunction1<A extends AbstractThrowi
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToByteFunction1<V, ?, ?> compose(final Function1<? super V, ? extends Boolean> before) {
-        return (AbstractThrowingToByteFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToByteFunction1<V, ?> compose(final Function1<? super V, ? extends Boolean> before) {
+        return (AbstractThrowingToByteFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     /**
      * @see AbstractThrowingToByteFunction1
      */
     @Override
-    <V> AbstractThrowingToByteFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends Boolean> before);
+    <V> AbstractThrowingToByteFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends Boolean> before);
 
     /**
      * @see AbstractThrowingBooleanFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingBooleanFunction1<V, ?, ?> andThen(final Function1<? super Byte, ? extends V> after) {
-        return (AbstractThrowingBooleanFunction1<V, ?, ?>) AbstractThrowingToByteFunctionN.super.andThen(after);
+    default <V> AbstractThrowingBooleanFunction1<V, ?> andThen(final Function1<? super Byte, ? extends V> after) {
+        return (AbstractThrowingBooleanFunction1<V, ?>) AbstractThrowingToByteFunctionN.super.andThen(after);
     }
 
     /**
      * @see AbstractThrowingBooleanFunction1
      */
     @Override
-    <V> AbstractThrowingBooleanFunction1<V, ?, ?> andThenUnchecked(final Function1<? super Byte, ? extends V> after);
+    <V> AbstractThrowingBooleanFunction1<V, ?> andThenUnchecked(final Function1<? super Byte, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

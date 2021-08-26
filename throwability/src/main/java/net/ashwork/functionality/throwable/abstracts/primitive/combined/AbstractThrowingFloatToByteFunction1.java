@@ -14,9 +14,9 @@ import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedAll;
 import net.ashwork.functionality.primitive.combined.FloatToByteFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingFloatFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingToByteFunction1;
 import net.ashwork.functionality.throwable.abstracts.primitive.bytes.AbstractThrowingToByteFunctionN;
+import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingFloatFunction1;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -30,9 +30,6 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is an abstract consumer and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <A> the type of the function which unboxes the {@code float} input and {@code byte} result
- * @param <I> the type of the function which unboxes the {@code float} input
- * @param <R> the type of the function which unboxes the {@code byte} result
  * @param <H> the type of the handler to safely call the function
  *
  * @see AbstractThrowingFloatFunction1
@@ -42,7 +39,7 @@ import net.ashwork.functionality.util.InheritOnly;
  * @since 1.0.0
  */
 @InheritOnly
-public interface AbstractThrowingFloatToByteFunction1<A extends AbstractThrowingFunction1<Float, Byte, ?>, I extends AbstractThrowingToByteFunction1<Float, A, ?>, R extends AbstractThrowingFloatFunction1<Byte, A, ?>, H extends AbstractThrowingFloatToByteFunction1.Handler> extends AbstractThrowingToByteFunctionN<H>, InputChainableInput<Float>, UnboxedAll<A, I, R> {
+public interface AbstractThrowingFloatToByteFunction1<H extends AbstractThrowingFloatToByteFunction1.Handler> extends AbstractThrowingToByteFunctionN<H>, InputChainableInput<Float>, UnboxedAll<AbstractThrowingFunction1<Float, Byte, ?>, AbstractThrowingToByteFunction1<Float, ?>, AbstractThrowingFloatFunction1<Byte, ?>> {
 
     /**
      * Applies this function to the given argument or throws a throwable.
@@ -61,6 +58,24 @@ public interface AbstractThrowingFloatToByteFunction1<A extends AbstractThrowing
     default int arity() {
         return 1;
     }
+
+    /**
+     * @see AbstractThrowingFunction1
+     */
+    @Override
+    AbstractThrowingFunction1<Float, Byte, ?> box();
+
+    /**
+     * @see AbstractThrowingToByteFunction1
+     */
+    @Override
+    AbstractThrowingToByteFunction1<Float, ?> boxInput();
+
+    /**
+     * @see AbstractThrowingFloatFunction1
+     */
+    @Override
+    AbstractThrowingFloatFunction1<Byte, ?> boxResult();
 
     /**
      * @see FloatToByteFunction1
@@ -87,30 +102,30 @@ public interface AbstractThrowingFloatToByteFunction1<A extends AbstractThrowing
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingToByteFunction1<V, ?, ?> compose(final Function1<? super V, ? extends Float> before) {
-        return (AbstractThrowingToByteFunction1<V, ?, ?>) InputChainableInput.super.compose(before);
+    default <V> AbstractThrowingToByteFunction1<V, ?> compose(final Function1<? super V, ? extends Float> before) {
+        return (AbstractThrowingToByteFunction1<V, ?>) InputChainableInput.super.compose(before);
     }
 
     /**
      * @see AbstractThrowingToByteFunction1
      */
     @Override
-    <V> AbstractThrowingToByteFunction1<V, ?, ?> composeUnchecked(final Function1<? super V, ? extends Float> before);
+    <V> AbstractThrowingToByteFunction1<V, ?> composeUnchecked(final Function1<? super V, ? extends Float> before);
 
     /**
      * @see AbstractThrowingFloatFunction1
      */
     @SuppressWarnings("unchecked")
     @Override
-    default <V> AbstractThrowingFloatFunction1<V, ?, ?> andThen(final Function1<? super Byte, ? extends V> after) {
-        return (AbstractThrowingFloatFunction1<V, ?, ?>) AbstractThrowingToByteFunctionN.super.andThen(after);
+    default <V> AbstractThrowingFloatFunction1<V, ?> andThen(final Function1<? super Byte, ? extends V> after) {
+        return (AbstractThrowingFloatFunction1<V, ?>) AbstractThrowingToByteFunctionN.super.andThen(after);
     }
 
     /**
      * @see AbstractThrowingFloatFunction1
      */
     @Override
-    <V> AbstractThrowingFloatFunction1<V, ?, ?> andThenUnchecked(final Function1<? super Byte, ? extends V> after);
+    <V> AbstractThrowingFloatFunction1<V, ?> andThenUnchecked(final Function1<? super Byte, ? extends V> after);
 
     /**
      * Represents a handler that takes in the outer throwable's parameters and

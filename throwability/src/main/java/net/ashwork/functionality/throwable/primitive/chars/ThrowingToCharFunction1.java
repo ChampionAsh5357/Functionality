@@ -29,7 +29,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.chars.AbstractThr
  * @see ToCharFunction1
  * @since 1.0.0
  */
-public interface ThrowingToCharFunction1<T1> extends AbstractThrowingToCharFunction1<T1, ThrowingFunction1<T1, Character>, AbstractThrowingToCharFunction1.Handler<T1>> {
+public interface ThrowingToCharFunction1<T1> extends AbstractThrowingToCharFunction1<T1, AbstractThrowingToCharFunction1.Handler<T1>> {
 
     /**
      * Creates a throwing instance from a non-throwable type.

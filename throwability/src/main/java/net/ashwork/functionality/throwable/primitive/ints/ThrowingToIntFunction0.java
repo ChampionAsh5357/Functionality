@@ -28,7 +28,7 @@ import net.ashwork.functionality.throwable.abstracts.primitive.ints.AbstractThro
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ThrowingToIntFunction0 extends AbstractThrowingToIntFunction0<ThrowingFunction0<Integer>, AbstractThrowingToIntFunction0.Handler> {
+public interface ThrowingToIntFunction0 extends AbstractThrowingToIntFunction0<AbstractThrowingToIntFunction0.Handler> {
 
     /**
      * Creates a throwing instance from a non-throwable type.
