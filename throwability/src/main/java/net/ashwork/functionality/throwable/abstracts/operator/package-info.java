@@ -1,5 +1,5 @@
 /*
- * Throwability (Functionality)
+ * Operating (Functionality)
  * Copyright (c) 2021-2021 ChampionAsh5357.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,7 +8,7 @@
  */
 
 /**
- * This package holds the basic abstract throwing {@code Consumers}.
+ * This package holds all basic abstract throwing {@code Operators}.
  * Some functional interfaces are specialized such that the type parameters are primitives with additional type prefixes.
  */
-package net.ashwork.functionality.throwable.abstracts.consumer;
+package net.ashwork.functionality.throwable.abstracts.operator;

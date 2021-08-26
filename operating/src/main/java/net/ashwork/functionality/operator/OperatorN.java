@@ -61,5 +61,17 @@ public interface OperatorN<T> extends FunctionN<T> {
         public T applyAllUnchecked(Object... args) {
             return this.operator.apply((T[]) args);
         }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <V> FunctionN.Instance<V> andThen(Function1<? super T, ? extends V> after) {
+            return (FunctionN.Instance<V>) OperatorN.super.andThen(after);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <V> FunctionN.Instance<V> andThenUnchecked(Function1<? super T, ? extends V> after) {
+            return new FunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.operator.apply((T[]) args)));
+        }
     }
 }

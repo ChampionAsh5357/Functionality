@@ -13,6 +13,6 @@
  * You can obtain an abstract version of an interface from a declarable one, but it should not be constructed directly
  * as otherwise an error will most likely occur.
  *
- * <p>This specific package (excluding subclasses) only holds the basic abstract {@code Functions}.
+ * <p>This specific package (excluding subclasses) only holds the basic abstract throwing {@code Functions}.
  */
 package net.ashwork.functionality.throwable.abstracts;

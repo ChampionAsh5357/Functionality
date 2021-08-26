@@ -8,7 +8,7 @@
  */
 
 /**
- * This package holds all basic {@code Functions} (from some input(s) T1, T2, ... to some output R),
+ * This package holds all basic throwing {@code Functions} (from some input(s) T1, T2, ... to some output R),
  * {@code Consumers} (from some input(s) T1, T2, ... to no output), {@code Operators} (from some input(s)
  * of the same type to an output of the same type), and {@code Predicates} (from some input(s) T1, T2, ...
  * to some boolean primitive) where a throwable may be thrown. Some functional interfaces are specialized
@@ -16,6 +16,6 @@
  * value, the interface is prefixed with {@code ToX} where {@code X} is the primitive type.
  * These schemes can be combined, as in {@link net.ashwork.functionality.throwable.primitive.combined.ThrowingByteToLongFunction1}.
  *
- * <p>This specific package (excluding subclasses) only holds the basic {@code Functions}.
+ * <p>This specific package (excluding subclasses) only holds the basic throwing {@code Functions}.
  */
 package net.ashwork.functionality.throwable;
