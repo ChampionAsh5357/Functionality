@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.longs;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.longs.AbstractLongConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.longs.AbstractLongConsumer1;
 
 import java.util.function.LongConsumer;
 
@@ -30,7 +30,7 @@ import java.util.function.LongConsumer;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface LongConsumer1 extends AbstractLongConsumer1<Consumer1<Long>, LongConsumer1> {
+public interface LongConsumer1 extends AbstractLongConsumer1<LongConsumer1> {
 
     /**
      * Creates an instance of this object from its {@link LongConsumer} variant.

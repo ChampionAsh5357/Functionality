@@ -13,7 +13,7 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.operator.primitive.booleans.BooleanOperator1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.booleans.AbstractBooleanPredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.booleans.AbstractBooleanPredicate1;
 
 /**
  * Represents a predicate that accepts a {@code boolean}-valued argument and produces a {@code boolean}-valued result.
@@ -29,7 +29,7 @@ import net.ashwork.functionality.predicate.abstracts.booleans.AbstractBooleanPre
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface BooleanPredicate1 extends AbstractBooleanPredicate1<Predicate1<Boolean>, BooleanPredicate1> {
+public interface BooleanPredicate1 extends AbstractBooleanPredicate1<BooleanPredicate1> {
 
     /**
      * Creates an instance of this object from its {@link BooleanOperator1} function variant.

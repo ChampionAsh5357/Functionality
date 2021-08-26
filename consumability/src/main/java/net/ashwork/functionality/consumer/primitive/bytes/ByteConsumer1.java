@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.bytes;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.bytes.AbstractByteConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.bytes.AbstractByteConsumer1;
 
 /**
  * Represents an operation that accepts a {@code byte}-valued argument and returns no result.
@@ -28,7 +28,7 @@ import net.ashwork.functionality.consumer.abstracts.bytes.AbstractByteConsumer1;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ByteConsumer1 extends AbstractByteConsumer1<Consumer1<Byte>, ByteConsumer1> {
+public interface ByteConsumer1 extends AbstractByteConsumer1<ByteConsumer1> {
 
     /**
      * @see Consumer1

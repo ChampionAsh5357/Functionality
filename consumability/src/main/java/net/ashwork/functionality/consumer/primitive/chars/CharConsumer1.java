@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.chars;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.chars.AbstractCharConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.chars.AbstractCharConsumer1;
 
 /**
  * Represents an operation that accepts a {@code char}-valued argument and returns no result.
@@ -28,7 +28,7 @@ import net.ashwork.functionality.consumer.abstracts.chars.AbstractCharConsumer1;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface CharConsumer1 extends AbstractCharConsumer1<Consumer1<Character>, CharConsumer1> {
+public interface CharConsumer1 extends AbstractCharConsumer1<CharConsumer1> {
 
     /**
      * @see Consumer1

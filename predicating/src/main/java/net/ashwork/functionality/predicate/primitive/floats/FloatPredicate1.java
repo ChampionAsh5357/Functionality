@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.floats.AbstractFloatPredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.floats.AbstractFloatPredicate1;
 import net.ashwork.functionality.primitive.combined.FloatToBooleanFunction1;
 
 /**
@@ -29,7 +29,7 @@ import net.ashwork.functionality.primitive.combined.FloatToBooleanFunction1;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface FloatPredicate1 extends AbstractFloatPredicate1<Predicate1<Float>, FloatPredicate1> {
+public interface FloatPredicate1 extends AbstractFloatPredicate1<FloatPredicate1> {
 
     /**
      * Creates an instance of this object from its {@link FloatToBooleanFunction1} function variant.

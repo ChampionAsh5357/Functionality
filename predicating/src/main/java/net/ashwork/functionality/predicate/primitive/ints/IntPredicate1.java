@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.ints;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.ints.AbstractIntPredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.ints.AbstractIntPredicate1;
 import net.ashwork.functionality.primitive.combined.IntToBooleanFunction1;
 
 import java.util.function.IntPredicate;
@@ -31,7 +31,7 @@ import java.util.function.IntPredicate;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface IntPredicate1 extends AbstractIntPredicate1<Predicate1<Integer>, IntPredicate1> {
+public interface IntPredicate1 extends AbstractIntPredicate1<IntPredicate1> {
 
     /**
      * Creates an instance of this object from its {@link IntToBooleanFunction1} function variant.

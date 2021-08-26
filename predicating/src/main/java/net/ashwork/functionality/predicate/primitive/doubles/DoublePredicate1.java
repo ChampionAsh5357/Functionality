@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.doubles;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.doubles.AbstractDoublePredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.doubles.AbstractDoublePredicate1;
 import net.ashwork.functionality.primitive.combined.DoubleToBooleanFunction1;
 
 import java.util.function.DoublePredicate;
@@ -31,7 +31,7 @@ import java.util.function.DoublePredicate;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface DoublePredicate1 extends AbstractDoublePredicate1<Predicate1<Double>, DoublePredicate1> {
+public interface DoublePredicate1 extends AbstractDoublePredicate1<DoublePredicate1> {
 
     /**
      * Creates an instance of this object from its {@link DoubleToBooleanFunction1} function variant.

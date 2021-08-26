@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.booleans;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.booleans.AbstractBooleanConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.booleans.AbstractBooleanConsumer1;
 
 /**
  * Represents an operation that accepts a {@code boolean}-valued argument and returns no result.
@@ -28,7 +28,7 @@ import net.ashwork.functionality.consumer.abstracts.booleans.AbstractBooleanCons
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface BooleanConsumer1 extends AbstractBooleanConsumer1<Consumer1<Boolean>, BooleanConsumer1> {
+public interface BooleanConsumer1 extends AbstractBooleanConsumer1<BooleanConsumer1> {
 
     /**
      * @see Consumer1

@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.shorts;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.shorts.AbstractShortPredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.shorts.AbstractShortPredicate1;
 import net.ashwork.functionality.primitive.combined.ShortToBooleanFunction1;
 
 /**
@@ -29,7 +29,7 @@ import net.ashwork.functionality.primitive.combined.ShortToBooleanFunction1;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ShortPredicate1 extends AbstractShortPredicate1<Predicate1<Short>, ShortPredicate1> {
+public interface ShortPredicate1 extends AbstractShortPredicate1<ShortPredicate1> {
 
     /**
      * Creates an instance of this object from its {@link ShortToBooleanFunction1} function variant.

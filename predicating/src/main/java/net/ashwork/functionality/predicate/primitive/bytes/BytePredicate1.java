@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.bytes;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.bytes.AbstractBytePredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.bytes.AbstractBytePredicate1;
 import net.ashwork.functionality.primitive.combined.ByteToBooleanFunction1;
 
 /**
@@ -29,7 +29,7 @@ import net.ashwork.functionality.primitive.combined.ByteToBooleanFunction1;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface BytePredicate1 extends AbstractBytePredicate1<Predicate1<Byte>, BytePredicate1> {
+public interface BytePredicate1 extends AbstractBytePredicate1<BytePredicate1> {
 
     /**
      * Creates an instance of this object from its {@link ByteToBooleanFunction1} function variant.

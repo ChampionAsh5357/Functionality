@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.shorts;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.shorts.AbstractShortConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.shorts.AbstractShortConsumer1;
 
 /**
  * Represents an operation that accepts a {@code short}-valued argument and returns no result.
@@ -28,7 +28,7 @@ import net.ashwork.functionality.consumer.abstracts.shorts.AbstractShortConsumer
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface ShortConsumer1 extends AbstractShortConsumer1<Consumer1<Short>, ShortConsumer1> {
+public interface ShortConsumer1 extends AbstractShortConsumer1<ShortConsumer1> {
 
     /**
      * @see Consumer1

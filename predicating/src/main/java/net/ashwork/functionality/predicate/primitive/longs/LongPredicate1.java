@@ -12,7 +12,7 @@ package net.ashwork.functionality.predicate.primitive.longs;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.predicate.Predicate1;
 import net.ashwork.functionality.predicate.PredicateN;
-import net.ashwork.functionality.predicate.abstracts.longs.AbstractLongPredicate1;
+import net.ashwork.functionality.predicate.abstracts.primitive.longs.AbstractLongPredicate1;
 import net.ashwork.functionality.primitive.combined.LongToBooleanFunction1;
 
 import java.util.function.LongPredicate;
@@ -31,7 +31,7 @@ import java.util.function.LongPredicate;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface LongPredicate1 extends AbstractLongPredicate1<Predicate1<Long>, LongPredicate1> {
+public interface LongPredicate1 extends AbstractLongPredicate1<LongPredicate1> {
 
     /**
      * Creates an instance of this object from its {@link LongToBooleanFunction1} function variant.

@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.floats;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.floats.AbstractFloatConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.floats.AbstractFloatConsumer1;
 
 /**
  * Represents an operation that accepts a {@code float}-valued argument and returns no result.
@@ -28,7 +28,7 @@ import net.ashwork.functionality.consumer.abstracts.floats.AbstractFloatConsumer
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface FloatConsumer1 extends AbstractFloatConsumer1<Consumer1<Float>, FloatConsumer1> {
+public interface FloatConsumer1 extends AbstractFloatConsumer1<FloatConsumer1> {
 
     /**
      * @see Consumer1

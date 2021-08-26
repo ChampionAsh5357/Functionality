@@ -12,7 +12,7 @@ package net.ashwork.functionality.consumer.primitive.doubles;
 import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.consumer.Consumer1;
 import net.ashwork.functionality.consumer.ConsumerN;
-import net.ashwork.functionality.consumer.abstracts.doubles.AbstractDoubleConsumer1;
+import net.ashwork.functionality.consumer.abstracts.primitive.doubles.AbstractDoubleConsumer1;
 
 import java.util.function.DoubleConsumer;
 
@@ -30,7 +30,7 @@ import java.util.function.DoubleConsumer;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface DoubleConsumer1 extends AbstractDoubleConsumer1<Consumer1<Double>, DoubleConsumer1> {
+public interface DoubleConsumer1 extends AbstractDoubleConsumer1<DoubleConsumer1> {
 
     /**
      * Creates an instance of this object from its {@link DoubleConsumer} variant.
