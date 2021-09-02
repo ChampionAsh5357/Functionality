@@ -18,7 +18,7 @@ import net.ashwork.functionality.primitive.combined.LongToBooleanFunction1;
 import java.util.function.LongPredicate;
 
 /**
- * Represents a predicate that accepts a {@code long}-valued argument and produces a {@code long}-valued result.
+ * Represents a predicate that accepts a {@code long}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link LongToBooleanFunction1}.
  * This is the {@code long}-consuming primitive specialization of {@link Predicate1}.

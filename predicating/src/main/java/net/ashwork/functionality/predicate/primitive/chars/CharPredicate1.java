@@ -16,7 +16,7 @@ import net.ashwork.functionality.predicate.abstracts.primitive.chars.AbstractCha
 import net.ashwork.functionality.primitive.combined.CharToBooleanFunction1;
 
 /**
- * Represents a predicate that accepts a {@code char}-valued argument and produces a {@code char}-valued result.
+ * Represents a predicate that accepts a {@code char}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link CharToBooleanFunction1}.
  * This is the {@code char}-consuming primitive specialization of {@link Predicate1}.

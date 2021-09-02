@@ -16,7 +16,7 @@ import net.ashwork.functionality.predicate.abstracts.primitive.shorts.AbstractSh
 import net.ashwork.functionality.primitive.combined.ShortToBooleanFunction1;
 
 /**
- * Represents a predicate that accepts a {@code short}-valued argument and produces a {@code short}-valued result.
+ * Represents a predicate that accepts a {@code short}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link ShortToBooleanFunction1}.
  * This is the {@code short}-consuming primitive specialization of {@link Predicate1}.

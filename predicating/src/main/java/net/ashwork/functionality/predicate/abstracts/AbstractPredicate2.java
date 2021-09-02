@@ -27,9 +27,9 @@ import java.util.function.BiPredicate;
  * This is an abstract predicate and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <P> the type of this predicate
  * @param <T1> the type of the first argument to the predicate
  * @param <T2> the type of the second argument to the predicate
+ * @param <P> the type of this predicate
  *
  * @see AbstractPredicateN
  * @see ToBooleanFunction2

@@ -27,8 +27,8 @@ import java.util.function.Predicate;
  * This is an abstract predicate and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
- * @param <P> the type of this predicate
  * @param <T1> the type of the input to the predicate
+ * @param <P> the type of this predicate
  * 
  * @see AbstractPredicateN
  * @see ToBooleanFunction1

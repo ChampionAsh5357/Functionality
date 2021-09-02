@@ -9,6 +9,8 @@
 
 package net.ashwork.functionality.predicate;
 
+import net.ashwork.functionality.Function1;
+import net.ashwork.functionality.FunctionN;
 import net.ashwork.functionality.predicate.abstracts.AbstractPredicateN;
 import net.ashwork.functionality.primitive.booleans.ToBooleanFunctionN;
 
@@ -27,17 +29,17 @@ public interface PredicateN extends AbstractPredicateN<PredicateN> {
 
     @Override
     default PredicateN not() {
-        return (final Object[] args) -> !this.applyAllUnchecked(args);
+        return (final Object[] args) -> !this.testAllUnchecked(args);
     }
 
     @Override
     default PredicateN and(final PredicateN other) {
-        return (final Object[] args) -> this.applyAllUnchecked(args) && other.applyAllUnchecked(args);
+        return (final Object[] args) -> this.testAllUnchecked(args) && other.testAllUnchecked(args);
     }
 
     @Override
     default PredicateN or(final PredicateN other) {
-        return (final Object[] args) -> this.applyAllUnchecked(args) || other.applyAllUnchecked(args);
+        return (final Object[] args) -> this.testAllUnchecked(args) || other.testAllUnchecked(args);
     }
 
     @Override
@@ -102,19 +104,36 @@ public interface PredicateN extends AbstractPredicateN<PredicateN> {
             return this.predicate.test(args);
         }
 
+        /**
+         * @see FunctionN.Instance
+         */
+        @SuppressWarnings("unchecked")
+        @Override
+        public <V> FunctionN.Instance<V> andThen(Function1<? super Boolean, ? extends V> after) {
+            return (FunctionN.Instance<V>) AbstractPredicateN.super.andThen(after);
+        }
+
+        /**
+         * @see FunctionN.Instance
+         */
+        @Override
+        public <V> FunctionN.Instance<V> andThenUnchecked(Function1<? super Boolean, ? extends V> after) {
+            return new FunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.testAllUnchecked(args)));
+        }
+
         @Override
         public PredicateN.Instance not() {
-            return new PredicateN.Instance(this.arity(), (final Object[] args) -> !this.applyAllUnchecked(args));
+            return new PredicateN.Instance(this.arity(), (final Object[] args) -> !this.testAllUnchecked(args));
         }
 
         @Override
         public PredicateN.Instance and(final PredicateN.Instance other) {
-            return new PredicateN.Instance(this.arity(), (final Object[] args) -> this.applyAllUnchecked(args) && other.applyAllUnchecked(args));
+            return new PredicateN.Instance(this.arity(), (final Object[] args) -> this.testAllUnchecked(args) && other.testAllUnchecked(args));
         }
 
         @Override
         public PredicateN.Instance or(final PredicateN.Instance other) {
-            return new PredicateN.Instance(this.arity(), (final Object[] args) -> this.applyAllUnchecked(args) || other.applyAllUnchecked(args));
+            return new PredicateN.Instance(this.arity(), (final Object[] args) -> this.testAllUnchecked(args) || other.testAllUnchecked(args));
         }
 
         @Override

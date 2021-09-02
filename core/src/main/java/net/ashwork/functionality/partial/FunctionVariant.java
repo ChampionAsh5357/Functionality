@@ -9,8 +9,6 @@
 
 package net.ashwork.functionality.partial;
 
-import net.ashwork.functionality.FunctionN;
-
 /**
  * An object which can be represented the same but in a different function data type.
  *
@@ -18,7 +16,7 @@ import net.ashwork.functionality.FunctionN;
  *
  * @since 3.0.0
  */
-public interface FunctionVariant<R, V extends FunctionN<R>> {
+public interface FunctionVariant<R, V extends ResultChainableResult<R>> {
 
     /**
      * Returns the function variant of this object.

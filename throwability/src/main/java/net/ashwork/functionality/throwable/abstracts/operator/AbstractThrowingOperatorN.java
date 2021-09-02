@@ -20,11 +20,11 @@ import net.ashwork.functionality.util.InheritOnly;
  * This is the throwing variation of {@link OperatorN}.
  *
  * @apiNote
- * This is an abstract consumer and should not be used directly. It should instead
+ * This is an abstract operator and should not be used directly. It should instead
  * be called by one of its subtypes.
  *
  * @param <T> the type of the operands and result of the operator
- * @param <H> the type of the handler to safely call the function
+ * @param <H> the type of the handler to safely call the operator
  *
  * @see AbstractThrowingFunctionN
  * @see OperatorN

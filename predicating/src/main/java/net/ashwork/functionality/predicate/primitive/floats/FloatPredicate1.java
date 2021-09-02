@@ -16,7 +16,7 @@ import net.ashwork.functionality.predicate.abstracts.primitive.floats.AbstractFl
 import net.ashwork.functionality.primitive.combined.FloatToBooleanFunction1;
 
 /**
- * Represents a predicate that accepts a {@code float}-valued argument and produces a {@code float}-valued result.
+ * Represents a predicate that accepts a {@code float}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link FloatToBooleanFunction1}.
  * This is the {@code float}-consuming primitive specialization of {@link Predicate1}.

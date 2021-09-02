@@ -16,7 +16,7 @@ import net.ashwork.functionality.predicate.abstracts.primitive.bytes.AbstractByt
 import net.ashwork.functionality.primitive.combined.ByteToBooleanFunction1;
 
 /**
- * Represents a predicate that accepts a {@code byte}-valued argument and produces a {@code byte}-valued result.
+ * Represents a predicate that accepts a {@code byte}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link ByteToBooleanFunction1}.
  * This is the {@code byte}-consuming primitive specialization of {@link Predicate1}.

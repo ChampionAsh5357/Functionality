@@ -79,7 +79,7 @@ public interface ThrowingOperatorN<T> extends AbstractThrowingOperatorN<T, Abstr
     class Instance<T> implements AbstractThrowingOperatorN<T, AbstractThrowingFunctionN.Handler<T>> {
 
         private final int arity;
-        private final ThrowingFunction1<T[], T> operator;
+        private final ThrowingFunction1<Object[], T> operator;
 
         /**
          * Constructs an instance of the operator.
@@ -96,7 +96,7 @@ public interface ThrowingOperatorN<T> extends AbstractThrowingOperatorN<T, Abstr
          * @param arity the number of arguments of the operator
          * @param operator the operator to be applied
          */
-        public Instance(final int arity, final ThrowingFunction1<T[], T> operator) {
+        public Instance(final int arity, final ThrowingFunction1<Object[], T> operator) {
             this.arity = arity;
             this.operator = operator;
         }
@@ -106,10 +106,9 @@ public interface ThrowingOperatorN<T> extends AbstractThrowingOperatorN<T, Abstr
             return this.arity;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public T applyAllUnchecked(Object... args) throws Throwable {
-            return this.operator.apply((T[]) args);
+            return this.operator.apply(args);
         }
 
         /**
@@ -117,11 +116,11 @@ public interface ThrowingOperatorN<T> extends AbstractThrowingOperatorN<T, Abstr
          */
         @Override
         public OperatorN.Instance<T> handle(Handler<T> handler) {
-            return new OperatorN.Instance<>(this.arity(), (final T[] args) -> {
+            return new OperatorN.Instance<>(this.arity(), (final Object[] args) -> {
                 try {
-                    return this.applyAllUnchecked((Object[]) args);
+                    return this.applyAllUnchecked(args);
                 } catch (final Throwable t) {
-                    return handler.onThrownUnchecked(t, (Object[]) args);
+                    return handler.onThrownUnchecked(t, args);
                 }
             });
         }
@@ -140,10 +139,9 @@ public interface ThrowingOperatorN<T> extends AbstractThrowingOperatorN<T, Abstr
             return (ThrowingFunctionN.Instance<V>) AbstractThrowingOperatorN.super.andThen(after);
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public <V> ThrowingFunctionN.Instance<V> andThenUnchecked(Function1<? super T, ? extends V> after) {
-            return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.operator.apply((T[]) args)));
+            return new ThrowingFunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.operator.apply(args)));
         }
     }
 }

@@ -38,7 +38,7 @@ public interface OperatorN<T> extends FunctionN<T> {
     class Instance<T> implements OperatorN<T> {
 
         private final int arity;
-        private final Function1<T[], T> operator;
+        private final Function1<Object[], T> operator;
 
         /**
          * Constructs an instance of the function.
@@ -46,7 +46,7 @@ public interface OperatorN<T> extends FunctionN<T> {
          * @param arity the number of arguments of the function
          * @param operator the operator to be applied
          */
-        public Instance(final int arity, final Function1<T[], T> operator) {
+        public Instance(final int arity, final Function1<Object[], T> operator) {
             this.arity = arity;
             this.operator = operator;
         }
@@ -56,10 +56,9 @@ public interface OperatorN<T> extends FunctionN<T> {
             return this.arity;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public T applyAllUnchecked(Object... args) {
-            return this.operator.apply((T[]) args);
+            return this.operator.apply(args);
         }
 
         @SuppressWarnings("unchecked")
@@ -68,10 +67,9 @@ public interface OperatorN<T> extends FunctionN<T> {
             return (FunctionN.Instance<V>) OperatorN.super.andThen(after);
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public <V> FunctionN.Instance<V> andThenUnchecked(Function1<? super T, ? extends V> after) {
-            return new FunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.operator.apply((T[]) args)));
+            return new FunctionN.Instance<>(this.arity(), (final Object[] args) -> after.apply(this.operator.apply(args)));
         }
     }
 }

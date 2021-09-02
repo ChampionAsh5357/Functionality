@@ -18,7 +18,7 @@ import net.ashwork.functionality.primitive.combined.IntToBooleanFunction1;
 import java.util.function.IntPredicate;
 
 /**
- * Represents a predicate that accepts an {@code int}-valued argument and produces a {@code int}-valued result.
+ * Represents a predicate that accepts an {@code int}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link IntToBooleanFunction1}.
  * This is the {@code int}-consuming primitive specialization of {@link Predicate1}.

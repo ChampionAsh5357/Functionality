@@ -18,7 +18,7 @@ import net.ashwork.functionality.primitive.combined.DoubleToBooleanFunction1;
 import java.util.function.DoublePredicate;
 
 /**
- * Represents a predicate that accepts a {@code double}-valued argument and produces a {@code double}-valued result.
+ * Represents a predicate that accepts a {@code double}-valued argument and produces a {@code boolean}-valued result.
  * This is the one-arity specialization for {@link PredicateN}.
  * This is the predicate specialization for {@link DoubleToBooleanFunction1}.
  * This is the {@code double}-consuming primitive specialization of {@link Predicate1}.
