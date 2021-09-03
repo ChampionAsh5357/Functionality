@@ -46,6 +46,7 @@ public interface AbstractThrowingDoubleToShortFunction1<H extends AbstractThrowi
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     short applyAsShort(final double value) throws Throwable;
 

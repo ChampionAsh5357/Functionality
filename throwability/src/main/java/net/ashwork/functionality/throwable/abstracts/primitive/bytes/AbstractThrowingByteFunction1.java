@@ -43,6 +43,7 @@ public interface AbstractThrowingByteFunction1<R, H extends AbstractThrowingByte
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply(final byte value) throws Throwable;
 

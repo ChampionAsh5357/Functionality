@@ -38,6 +38,7 @@ public interface AbstractThrowingFunction1<T1, R, H extends AbstractThrowingFunc
      *
      * @param t1 the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply(final T1 t1) throws Throwable;
 

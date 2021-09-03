@@ -43,6 +43,7 @@ public interface AbstractThrowingIntFunction1<R, H extends AbstractThrowingIntFu
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply(final int value) throws Throwable;
 

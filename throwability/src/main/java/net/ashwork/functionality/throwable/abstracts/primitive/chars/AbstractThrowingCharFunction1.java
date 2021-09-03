@@ -43,6 +43,7 @@ public interface AbstractThrowingCharFunction1<R, H extends AbstractThrowingChar
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply(final char value) throws Throwable;
 

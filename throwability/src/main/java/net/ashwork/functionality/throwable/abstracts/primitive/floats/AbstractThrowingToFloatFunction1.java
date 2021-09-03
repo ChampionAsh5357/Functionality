@@ -42,6 +42,7 @@ public interface AbstractThrowingToFloatFunction1<T1, H extends AbstractThrowing
      *
      * @param t1 the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     float applyAsFloat(final T1 t1) throws Throwable;
 

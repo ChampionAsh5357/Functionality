@@ -39,6 +39,7 @@ public interface AbstractThrowingToBooleanFunctionN<H extends AbstractThrowingTo
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     boolean applyAllAsBooleanUnchecked(final Object... args) throws Throwable;
 

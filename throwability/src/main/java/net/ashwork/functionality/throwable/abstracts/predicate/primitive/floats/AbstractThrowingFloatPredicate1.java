@@ -49,6 +49,7 @@ public interface AbstractThrowingFloatPredicate1<H extends AbstractThrowingFloat
      * @param value the input argument
      * @return {@code true} if the input arguments match the predicate, otherwise
      *         {@code false}
+     * @throws Throwable if the predicate cannot be evaluated
      */
     boolean test(final float value) throws Throwable;
 

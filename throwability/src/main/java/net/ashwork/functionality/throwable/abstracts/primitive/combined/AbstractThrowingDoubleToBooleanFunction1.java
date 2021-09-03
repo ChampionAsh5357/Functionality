@@ -46,6 +46,7 @@ public interface AbstractThrowingDoubleToBooleanFunction1<H extends AbstractThro
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     boolean applyAsBoolean(final double value) throws Throwable;
 

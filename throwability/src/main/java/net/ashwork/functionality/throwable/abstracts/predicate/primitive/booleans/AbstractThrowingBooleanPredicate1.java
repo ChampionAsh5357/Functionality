@@ -49,6 +49,7 @@ public interface AbstractThrowingBooleanPredicate1<H extends AbstractThrowingBoo
      * @param value the input argument
      * @return {@code true} if the input arguments match the predicate, otherwise
      *         {@code false}
+     * @throws Throwable if the predicate cannot be evaluate
      */
     boolean test(final boolean value) throws Throwable;
 

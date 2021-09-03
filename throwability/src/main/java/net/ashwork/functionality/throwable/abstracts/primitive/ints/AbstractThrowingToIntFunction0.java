@@ -39,6 +39,7 @@ public interface AbstractThrowingToIntFunction0<H extends AbstractThrowingToIntF
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt() throws Throwable;
 

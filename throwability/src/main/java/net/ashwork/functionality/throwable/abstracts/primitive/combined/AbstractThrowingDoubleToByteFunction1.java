@@ -46,6 +46,7 @@ public interface AbstractThrowingDoubleToByteFunction1<H extends AbstractThrowin
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte(final double value) throws Throwable;
 

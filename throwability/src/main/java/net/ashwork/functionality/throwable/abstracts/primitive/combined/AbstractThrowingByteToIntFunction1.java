@@ -46,6 +46,7 @@ public interface AbstractThrowingByteToIntFunction1<H extends AbstractThrowingBy
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt(final byte value) throws Throwable;
 

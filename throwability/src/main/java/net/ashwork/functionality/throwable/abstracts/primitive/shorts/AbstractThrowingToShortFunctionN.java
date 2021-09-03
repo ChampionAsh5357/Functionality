@@ -39,6 +39,7 @@ public interface AbstractThrowingToShortFunctionN<H extends AbstractThrowingToSh
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     short applyAllAsShortUnchecked(final Object... args) throws Throwable;
 

@@ -43,6 +43,7 @@ public interface AbstractThrowingToByteFunction2<T1, T2, H extends AbstractThrow
      * @param t1 the first function argument
      * @param t2 the second function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte(final T1 t1, final T2 t2) throws Throwable;
 

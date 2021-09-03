@@ -46,6 +46,7 @@ public interface AbstractThrowingBooleanToLongFunction1<H extends AbstractThrowi
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     long applyAsLong(final boolean value) throws Throwable;
 

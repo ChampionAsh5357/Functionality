@@ -46,6 +46,7 @@ public interface AbstractThrowingBooleanToIntFunction1<H extends AbstractThrowin
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt(final boolean value) throws Throwable;
 

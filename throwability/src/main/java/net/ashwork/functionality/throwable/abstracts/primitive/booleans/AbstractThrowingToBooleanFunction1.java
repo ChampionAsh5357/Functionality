@@ -42,6 +42,7 @@ public interface AbstractThrowingToBooleanFunction1<T1, H extends AbstractThrowi
      *
      * @param t1 the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     boolean applyAsBoolean(final T1 t1) throws Throwable;
 

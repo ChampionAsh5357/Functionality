@@ -47,6 +47,7 @@ public interface AbstractThrowingByteOperator1<H extends AbstractThrowingByteOpe
      *
      * @param value the operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     byte applyAsByte(final byte value) throws Throwable;
 

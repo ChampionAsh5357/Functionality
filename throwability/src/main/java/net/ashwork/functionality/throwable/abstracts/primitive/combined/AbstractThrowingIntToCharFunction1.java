@@ -46,6 +46,7 @@ public interface AbstractThrowingIntToCharFunction1<H extends AbstractThrowingIn
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     char applyAsChar(final int value) throws Throwable;
 

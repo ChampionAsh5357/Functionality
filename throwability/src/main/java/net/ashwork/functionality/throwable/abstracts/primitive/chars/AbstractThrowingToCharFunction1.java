@@ -42,6 +42,7 @@ public interface AbstractThrowingToCharFunction1<T1, H extends AbstractThrowingT
      *
      * @param t1 the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     char applyAsChar(final T1 t1) throws Throwable;
 

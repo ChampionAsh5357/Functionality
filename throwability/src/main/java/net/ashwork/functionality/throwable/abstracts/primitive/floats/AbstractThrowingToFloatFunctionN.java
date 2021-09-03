@@ -39,6 +39,7 @@ public interface AbstractThrowingToFloatFunctionN<H extends AbstractThrowingToFl
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     float applyAllAsFloatUnchecked(final Object... args) throws Throwable;
 

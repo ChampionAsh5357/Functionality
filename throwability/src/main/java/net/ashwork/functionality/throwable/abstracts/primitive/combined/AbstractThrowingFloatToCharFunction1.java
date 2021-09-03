@@ -46,6 +46,7 @@ public interface AbstractThrowingFloatToCharFunction1<H extends AbstractThrowing
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     char applyAsChar(final float value) throws Throwable;
 

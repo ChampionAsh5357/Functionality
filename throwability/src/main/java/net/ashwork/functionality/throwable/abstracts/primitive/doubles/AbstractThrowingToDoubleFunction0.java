@@ -39,6 +39,7 @@ public interface AbstractThrowingToDoubleFunction0<H extends AbstractThrowingToD
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     double applyAsDouble() throws Throwable;
 

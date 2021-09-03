@@ -49,6 +49,7 @@ public interface AbstractThrowingBytePredicate1<H extends AbstractThrowingBytePr
      * @param value the input argument
      * @return {@code true} if the input arguments match the predicate, otherwise
      *         {@code false}
+     * @throws Throwable if the predicate cannot be evaluated
      */
     boolean test(final byte value) throws Throwable;
 

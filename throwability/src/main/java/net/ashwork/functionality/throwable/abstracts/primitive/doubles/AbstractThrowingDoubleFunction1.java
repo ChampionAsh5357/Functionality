@@ -15,7 +15,6 @@ import net.ashwork.functionality.partial.UnboxedInput;
 import net.ashwork.functionality.primitive.doubles.DoubleFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunctionN;
-import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -44,6 +43,7 @@ public interface AbstractThrowingDoubleFunction1<R, H extends AbstractThrowingDo
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply(final double value) throws Throwable;
 

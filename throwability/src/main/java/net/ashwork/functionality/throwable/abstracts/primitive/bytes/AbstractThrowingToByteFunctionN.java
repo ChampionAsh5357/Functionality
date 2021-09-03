@@ -39,6 +39,7 @@ public interface AbstractThrowingToByteFunctionN<H extends AbstractThrowingToByt
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAllAsByteUnchecked(final Object... args) throws Throwable;
 

@@ -39,6 +39,7 @@ public interface AbstractThrowingToDoubleFunctionN<H extends AbstractThrowingToD
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     double applyAllAsDoubleUnchecked(final Object... args) throws Throwable;
 

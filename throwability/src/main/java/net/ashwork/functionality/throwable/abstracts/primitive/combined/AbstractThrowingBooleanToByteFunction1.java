@@ -46,6 +46,7 @@ public interface AbstractThrowingBooleanToByteFunction1<H extends AbstractThrowi
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte(final boolean value) throws Throwable;
 

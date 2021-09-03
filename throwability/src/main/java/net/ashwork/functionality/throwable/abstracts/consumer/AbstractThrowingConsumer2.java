@@ -42,6 +42,7 @@ public interface AbstractThrowingConsumer2<T1, T2, H extends AbstractThrowingCon
      *
      * @param t1 the first input argument
      * @param t2 the second input argument
+     * @throws Throwable if the operation cannot be performed
      */
     void accept(final T1 t1, final T2 t2) throws Throwable;
 

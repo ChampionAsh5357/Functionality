@@ -46,6 +46,7 @@ public interface AbstractThrowingFloatOperator2<H extends AbstractThrowingFloatO
      * @param value1 the first operand
      * @param value2 the second operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     float applyAsFloat(final float value1, final float value2) throws Throwable;
 

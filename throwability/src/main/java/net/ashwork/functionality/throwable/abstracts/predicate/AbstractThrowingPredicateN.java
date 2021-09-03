@@ -42,6 +42,7 @@ public interface AbstractThrowingPredicateN<H extends AbstractThrowingPredicateN
      * @param args the input arguments
      * @return {@code true} if the input arguments match the predicate, otherwise
      *         {@code false}
+     * @throws Throwable if the predicate cannot be evaluated
      */
     boolean testAllUnchecked(final Object... args) throws Throwable;
 

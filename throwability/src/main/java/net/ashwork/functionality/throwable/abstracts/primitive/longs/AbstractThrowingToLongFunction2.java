@@ -13,7 +13,6 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.longs.ToLongFunction2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.primitive.longs.AbstractThrowingToLongFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -44,6 +43,7 @@ public interface AbstractThrowingToLongFunction2<T1, T2, H extends AbstractThrow
      * @param t1 the first function argument
      * @param t2 the second function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     long applyAsLong(final T1 t1, final T2 t2) throws Throwable;
 

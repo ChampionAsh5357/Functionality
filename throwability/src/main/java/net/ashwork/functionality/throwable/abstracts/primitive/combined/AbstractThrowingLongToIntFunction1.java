@@ -46,6 +46,7 @@ public interface AbstractThrowingLongToIntFunction1<H extends AbstractThrowingLo
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt(final long value) throws Throwable;
 

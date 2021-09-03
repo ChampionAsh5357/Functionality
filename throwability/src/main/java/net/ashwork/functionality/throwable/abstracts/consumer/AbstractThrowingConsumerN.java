@@ -41,6 +41,7 @@ public interface AbstractThrowingConsumerN<H extends AbstractThrowingConsumerN.H
      * perform successfully.
      *
      * @param args the input arguments
+     * @throws Throwable if the operation cannot be performed
      */
     void acceptAllUnchecked(final Object... args) throws Throwable;
 
@@ -58,6 +59,7 @@ public interface AbstractThrowingConsumerN<H extends AbstractThrowingConsumerN.H
      * @param args the number of arguments of the consumer
      * @throws FunctionN.FunctionSizeException if the number of arguments of the
      *                               consumer is not equal to its arity
+     * @throws Throwable if the operation cannot be performed
      */
     default void sizedAcceptAllUnchecked(final Object... args) throws Throwable {
         this.acceptAllUnchecked(FunctionN.checkSize(this.arity(), args));

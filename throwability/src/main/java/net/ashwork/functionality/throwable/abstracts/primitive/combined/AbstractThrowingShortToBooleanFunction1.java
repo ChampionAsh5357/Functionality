@@ -46,6 +46,7 @@ public interface AbstractThrowingShortToBooleanFunction1<H extends AbstractThrow
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     boolean applyAsBoolean(final short value) throws Throwable;
 

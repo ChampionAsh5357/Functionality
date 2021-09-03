@@ -46,6 +46,7 @@ public interface AbstractThrowingLongToByteFunction1<H extends AbstractThrowingL
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte(final long value) throws Throwable;
 

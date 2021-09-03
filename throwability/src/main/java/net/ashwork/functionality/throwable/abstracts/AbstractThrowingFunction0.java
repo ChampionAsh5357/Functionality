@@ -36,6 +36,7 @@ public interface AbstractThrowingFunction0<R, H extends AbstractThrowingFunction
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply() throws Throwable;
 

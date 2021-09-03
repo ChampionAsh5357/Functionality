@@ -46,6 +46,7 @@ public interface AbstractThrowingCharToLongFunction1<H extends AbstractThrowingC
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     long applyAsLong(final char value) throws Throwable;
 

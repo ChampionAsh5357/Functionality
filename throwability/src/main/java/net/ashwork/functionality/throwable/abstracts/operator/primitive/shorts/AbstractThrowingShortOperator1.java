@@ -47,6 +47,7 @@ public interface AbstractThrowingShortOperator1<H extends AbstractThrowingShortO
      *
      * @param value the operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     short applyAsShort(final short value) throws Throwable;
 

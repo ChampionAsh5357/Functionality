@@ -46,6 +46,7 @@ public interface AbstractThrowingFloatToIntFunction1<H extends AbstractThrowingF
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt(final float value) throws Throwable;
 

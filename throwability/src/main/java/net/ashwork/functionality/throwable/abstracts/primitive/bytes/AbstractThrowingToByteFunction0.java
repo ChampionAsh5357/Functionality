@@ -39,6 +39,7 @@ public interface AbstractThrowingToByteFunction0<H extends AbstractThrowingToByt
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte() throws Throwable;
 

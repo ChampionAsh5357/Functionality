@@ -43,6 +43,7 @@ public interface AbstractThrowingBooleanFunction1<R, H extends AbstractThrowingB
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R apply(final boolean value) throws Throwable;
 

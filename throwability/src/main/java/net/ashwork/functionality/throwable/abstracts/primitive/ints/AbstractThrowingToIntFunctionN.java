@@ -39,6 +39,7 @@ public interface AbstractThrowingToIntFunctionN<H extends AbstractThrowingToIntF
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAllAsIntUnchecked(final Object... args) throws Throwable;
 

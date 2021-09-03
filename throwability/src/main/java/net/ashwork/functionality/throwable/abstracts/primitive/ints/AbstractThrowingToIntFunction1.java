@@ -42,6 +42,7 @@ public interface AbstractThrowingToIntFunction1<T1, H extends AbstractThrowingTo
      *
      * @param t1 the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt(final T1 t1) throws Throwable;
 

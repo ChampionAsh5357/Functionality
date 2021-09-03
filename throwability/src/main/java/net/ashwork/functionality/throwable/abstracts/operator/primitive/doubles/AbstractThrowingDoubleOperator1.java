@@ -47,6 +47,7 @@ public interface AbstractThrowingDoubleOperator1<H extends AbstractThrowingDoubl
      *
      * @param value the operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     double applyAsDouble(final double value) throws Throwable;
 

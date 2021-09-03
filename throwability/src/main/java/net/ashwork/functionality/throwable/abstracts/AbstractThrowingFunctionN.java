@@ -41,6 +41,7 @@ public interface AbstractThrowingFunctionN<R, H extends AbstractThrowingFunction
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     R applyAllUnchecked(final Object... args) throws Throwable;
 
@@ -65,6 +66,7 @@ public interface AbstractThrowingFunctionN<R, H extends AbstractThrowingFunction
      * @return the function result
      * @throws FunctionN.FunctionSizeException if the number of arguments of the
      *                               function is not equal to its arity
+     * @throws Throwable if the function cannot be computed
      */
     default R sizedApplyAllUnchecked(final Object... args) throws Throwable {
         return this.applyAllUnchecked(FunctionN.checkSize(this.arity(), args));

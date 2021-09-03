@@ -46,6 +46,7 @@ public interface AbstractThrowingCharToByteFunction1<H extends AbstractThrowingC
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte(final char value) throws Throwable;
 

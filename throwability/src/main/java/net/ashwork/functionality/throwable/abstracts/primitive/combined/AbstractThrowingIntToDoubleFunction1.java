@@ -46,6 +46,7 @@ public interface AbstractThrowingIntToDoubleFunction1<H extends AbstractThrowing
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     double applyAsDouble(final int value) throws Throwable;
 

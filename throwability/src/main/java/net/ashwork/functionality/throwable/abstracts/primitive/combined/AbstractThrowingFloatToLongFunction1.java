@@ -46,6 +46,7 @@ public interface AbstractThrowingFloatToLongFunction1<H extends AbstractThrowing
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     long applyAsLong(final float value) throws Throwable;
 

@@ -47,6 +47,7 @@ public interface AbstractThrowingBooleanOperator1<H extends AbstractThrowingBool
      *
      * @param value the operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     boolean applyAsBoolean(final boolean value) throws Throwable;
 

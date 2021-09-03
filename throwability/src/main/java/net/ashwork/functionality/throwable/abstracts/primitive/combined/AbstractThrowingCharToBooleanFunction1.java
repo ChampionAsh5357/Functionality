@@ -46,6 +46,7 @@ public interface AbstractThrowingCharToBooleanFunction1<H extends AbstractThrowi
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     boolean applyAsBoolean(final char value) throws Throwable;
 

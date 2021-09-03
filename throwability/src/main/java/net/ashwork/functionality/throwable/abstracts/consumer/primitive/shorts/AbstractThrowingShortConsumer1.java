@@ -45,6 +45,7 @@ public interface AbstractThrowingShortConsumer1<H extends AbstractThrowingShortC
      * Performs this operation on the given argument or throws a throwable.
      *
      * @param value the input argument
+     * @throws Throwable if the operation cannot be performed
      */
     void accept(final short value) throws Throwable;
 

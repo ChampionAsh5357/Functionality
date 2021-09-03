@@ -46,6 +46,7 @@ public interface AbstractThrowingDoubleToCharFunction1<H extends AbstractThrowin
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     char applyAsChar(final double value) throws Throwable;
 

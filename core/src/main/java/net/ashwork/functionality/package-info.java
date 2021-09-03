@@ -17,13 +17,13 @@
  *
  * <pre>
  *     // Assignment Context
- *     Function1<String, byte[]> f = String::getBytes;
+ *     Function1&lt;String, byte[]&gt; f = String::getBytes;
  *
  *     // Method Invocation Context
- *     byteToIntFunction.andThen(r -> r < 30);
+ *     byteToIntFunction.andThen(r -&gt; r &lt; 30);
  *
  *     // Cast Context
- *     byteToIntFunction.andThen(((IntFunction1<Boolean>) r -> r < 30).boxInput());
+ *     byteToIntFunction.andThen(((IntFunction1&lt;Boolean&gt;) r -&gt; r &lt; 30).boxInput());
  * </pre>
  *
  * <p>The interfaces in this package are supposed to represent the core of all

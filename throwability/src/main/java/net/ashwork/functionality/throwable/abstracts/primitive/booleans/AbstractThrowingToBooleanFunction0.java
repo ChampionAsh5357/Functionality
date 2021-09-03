@@ -39,6 +39,7 @@ public interface AbstractThrowingToBooleanFunction0<H extends AbstractThrowingTo
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     boolean applyAsBoolean() throws Throwable;
 

@@ -13,7 +13,6 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.doubles.ToDoubleFunction2;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction2;
-import net.ashwork.functionality.throwable.abstracts.primitive.doubles.AbstractThrowingToDoubleFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -44,6 +43,7 @@ public interface AbstractThrowingToDoubleFunction2<T1, T2, H extends AbstractThr
      * @param t1 the first function argument
      * @param t2 the second function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     double applyAsDouble(final T1 t1, final T2 t2) throws Throwable;
 

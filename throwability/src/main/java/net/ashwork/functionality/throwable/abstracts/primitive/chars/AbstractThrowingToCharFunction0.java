@@ -39,6 +39,7 @@ public interface AbstractThrowingToCharFunction0<H extends AbstractThrowingToCha
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     char applyAsChar() throws Throwable;
 

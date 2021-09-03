@@ -40,6 +40,7 @@ public interface AbstractThrowingConsumer1<T1, H extends AbstractThrowingConsume
      * Performs this operation on the given argument or throws a throwable.
      *
      * @param t1 the input argument
+     * @throws Throwable if the operation cannot be performed
      */
     void accept(final T1 t1) throws Throwable;
 

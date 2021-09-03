@@ -14,7 +14,6 @@ import net.ashwork.functionality.partial.InputChainableInput;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.shorts.ToShortFunction1;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction1;
-import net.ashwork.functionality.throwable.abstracts.primitive.shorts.AbstractThrowingToShortFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -43,6 +42,7 @@ public interface AbstractThrowingToShortFunction1<T1, H extends AbstractThrowing
      *
      * @param t1 the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     short applyAsShort(final T1 t1) throws Throwable;
 

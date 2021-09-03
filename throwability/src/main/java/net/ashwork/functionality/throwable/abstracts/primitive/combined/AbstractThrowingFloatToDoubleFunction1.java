@@ -46,6 +46,7 @@ public interface AbstractThrowingFloatToDoubleFunction1<H extends AbstractThrowi
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     double applyAsDouble(final float value) throws Throwable;
 

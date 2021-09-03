@@ -46,6 +46,7 @@ public interface AbstractThrowingPredicate2<T1, T2, H extends AbstractThrowingPr
      * @param t2 the second input argument
      * @return {@code true} if the input arguments match the predicate, otherwise
      *         {@code false}
+     * @throws Throwable if the predicate cannot be evaluated
      */
     boolean test(final T1 t1, final T2 t2) throws Throwable;
 

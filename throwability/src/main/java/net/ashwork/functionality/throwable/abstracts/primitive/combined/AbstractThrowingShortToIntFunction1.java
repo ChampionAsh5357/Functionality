@@ -46,6 +46,7 @@ public interface AbstractThrowingShortToIntFunction1<H extends AbstractThrowingS
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     int applyAsInt(final short value) throws Throwable;
 

@@ -37,6 +37,8 @@ public interface AbstractThrowingConsumer0<H extends AbstractThrowingConsumer0.H
 
     /**
      * Performs this operation or throws a throwable.
+     *
+     * @throws Throwable if the operation cannot be performed
      */
     void accept() throws Throwable;
 

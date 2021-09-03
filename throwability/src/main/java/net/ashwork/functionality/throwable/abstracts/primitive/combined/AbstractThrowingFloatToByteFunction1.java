@@ -46,6 +46,7 @@ public interface AbstractThrowingFloatToByteFunction1<H extends AbstractThrowing
      *
      * @param value the function argument
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     byte applyAsByte(final float value) throws Throwable;
 

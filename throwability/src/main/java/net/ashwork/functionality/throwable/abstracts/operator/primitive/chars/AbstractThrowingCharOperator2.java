@@ -46,6 +46,7 @@ public interface AbstractThrowingCharOperator2<H extends AbstractThrowingCharOpe
      * @param value1 the first operand
      * @param value2 the second operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     char applyAsChar(final char value1, final char value2) throws Throwable;
 

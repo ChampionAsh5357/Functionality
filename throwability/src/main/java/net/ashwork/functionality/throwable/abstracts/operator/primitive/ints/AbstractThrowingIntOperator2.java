@@ -46,6 +46,7 @@ public interface AbstractThrowingIntOperator2<H extends AbstractThrowingIntOpera
      * @param value1 the first operand
      * @param value2 the second operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     int applyAsInt(final int value1, final int value2) throws Throwable;
 

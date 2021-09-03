@@ -13,7 +13,6 @@ import net.ashwork.functionality.Function1;
 import net.ashwork.functionality.partial.UnboxedResult;
 import net.ashwork.functionality.primitive.floats.ToFloatFunction0;
 import net.ashwork.functionality.throwable.abstracts.AbstractThrowingFunction0;
-import net.ashwork.functionality.throwable.abstracts.primitive.floats.AbstractThrowingToFloatFunctionN;
 import net.ashwork.functionality.util.InheritOnly;
 
 /**
@@ -40,6 +39,7 @@ public interface AbstractThrowingToFloatFunction0<H extends AbstractThrowingToFl
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     float applyAsFloat() throws Throwable;
 

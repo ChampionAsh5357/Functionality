@@ -39,6 +39,7 @@ public interface AbstractThrowingToShortFunction0<H extends AbstractThrowingToSh
      * Applies this function or throws a throwable.
      *
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     short applyAsShort() throws Throwable;
 

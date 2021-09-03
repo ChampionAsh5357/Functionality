@@ -39,6 +39,7 @@ public interface AbstractThrowingToLongFunctionN<H extends AbstractThrowingToLon
      *
      * @param args the function arguments
      * @return the function result
+     * @throws Throwable if the function cannot be computed
      */
     long applyAllAsLongUnchecked(final Object... args) throws Throwable;
 

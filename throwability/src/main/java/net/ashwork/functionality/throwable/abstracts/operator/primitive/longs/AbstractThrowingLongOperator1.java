@@ -47,6 +47,7 @@ public interface AbstractThrowingLongOperator1<H extends AbstractThrowingLongOpe
      *
      * @param value the operand
      * @return the operator result
+     * @throws Throwable if the operation cannot be computed
      */
     long applyAsLong(final long value) throws Throwable;
 
